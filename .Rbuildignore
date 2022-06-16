@@ -2,3 +2,4 @@
 ^\.Rproj\.user$
 ^inst/trash$
 ^man-roxygen$
+^\.github$

@@ -1,15 +1,22 @@
-Package: jacobi
 Type: Package
-Title: Jacobi 'theta' Functions and Weierstrass Elliptic Functions
+Package: jacobi
+Title: Jacobi Theta Functions and Weierstrass Elliptic Function
 Version: 1.0
-Author: Your Name
-Maintainer: Your Name <your@email.com>
-Description: One paragraph description of what the package does
-       as one or more full sentences.
+Authors@R: c(
+    person("Stéphane", "Laurent", , "laurent_step@outlook.fr", 
+           role = c("aut", "cre")),
+    person("Mikael", "Fremling", role = "aut",
+           comment = "author of the original Fortran code")
+  )
+Description: Evaluation of the Jacobi theta functions and the Weierstrass
+    elliptic function. Complex values of the variable are supported.
 License: GPL-3
-Imports: Rcpp (>= 1.0.8), Carlson
-LinkingTo: Rcpp
-Encoding: UTF-8
 URL: https://github.com/stla/jacobi
 BugReports: https://github.com/stla/jacobi/issues
+Imports: 
+    Carlson,
+    Rcpp (>= 1.0.8)
+LinkingTo: 
+    Rcpp
+Encoding: UTF-8
 RoxygenNote: 7.2.0
