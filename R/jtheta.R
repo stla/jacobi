@@ -125,5 +125,5 @@ ljtheta4 <- function(z, tau = NULL, q = NULL){
 
 jtheta1prime0 <- function(tau = NULL, q = NULL){
   tau <- check_and_get_tau(tau, q)
-  jtheta4_cpp(0, tau) * jtheta3_cpp(0, tau) * jtheta4_cpp(0, tau)
+  jtheta2_cpp(0, tau) * jtheta3_cpp(0, tau) * jtheta4_cpp(0, tau)
 }
