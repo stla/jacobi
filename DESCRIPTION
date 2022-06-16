@@ -1,0 +1,15 @@
+Package: jacobi
+Type: Package
+Title: Jacobi 'theta' Functions and Weierstrass Elliptic Functions
+Version: 1.0
+Author: Your Name
+Maintainer: Your Name <your@email.com>
+Description: One paragraph description of what the package does
+       as one or more full sentences.
+License: GPL-3
+Imports: Rcpp (>= 1.0.8), Carlson
+LinkingTo: Rcpp
+Encoding: UTF-8
+URL: https://github.com/stla/jacobi
+BugReports: https://github.com/stla/jacobi/issues
+RoxygenNote: 7.2.0
