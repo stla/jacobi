@@ -13,8 +13,8 @@ g_from_omega <- function(w1, w2){
     stop("The ratio `omega2/omega1` must have a positive imaginary part.")
   }
   q <- exp(1i * pi * ratio)
-  j2 <- jtheta2(0, q)
-  j3 <- jtheta3(0, q)
+  j2 <- jtheta2(0, q = q)
+  j3 <- jtheta3(0, q = q)
   g2 <- 4/3 * (pi/2/w1)**4 * (j2**8 - (j2*j3)**4 + j3**8) 
   g3 <- 8/27 * (pi/2/w1)**6 * (j2**12 - (
     (3/2 * j2**8 * j3**4) + (3/2 * j2**4 * j3**8) 
@@ -34,7 +34,13 @@ g_from_omega <- function(w1, w2){
 #' @export
 #'
 #' @examples
-#' x
+#' omega1 <- 1.4 - 1i
+#' omega2 <- 1.6 + 0.5i
+#' omega <- c(omega1, omega2)
+#' e1 <- pweierstrass(omega1, omega = omega)
+#' e2 <- pweierstrass(omega2, omega = omega)
+#' e3 <- pweierstrass(-omega1-omega2, omega = omega)
+#' e1 + e2 + e3 # should be 0
 pweierstrass <- function(z, g = NULL, omega = NULL, derivative = 0L){
   if(!is.element(derivative, 0L:3L)){
     stop("`derivative` must be an integer between 0 and 3.") 
