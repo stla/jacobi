@@ -1,7 +1,8 @@
 #include "jacobi_types.h"
 
+// [[Rcpp::export]]
 double modulo(double a, double p) {
-  return a - (std::floor(a / p) * p);
+  return a - ((int)(a / p) * p);
 }
 
 const cplx _i_(0.0, 1.0);
@@ -16,7 +17,9 @@ cplx calctheta3(cplx z, cplx tau) {
     cplx qweight = std::exp(nn * _i_ * M_PI * (nn * tau + 2.0 * z)) +
       std::exp(nn * _i_ * M_PI * (nn * tau - 2.0 * z));
     out += qweight;
-    if(n >= 3 && (out + qweight) == out) {
+    if(std::abs(out) == 0) {
+      Rcpp::stop("0000000000000000");
+    } else if(n >= 3 && (out + qweight) == out) {
       iterate = false;
     }
   }
@@ -25,6 +28,9 @@ cplx calctheta3(cplx z, cplx tau) {
 
 cplx argtheta3(cplx z, cplx tau, unsigned pass_in) {
   unsigned passes = pass_in + 1;
+  if(passes > 110) {
+    Rcpp::stop("passes > 110");
+  }
   double z_img = z.imag();
   double h = tau.imag() / 2.0;
   cplx zuse(modulo(z.real(), 1.0), z_img);
@@ -47,6 +53,9 @@ cplx dologtheta4(cplx z, cplx tau, unsigned pass_in) {
 
 cplx dologtheta3(cplx z, cplx tau, unsigned pass_in) {
   unsigned passes = pass_in + 1;
+  if(passes > 200) {
+    Rcpp::stop("passes > 200");
+  }
   cplx tau2;
   double rl = tau.real();
   if(rl >= 0) {
@@ -66,7 +75,7 @@ cplx dologtheta3(cplx z, cplx tau, unsigned pass_in) {
       dologtheta3(-z * tauprime, tauprime, passes) -
       std::log(std::sqrt(-_i_ * tau2));
   } else {
-    out = argtheta3(z, tau2, passes);
+    out = argtheta3(z, tau2, 0);
   }
   return out;
 }

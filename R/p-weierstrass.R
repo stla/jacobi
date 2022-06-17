@@ -3,7 +3,7 @@ isComplexPair <- function(x){
 }
 
 g_from_omega <- function(w1, w2){
-  if(Im(w2)*Re(w1) < Im(w1)*Re(w2)){
+  if(Im(w2)*Re(w1) <= Im(w1)*Re(w2)){
     stop(
       "Invalid `omega` values. Do you want to exchange `omega1` and `omega2`?"
     )
