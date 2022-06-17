@@ -2,24 +2,29 @@
 % Please edit documentation in R/p-weierstrass.R
 \name{pweierstrass}
 \alias{pweierstrass}
-\title{x}
+\title{Weierstrass elliptic function}
 \usage{
 pweierstrass(z, g = NULL, omega = NULL, derivative = 0L)
 }
 \arguments{
-\item{z}{x}
+\item{z}{complex number}
 
-\item{g}{elliptic invariants}
+\item{g}{the elliptic invariants, a vector of two complex numbers; they are 
+related to the half-periods (\code{omega}) and only one of \code{g} 
+and \code{omega} must be given}
 
-\item{omega}{half-periods}
+\item{omega}{the half-periods, a vector of two complex numbers; they are 
+related to the elliptic invariants (\code{g}) and only one of \code{g} 
+and \code{omega} must be given}
 
-\item{derivative}{x}
+\item{derivative}{differentiation order, an integer between 0 and 3}
 }
 \value{
-x
+A complex number.
 }
 \description{
-x
+Evaluation of the Weierstrass elliptic function and its 
+  derivatives.
 }
 \examples{
 omega1 <- 1.4 - 1i

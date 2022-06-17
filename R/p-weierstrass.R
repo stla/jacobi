@@ -22,15 +22,20 @@ g_from_omega <- function(w1, w2){
   c(g2, g3)
 }
 
-#' @title x
-#' @description x
+#' @title Weierstrass elliptic function
+#' @description Evaluation of the Weierstrass elliptic function and its 
+#'   derivatives.
 #'
-#' @param z x
-#' @param g elliptic invariants
-#' @param omega half-periods
-#' @param derivative x
+#' @param z complex number
+#' @param g the elliptic invariants, a vector of two complex numbers; they are 
+#'   related to the half-periods (\code{omega}) and only one of \code{g} 
+#'   and \code{omega} must be given
+#' @param omega the half-periods, a vector of two complex numbers; they are 
+#'   related to the elliptic invariants (\code{g}) and only one of \code{g} 
+#'   and \code{omega} must be given
+#' @param derivative differentiation order, an integer between 0 and 3
 #'
-#' @return x
+#' @return A complex number.
 #' @export
 #'
 #' @examples
