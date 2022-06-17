@@ -18,7 +18,7 @@ cplx calctheta3(cplx z, cplx tau) {
       std::exp(nn * _i_ * M_PI * (nn * tau - 2.0 * z));
     out += qweight;
     if(std::abs(out) == 0) {
-      Rcpp::stop("0000000000000000");
+      Rcpp::stop("log(0)");
     } else if(n >= 3 && (out + qweight) == out) {
       iterate = false;
     }
@@ -28,8 +28,8 @@ cplx calctheta3(cplx z, cplx tau) {
 
 cplx argtheta3(cplx z, cplx tau, unsigned pass_in) {
   unsigned passes = pass_in + 1;
-  if(passes > 110) {
-    Rcpp::stop("passes > 110");
+  if(passes > 300) {
+    Rcpp::stop("passes > 300 (argtheta3)");
   }
   double z_img = z.imag();
   double h = tau.imag() / 2.0;
@@ -53,8 +53,8 @@ cplx dologtheta4(cplx z, cplx tau, unsigned pass_in) {
 
 cplx dologtheta3(cplx z, cplx tau, unsigned pass_in) {
   unsigned passes = pass_in + 1;
-  if(passes > 200) {
-    Rcpp::stop("passes > 200");
+  if(passes > 300) {
+    Rcpp::stop("passes > 300 (dologtheta3)");
   }
   cplx tau2;
   double rl = tau.real();
@@ -75,7 +75,7 @@ cplx dologtheta3(cplx z, cplx tau, unsigned pass_in) {
       dologtheta3(-z * tauprime, tauprime, passes) -
       std::log(std::sqrt(-_i_ * tau2));
   } else {
-    out = argtheta3(z, tau2, 0);
+    out = argtheta3(z, tau2, passes);
   }
   return out;
 }
