@@ -2,6 +2,7 @@
 
 export(agm)
 export(eta)
+export(jellip)
 export(jtheta1)
 export(jtheta2)
 export(jtheta3)
