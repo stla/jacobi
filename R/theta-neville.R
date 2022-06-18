@@ -37,8 +37,8 @@ theta.s <- function(z, tau = NULL, m = NULL){
   tau <- check_and_get_tau_from_m(tau, m)
   zprime <- z / jtheta3_cpp(0, tau)^2 / pi
   jtheta3_cpp(0, tau)^2 * jtheta1_cpp(zprime, tau) / jtheta1prime0(tau)
-  jtheta3_cpp(0, tau) * jtheta1_cpp(zprime, tau) / 
-    jtheta1_cpp(0, tau) / jtheta2_cpp(0, tau)
+  # jtheta3_cpp(0, tau) * jtheta1_cpp(zprime, tau) / 
+  #   jtheta1_cpp(0, tau) / jtheta2_cpp(0, tau)
 }
 
 #' @rdname neville
