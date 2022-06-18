@@ -27,3 +27,8 @@ A complex number.
 \description{
 Evaluation of the Jacobi elliptic functions.
 }
+\examples{
+u <- 2 + 2i
+tau <- 1i
+jellip("cn", u, tau)^2 + jellip("sn", u, tau)^2 # should be 1
+}

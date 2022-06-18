@@ -18,8 +18,13 @@ isString <- function(x){
 #'
 #' @return A complex number.
 #' @export
+#' 
+#' @examples 
+#' u <- 2 + 2i
+#' tau <- 1i
+#' jellip("cn", u, tau)^2 + jellip("sn", u, tau)^2 # should be 1
 jellip <- function(kind, u, tau = NULL, m = NULL){
-  stopifnot(isCharacter(kind))
+  stopifnot(isString(kind))
   stopifnot(nchar(kind) == 2L)
   f1 <- substr(kind, 1L, 1L)
   f2 <- substr(kind, 2L, 2L)
