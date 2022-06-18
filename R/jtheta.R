@@ -24,6 +24,9 @@ check_and_get_tau <- function(tau, q){
       stop("If `q` is real, it must be strictly positive.")
     }
     tau <- -1i * log(q) / pi
+    # if(Im(tau) <= 0){
+    #   stop("Invalid value of `q`.")
+    # }
   }
   tau
 }
