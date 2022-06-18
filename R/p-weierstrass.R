@@ -8,13 +8,13 @@ g_from_omega <- function(w1, w2){
       "Invalid `omega` values. Do you want to exchange `omega1` and `omega2`?"
     )
   }
-  ratio <- w2 / w1
-  if(Im(ratio) <= 0){
+  tau <- w2 / w1
+  if(Im(tau) <= 0){
     stop("The ratio `omega2/omega1` must have a positive imaginary part.")
   }
-  q <- exp(1i * pi * ratio)
-  j2 <- jtheta2(0, q = q)
-  j3 <- jtheta3(0, q = q)
+  # q <- exp(1i * pi * ratio)
+  j2 <- jtheta2(0, tau = tau)
+  j3 <- jtheta3(0, tau = tau)
   g2 <- 4/3 * (pi/2/w1)**4 * (j2**8 - (j2*j3)**4 + j3**8) 
   g3 <- 8/27 * (pi/2/w1)**6 * (j2**12 - (
     (3/2 * j2**8 * j3**4) + (3/2 * j2**4 * j3**8) 
