@@ -2,7 +2,8 @@
 
 // [[Rcpp::export]]
 double modulo(double a, double p) {
-  return a - ((int)(a / p) * p);
+  double i = a > 0 ? std::floor(a/p) : std::ceil(a/p);
+  return a - i * p;
 }
 
 const cplx _i_(0.0, 1.0);
