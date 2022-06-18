@@ -37,17 +37,16 @@ g_from_omega <- function(w1, w2){
 #'
 #' @return A complex number.
 #' @export
-#' 
 #'
 #' @examples
 #' omega1 <- 1.4 - 1i
 #' omega2 <- 1.6 + 0.5i
 #' omega <- c(omega1, omega2)
-#' e1 <- pweierstrass(omega1, omega = omega)
-#' e2 <- pweierstrass(omega2, omega = omega)
-#' e3 <- pweierstrass(-omega1-omega2, omega = omega)
+#' e1 <- wp(omega1, omega = omega)
+#' e2 <- wp(omega2, omega = omega)
+#' e3 <- wp(-omega1-omega2, omega = omega)
 #' e1 + e2 + e3 # should be 0
-pweierstrass <- function(z, g = NULL, omega = NULL, derivative = 0L){
+wp <- function(z, g = NULL, omega = NULL, derivative = 0L){
   if(!is.element(derivative, 0L:3L)){
     stop("`derivative` must be an integer between 0 and 3.") 
   }
@@ -67,7 +66,7 @@ pweierstrass <- function(z, g = NULL, omega = NULL, derivative = 0L){
   g2 <- g[1L]
   g3 <- g[2L]
   r <- sort(polyroot(c(-g3, -g2, 0, 4)))
-  Delta <- g2^3 - 27*g3^2
+  # Delta <- g2^3 - 27*g3^2
   # if(FALSE && Im(Delta) == 0 && Re(Delta) > 0){
   #   r <- sort(Re(r), decreasing = TRUE)
   #   r1 <- r[1L]
