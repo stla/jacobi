@@ -13,9 +13,9 @@
 #' @export
 #' 
 #' @examples
-#' omega1 <- 1.4 - 1i
-#' omega2 <- 1.6 + 0.5i
-#' omega <- c(omega1, omega2)
+#' sigmaw(1, g = c(12, -8))
+#' # should be equal to:
+#' sin(1i*sqrt(3))/(1i*sqrt(3)) / sqrt(exp(1))
 sigmaw <- function(z, g = NULL, omega = NULL){
   if(is.null(g) && is.null(omega)){
     stop("You must supply either `g` or `omega`.")
