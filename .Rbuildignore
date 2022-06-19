@@ -3,3 +3,4 @@
 ^inst/trash$
 ^man-roxygen$
 ^\.github$
+^inst/images$
