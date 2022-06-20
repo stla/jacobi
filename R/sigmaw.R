@@ -17,6 +17,7 @@
 #' # should be equal to:
 #' sin(1i*sqrt(3))/(1i*sqrt(3)) / sqrt(exp(1))
 sigmaw <- function(z, g = NULL, omega = NULL){
+  stopifnot(isComplex(z))
   if(is.null(g) && is.null(omega)){
     stop("You must supply either `g` or `omega`.")
   }

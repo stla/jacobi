@@ -43,6 +43,7 @@ g_from_omega <- function(w1, w2){
 #' e3 <- wp(-omega1-omega2, omega = omega)
 #' e1 + e2 + e3 # should be 0
 wp <- function(z, g = NULL, omega = NULL, derivative = 0L){
+  stopifnot(isComplex(z))
   if(!is.element(derivative, 0L:3L)){
     stop("`derivative` must be an integer between 0 and 3.") 
   }
