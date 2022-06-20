@@ -51,7 +51,10 @@ sigmaw <- function(z, g = NULL, omega = NULL){
   }
   w3 <- 1i / agm(a, c)
   tau <- w3 / w1
+  if(Im(tau) <= 0){
+    stop("Invalid values of the parameters.")
+  }
   f <- jtheta1prime0(tau = tau)
   h <- -pi/6/w1 * jtheta1primeprimeprime0(tau) / f
-  w1 * exp(h*z*z/w1/pi) * jtheta1(z/w1, tau = tau) / f
+  w1 * exp(h*z*z/w1/pi) * jtheta1_cpp(z/w1/pi, tau) / f
 }

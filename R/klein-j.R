@@ -14,8 +14,8 @@ kleinj <- function(tau){
   if(Im(tau) <= 0){
     stop("The complex number `tau` must have a positive imaginary part.")
   }
-  j2 <- jtheta2(0, tau = tau)
-  j3 <- jtheta3(0, tau = tau)
+  j2 <- jtheta2_cpp(0, tau)
+  j3 <- jtheta3_cpp(0, tau)
   g2 <- 4/3 * (pi/2)**4 * (j2**8 - (j2*j3)**4 + j3**8) 
   g3 <- 8/27 * (pi/2)**6 * (j2**12 - (
     (3/2 * j2**8 * j3**4) + (3/2 * j2**4 * j3**8) 

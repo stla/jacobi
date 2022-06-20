@@ -1,7 +1,3 @@
-isComplexPair <- function(x){
-  (is.complex(x) || is.numeric(x)) && length(x) == 2L && !anyNA(x)
-}
-
 g_from_omega <- function(w1, w2){
   if(Im(w2)*Re(w1) <= Im(w1)*Re(w2)){
     stop(
@@ -13,8 +9,8 @@ g_from_omega <- function(w1, w2){
     stop("The ratio `omega2/omega1` must have a positive imaginary part.")
   }
   # q <- exp(1i * pi * ratio)
-  j2 <- jtheta2(0, tau = tau)
-  j3 <- jtheta3(0, tau = tau)
+  j2 <- jtheta2_cpp(0, tau)
+  j3 <- jtheta3_cpp(0, tau)
   g2 <- 4/3 * (pi/2/w1)**4 * (j2**8 - (j2*j3)**4 + j3**8) 
   g3 <- 8/27 * (pi/2/w1)**6 * (j2**12 - (
     (3/2 * j2**8 * j3**4) + (3/2 * j2**4 * j3**8) 
@@ -97,20 +93,22 @@ wp <- function(z, g = NULL, omega = NULL, derivative = 0L){
       w1 <- 1 / agm(a, b)
     }
     w3 <- 1i / agm(a, c)
-    # q <- exp(1i * pi * w3/w1)
     tau <- w3 / w1
   # }
+  if(Im(tau) <= 0){
+    stop("Invalid values of the parameters.")
+  }
   if(derivative != 1){
     pw0 <- e3 + 
-      (jtheta2(0, tau = tau) * jtheta3(0, tau = tau) * jtheta4(z/w1, tau = tau) /
-        (w1 * jtheta1(z/w1, tau = tau)))**2
+      (jtheta2_cpp(0, tau) * jtheta3_cpp(0, tau) * jtheta4_cpp(z/w1/pi, tau) /
+        (w1 * jtheta1_cpp(z/w1/pi, tau)))**2
     if(derivative == 0) return(pw0)
     if(derivative == 2) return(6*pw0**2 - g2/2)
   }
   f <- jtheta1prime0(tau = tau)**3 /
-    (jtheta2(0, tau = tau) * jtheta3(0, tau = tau) * jtheta4(0, tau = tau))
-  pw1 <- -2*(1/w1)**3 * jtheta2(z/w1, tau = tau) * jtheta3(z/w1, tau = tau) *
-    jtheta4(z/w1, tau = tau) * f / jtheta1(z/w1, tau = tau)**3
+    (jtheta2_cpp(0, tau) * jtheta3_cpp(0, tau) * jtheta4_cpp(0, tau))
+  pw1 <- -2*(1/w1)**3 * jtheta2_cpp(z/w1/pi, tau) * jtheta3_cpp(z/w1/pi, tau) *
+    jtheta4_cpp(z/w1/pi, tau) * f / jtheta1_cpp(z/w1/pi, tau)**3
   if(derivative == 1) return(pw1)
   12 * pw0 * pw1 
 }

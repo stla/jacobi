@@ -1,36 +1,3 @@
-isComplex <- function(z){
-  (is.complex(z) || is.numeric(z)) && length(z) == 1L && !is.na(z)
-}
-
-check_and_get_tau <- function(tau, q){
-  if(is.null(tau) && is.null(q)){
-    stop("You must supply either `tau` or `q`.")
-  }
-  if(!is.null(tau) && !is.null(q)){
-    stop("You must supply either `tau` or `q`, not both.")
-  }
-  if(!is.null(tau)){
-    stopifnot(isComplex(tau))
-    if(Im(tau) <= 0){
-      stop("The imaginary part of `tau` must be strictly positive.")
-    }
-  }
-  if(!is.null(q)){
-    stopifnot(isComplex(q))
-    if(Mod(q) >= 1){
-      stop("The modulus of `q` must be strictly less than one.")
-    }
-    if(Im(q) == 0 && Re(q) <= 0){
-      stop("If `q` is real, it must be strictly positive.")
-    }
-    tau <- -1i * log(q) / pi
-    # if(Im(tau) <= 0){
-    #   stop("Invalid value of `q`.")
-    # }
-  }
-  tau
-}
-
 #' @title Jacobi theta function one
 #' @description Evaluates the first Jacobi theta function.
 #'

@@ -13,7 +13,7 @@ eta(tau)
 A complex number.
 }
 \description{
-Evaluation of the Dedekind function.
+Evaluation of the Dedekind eta function.
 }
 \examples{
 eta(2i)

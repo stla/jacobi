@@ -1,26 +1,3 @@
-check_and_get_tau_from_m <- function(tau, m){
-  if(is.null(tau) && is.null(m)){
-    stop("You must supply either `tau` or `m`.")
-  }
-  if(!is.null(tau) && !is.null(m)){
-    stop("You must supply either `tau` or `m`, not both.")
-  }
-  if(!is.null(tau)){
-    stopifnot(isComplex(tau))
-    if(Im(tau) <= 0){
-      stop("The imaginary part of `tau` must be strictly positive.")
-    }
-  }
-  if(!is.null(m)){
-    stopifnot(isComplex(m))
-    tau <- tau_from_m(m)
-    if(Im(tau) <= 0){
-      stop("Invalid value of `m`.")
-    }
-  }
-  tau
-}
-
 #' @title Neville theta functions
 #' @description Evaluation of the Neville theta functions.
 #'

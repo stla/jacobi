@@ -1,5 +1,5 @@
 #' @title Dedekind eta function
-#' @description Evaluation of the Dedekind function.
+#' @description Evaluation of the Dedekind eta function.
 #'
 #' @param tau a complex number with strictly positive imaginary part
 #'
