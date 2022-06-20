@@ -98,17 +98,18 @@ wp <- function(z, g = NULL, omega = NULL, derivative = 0L){
   if(Im(tau) <= 0){
     stop("Invalid values of the parameters.")
   }
+  z1 <- z/w1/pi
   if(derivative != 1){
     pw0 <- e3 + 
-      (jtheta2_cpp(0, tau) * jtheta3_cpp(0, tau) * jtheta4_cpp(z/w1/pi, tau) /
-        (w1 * jtheta1_cpp(z/w1/pi, tau)))**2
+      (jtheta2_cpp(0, tau) * jtheta3_cpp(0, tau) * jtheta4_cpp(z1, tau) /
+        (w1 * jtheta1_cpp(z1, tau)))**2
     if(derivative == 0) return(pw0)
     if(derivative == 2) return(6*pw0**2 - g2/2)
   }
   f <- jtheta1prime0(tau = tau)**3 /
     (jtheta2_cpp(0, tau) * jtheta3_cpp(0, tau) * jtheta4_cpp(0, tau))
-  pw1 <- -2*(1/w1)**3 * jtheta2_cpp(z/w1/pi, tau) * jtheta3_cpp(z/w1/pi, tau) *
-    jtheta4_cpp(z/w1/pi, tau) * f / jtheta1_cpp(z/w1/pi, tau)**3
+  pw1 <- -2*(1/w1)**3 * jtheta2_cpp(z1, tau) * jtheta3_cpp(z1, tau) *
+    jtheta4_cpp(z1, tau) * f / jtheta1_cpp(z1, tau)**3
   if(derivative == 1) return(pw1)
   12 * pw0 * pw1 
 }
