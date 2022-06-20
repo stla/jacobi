@@ -1,11 +1,11 @@
 Type: Package
 Package: jacobi
 Title: Jacobi Theta Functions and Related Functions
-Version: 1.0
+Version: 1.0.0
 Authors@R: c(
     person("Stéphane", "Laurent", , "laurent_step@outlook.fr", role = c("aut", "cre")),
     person("Mikael", "Fremling", role = "aut",
-           comment = "author of the original Fortran code")
+           comment = "author of the original Fortran code for the theta functions")
   )
 Description: Evaluation of the Jacobi theta functions and related
     functions: Weierstrass elliptic function, Weierstrass sigma function,

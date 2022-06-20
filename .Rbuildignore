@@ -4,3 +4,4 @@
 ^man-roxygen$
 ^\.github$
 ^inst/images$
+^cran-comments\.md$
