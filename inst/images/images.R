@@ -33,17 +33,32 @@ colormap2 <- function(z){
   hsv(h, s, v)
 }
 
+MyMatPow <- function(gamma, t){
+  g2 <- Mod(gamma)^2
+  h <- sqrt(1-g2)
+  d2 <- h^t * (cos(t*pi/2) + 1i*sin(t*pi/2))
+  d1 <- Conj(d2)
+  H11 <- Re(d1) - 1i*Im(d1)/h
+  H12 <- Im(d2) * gamma / h
+  H21 <- Conj(H12)
+  H22 <- Conj(H11)
+  c(a = H11, b = H12, c = H21, d = H22)
+}
+
 # background color
 bkgcol <- rgb(21, 25, 30, maxColorValue = 255)
 
+M <- MyMatPow(0.3 + 0.3i, pi/5)
+a <- M["a"]; b <- M["b"]; c <- M["c"]; d <- M["d"]; 
 f <- Vectorize(function(x, y){
-  q <- x + 1i*y
+  q0 <- x + 1i*y
+  q <- (a*q0 + b) / (c*q0 + d)
   if(Mod(q) >= 0.99 || (Im(q) == 0 && Re(q) <= 0)) return(bkgcol)
   z <- En(4, q)
-  colormap1(1/z)
+  colormap2(z)
 })
 
-x <- y <- seq(-1, 1, len = 2000)
+x <- y <- seq(-1, 1, len = 200)
 image <- outer(x, y, f)
 
 opar <- par(mar = c(0,0,0,0), bg = bkgcol)
@@ -55,6 +70,25 @@ rasterImage(image, -100, -100, 100, 100)
 par(opar)
 
 
+
+
+x <- y <- seq(-1, 1, len = 2000)
+t_ <- head(seq(0, 2*pi, len = 120), -1L)
+for(i in 1:length(t_)){
+  M <- MyMatPow(0.3 + 0.3i, t_[i])
+  a <- M["a"]; b <- M["b"]; c <- M["c"]; d <- M["d"]; 
+  image <- outer(x, y, f)
+  svg("zzz.svg")
+  opar <- par(mar = c(0,0,0,0), bg = rgb(21,25,30,maxColorValue = 255))
+  plot(c(-100, 100), c(-100, 100), type = "n", 
+       xlab = "", ylab = "", axes = FALSE, asp = 1)
+  rasterImage(image, -100, -100, 100, 100)
+  par(opar)
+  dev.off()
+  rsvg::rsvg_png(
+    "zzz.svg", sprintf("zzpic%03d.png", i), width = 512, height = 512
+  )
+}
 
 
 a <- -0.5
