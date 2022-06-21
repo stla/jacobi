@@ -119,6 +119,56 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// hsluv_rgb
+Rcpp::NumericVector hsluv_rgb(Rcpp::NumericVector hsl);
+RcppExport SEXP _jacobi_hsluv_rgb(SEXP hslSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type hsl(hslSEXP);
+    rcpp_result_gen = Rcpp::wrap(hsluv_rgb(hsl));
+    return rcpp_result_gen;
+END_RCPP
+}
+// hsluv_hex
+std::string hsluv_hex(double h, double s, double l);
+RcppExport SEXP _jacobi_hsluv_hex(SEXP hSEXP, SEXP sSEXP, SEXP lSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type h(hSEXP);
+    Rcpp::traits::input_parameter< double >::type s(sSEXP);
+    Rcpp::traits::input_parameter< double >::type l(lSEXP);
+    rcpp_result_gen = Rcpp::wrap(hsluv_hex(h, s, l));
+    return rcpp_result_gen;
+END_RCPP
+}
+// Image
+Rcpp::CharacterMatrix Image(Rcpp::NumericVector x, cplx gamma, double t);
+RcppExport SEXP _jacobi_Image(SEXP xSEXP, SEXP gammaSEXP, SEXP tSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< cplx >::type gamma(gammaSEXP);
+    Rcpp::traits::input_parameter< double >::type t(tSEXP);
+    rcpp_result_gen = Rcpp::wrap(Image(x, gamma, t));
+    return rcpp_result_gen;
+END_RCPP
+}
+// MOB
+Rcpp::ComplexMatrix MOB(Rcpp::NumericVector x, cplx gamma, double t);
+RcppExport SEXP _jacobi_MOB(SEXP xSEXP, SEXP gammaSEXP, SEXP tSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< cplx >::type gamma(gammaSEXP);
+    Rcpp::traits::input_parameter< double >::type t(tSEXP);
+    rcpp_result_gen = Rcpp::wrap(MOB(x, gamma, t));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_jacobi_modulo", (DL_FUNC) &_jacobi_modulo, 2},
@@ -130,6 +180,10 @@ static const R_CallMethodDef CallEntries[] = {
     {"_jacobi_jtheta3_cpp", (DL_FUNC) &_jacobi_jtheta3_cpp, 2},
     {"_jacobi_ljtheta4_cpp", (DL_FUNC) &_jacobi_ljtheta4_cpp, 2},
     {"_jacobi_jtheta4_cpp", (DL_FUNC) &_jacobi_jtheta4_cpp, 2},
+    {"_jacobi_hsluv_rgb", (DL_FUNC) &_jacobi_hsluv_rgb, 1},
+    {"_jacobi_hsluv_hex", (DL_FUNC) &_jacobi_hsluv_hex, 3},
+    {"_jacobi_Image", (DL_FUNC) &_jacobi_Image, 3},
+    {"_jacobi_MOB", (DL_FUNC) &_jacobi_MOB, 3},
     {NULL, NULL, 0}
 };
 

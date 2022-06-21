@@ -46,6 +46,10 @@ Z <- jacobi:::MOB(x, 0.3+0.3i, pi/3)
 image <- apply(Z, c(1,2), colormap2)
 
 
+n <- 2000L
+x <- seq(-1, 1, len = n)
+image <- jacobi:::Image(x, 0.3+0.3i, pi/3)
+
 opar <- par(mar = c(0,0,0,0), bg = bkgcol)
 plot(
   c(-100, 100), c(-100, 100), type = "n", 

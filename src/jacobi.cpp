@@ -531,13 +531,18 @@ std::string colormap1(cplx z){
     return "#000000";
   }
   double a = std::arg(z);
-  double r = 255.0 * modulo(std::abs(z), 1.0);
-  double g = 255.0 * abs(modulo(a, 0.5)) * 2.0;
-  double b = 255.0 * abs(modulo(x*y, 1));
+  double r = modulo(std::abs(z), 1.0);
+  double g = abs(modulo(a, 0.5)) * 2.0;
+  double b = abs(modulo(x*y, 1));
   if(std::isnan(b)){
     return "#000000";
   }
-  return rgb2hex((int)lround(r), (int)lround(g), (int)lround(b), true);
+  return rgb2hex(
+    (int)lround((1.0 - cos(r-0.5))*8.0*255.0), 
+    (int)lround((1.0 - cos(g-0.5))*8.0*255.0), 
+    (int)lround((1.0 - cos(b-0.5))*8.0*255.0), 
+    true
+  );
 }
 
 // [[Rcpp::export]]
@@ -561,14 +566,14 @@ Rcpp::CharacterMatrix Image(Rcpp::NumericVector x, cplx gamma, double t) {
       cplx q0(x(i), xj);
       cplx q = (a * q0 + b) / (c * q0 + d);
       if(std::abs(q) > 0.99 || (q.imag() == 0.0 && q.real() <= 0.0)) {
-        Zj(i) = "#15191E";
+        Zj(i) = "#15191e";
       } else {
         cplx tau = -_i_ * std::log(q) / M_PI;
         cplx z = (std::pow(jtheta2_cpp(0, tau), 8.0) +
           std::pow(jtheta3_cpp(0, tau), 8.0) +
           std::pow(jtheta4_cpp(0, tau), 8.0)) /
             2.0;
-        Zj(i) = colormap1(z);
+        Zj(i) = colormap1(1.0/z);
       }
     }
     Z(Rcpp::_, j) = Zj;
