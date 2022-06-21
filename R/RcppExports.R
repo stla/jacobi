@@ -37,19 +37,15 @@ jtheta4_cpp <- function(z, tau) {
     .Call(`_jacobi_jtheta4_cpp`, z, tau)
 }
 
-hsluv_rgb <- function(hsl) {
-    .Call(`_jacobi_hsluv_rgb`, hsl)
+Image_eta <- function(x, gamma, t) {
+    .Call(`_jacobi_Image_eta`, x, gamma, t)
 }
 
-hsluv_hex <- function(h, s, l) {
-    .Call(`_jacobi_hsluv_hex`, h, s, l)
+Image_E4 <- function(x, gamma, t) {
+    .Call(`_jacobi_Image_E4`, x, gamma, t)
 }
 
-Image <- function(x, gamma, t) {
-    .Call(`_jacobi_Image`, x, gamma, t)
-}
-
-MOB <- function(x, gamma, t) {
-    .Call(`_jacobi_MOB`, x, gamma, t)
+Image_E6 <- function(x, gamma, t) {
+    .Call(`_jacobi_Image_E6`, x, gamma, t)
 }
 

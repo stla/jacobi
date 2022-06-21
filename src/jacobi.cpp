@@ -129,8 +129,9 @@ cplx jtheta4_cpp(cplx z, cplx tau) {
 
 std::string rgb2hex(int r, int g, int b, bool with_head) {
   std::stringstream ss;
-  if(with_head)
+  if(with_head) {
     ss << "#";
+  }
   ss << std::setfill('0') << std::setw(6) << std::hex << (r << 16 | g << 8 | b);
   return ss.str();
 }
@@ -181,7 +182,6 @@ static void get_bounds(double l, Bounds bounds[6]) {
       double top2 = (838422.0 * m3 + 769860.0 * m2 + 731718.0 * m1) * l * sub2 -
                     769860.0 * t * l;
       double bottom = (632260.0 * m3 - 126452.0 * m2) * sub2 + 126452.0 * t;
-
       bounds[channel * 2 + t].a = top1 / bottom;
       bounds[channel * 2 + t].b = top2 / bottom;
     }
@@ -212,8 +212,9 @@ static double max_safe_chroma_for_l(double l) {
     Bounds line2 = {-1.0 / m1, 0.0};
     double x = intersect_line_line(&bounds[i], &line2);
     double distance = dist_from_pole_squared(x, b1 + x * m1);
-    if(distance < min_len_squared)
+    if(distance < min_len_squared) {
       min_len_squared = distance;
+    }
   }
   return sqrt(min_len_squared);
 }
@@ -226,8 +227,9 @@ static double max_chroma_for_lh(double l, double h) {
   get_bounds(l, bounds);
   for(i = 0; i < 6; i++) {
     double len = ray_length_until_intersect(hrad, &bounds[i]);
-    if(len >= 0 && len < min_len)
+    if(len >= 0 && len < min_len) {
       min_len = len;
+    }
   }
   return min_len;
 }
@@ -238,17 +240,19 @@ static double dot_product(const Triplet* t1, const Triplet* t2) {
 
 /* Used for rgb conversions */
 static double from_linear(double c) {
-  if(c <= 0.0031308)
+  if(c <= 0.0031308) {
     return 12.92 * c;
-  else
+  } else {
     return 1.055 * pow(c, 1.0 / 2.4) - 0.055;
+  }
 }
 
 static double to_linear(double c) {
-  if(c > 0.04045)
+  if(c > 0.04045) {
     return pow((c + 0.055) / 1.055, 2.4);
-  else
+  } else {
     return c / 12.92;
+  }
 }
 
 static void xyz2rgb(Triplet* in_out) {
@@ -277,10 +281,11 @@ static void rgb2xyz(Triplet* in_out) {
  * simplified accordingly.
  */
 static double y2l(double y) {
-  if(y <= epsilon)
+  if(y <= epsilon) {
     return y * kappa;
-  else
+  } else {
     return 116.0 * cbrt(y) - 16.0;
+  }
 }
 
 static double l2y(double l) {
@@ -339,8 +344,9 @@ static void luv2lch(Triplet* in_out) {
     h = 0;
   } else {
     h = atan2(v, u) * 57.29577951308232087680; /* (180 / pi) */
-    if(h < 0.0)
+    if(h < 0.0) {
       h += 360.0;
+    }
   }
   in_out->a = l;
   in_out->b = c;
@@ -361,13 +367,15 @@ static void hsluv2lch(Triplet* in_out) {
   double l = in_out->c;
   double c;
   /* White and black: disambiguate chroma */
-  if(l > 99.9999999 || l < 0.00000001)
+  if(l > 99.9999999 || l < 0.00000001) {
     c = 0.0;
-  else
+  } else {
     c = max_chroma_for_lh(l, h) / 100.0 * s;
+  }
   /* Grays: disambiguate hue */
-  if(s < 0.00000001)
+  if(s < 0.00000001) {
     h = 0.0;
+  }
   in_out->a = l;
   in_out->b = c;
   in_out->c = h;
@@ -379,13 +387,15 @@ static void lch2hsluv(Triplet* in_out) {
   double h = in_out->c;
   double s;
   /* White and black: disambiguate saturation */
-  if(l > 99.9999999 || l < 0.00000001)
+  if(l > 99.9999999 || l < 0.00000001) {
     s = 0.0;
-  else
+  } else {
     s = c / max_chroma_for_lh(l, h) * 100.0;
+  }
   /* Grays: disambiguate hue */
-  if(c < 0.00000001)
+  if(c < 0.00000001) {
     h = 0.0;
+  }
   in_out->a = h;
   in_out->b = s;
   in_out->c = l;
@@ -397,13 +407,15 @@ static void hpluv2lch(Triplet* in_out) {
   double l = in_out->c;
   double c;
   /* White and black: disambiguate chroma */
-  if(l > 99.9999999 || l < 0.00000001)
+  if(l > 99.9999999 || l < 0.00000001) {
     c = 0.0;
-  else
+  } else {
     c = max_safe_chroma_for_l(l) / 100.0 * s;
+  }
   /* Grays: disambiguate hue */
-  if(s < 0.00000001)
+  if(s < 0.00000001) {
     h = 0.0;
+  }
   in_out->a = l;
   in_out->b = c;
   in_out->c = h;
@@ -415,13 +427,15 @@ static void lch2hpluv(Triplet* in_out) {
   double h = in_out->c;
   double s;
   /* White and black: disambiguate saturation */
-  if(l > 99.9999999 || l < 0.00000001)
+  if(l > 99.9999999 || l < 0.00000001) {
     s = 0.0;
-  else
+  } else {
     s = c / max_safe_chroma_for_l(l) * 100.0;
+  }
   /* Grays: disambiguate hue */
-  if(c < 0.00000001)
+  if(c < 0.00000001) {
     h = 0.0;
+  }
   in_out->a = h;
   in_out->b = s;
   in_out->c = l;
@@ -491,9 +505,6 @@ void rgb2hpluv(double r,
   *pl = tmp.c;
 }
 
-// wrap functions for use in R
-
-// [[Rcpp::export]]
 Rcpp::NumericVector hsluv_rgb(Rcpp::NumericVector hsl) {
   Rcpp::NumericVector out(3);
   double r, g, b;
@@ -504,7 +515,6 @@ Rcpp::NumericVector hsluv_rgb(Rcpp::NumericVector hsl) {
   return out;
 }
 
-// [[Rcpp::export]]
 std::string hsluv_hex(double h, double s, double l) {
   Rcpp::NumericVector hsl(3);
   Rcpp::NumericVector out(3);
@@ -524,38 +534,59 @@ std::string hsluv_hex(double h, double s, double l) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-std::string colormap1(cplx z){
+std::string colormap1(cplx z) {
   double x = z.real();
   double y = z.imag();
-  if(std::isnan(x) || std::isnan(y) || std::isinf(x) || std::isinf(y)){
+  if(std::isnan(x) || std::isnan(y) || std::isinf(x) || std::isinf(y)) {
     return "#000000";
   }
   double a = std::arg(z);
   double r = modulo(std::abs(z), 1.0);
   double g = abs(modulo(a, 0.5)) * 2.0;
-  double b = abs(modulo(x*y, 1));
-  if(std::isnan(b)){
+  double b = abs(modulo(x * y, 1));
+  if(std::isnan(b)) {
     return "#000000";
   }
-  return rgb2hex(
-    (int)lround((1.0 - cos(r-0.5))*8.0*255.0), 
-    (int)lround((1.0 - cos(g-0.5))*8.0*255.0), 
-    (int)lround((1.0 - cos(b-0.5))*8.0*255.0), 
-    true
-  );
+  return rgb2hex((int)lround((1.0 - cos(r - 0.5)) * 8.0 * 255.0),
+                 (int)lround((1.0 - cos(g - 0.5)) * 8.0 * 255.0),
+                 (int)lround((1.0 - cos(b - 0.5)) * 8.0 * 255.0), true);
 }
 
-// [[Rcpp::export]]
-Rcpp::CharacterMatrix Image(Rcpp::NumericVector x, cplx gamma, double t) {
+std::string colormap2(cplx z) {
+  double x = z.real();
+  double y = z.imag();
+  if(std::isnan(x) || std::isnan(y) || std::isinf(x) || std::isinf(y)) {
+    return "#000000";
+  }
+  double arg = std::arg(z);
+  if(arg < 0) {
+    arg += 2.0 * M_PI;
+  }
+  double h = arg * 57.29577951308232087680; /* (180 / pi) */
+  double w = 2 * M_PI * log(1 + std::abs(z));
+  double s = 100.0 * sqrt((1.0 + sin(w)) / 2.0);
+  double v = 100.0 * (1.0 + cos(w)) / 2.0;
+  return hsluv_hex(h, s, v);
+}
+
+void get_mobius_params(cplx gamma, double t, cplx* pa, cplx* pb, cplx* pc, cplx* pd) {
   double mgamma = std::abs(gamma);
   double h = std::sqrt(1.0 - mgamma * mgamma);
-  cplx pz(cos(t * M_PI / 2.0), sin(t * M_PI / 2.0));
-  cplx d2 = pow(h, t) * pz;
+  cplx z1(cos(t * M_PI / 2.0), sin(t * M_PI / 2.0));
+  cplx d2 = pow(h, t) * z1;
   cplx d1 = std::conj(d2);
   cplx a(d1.real(), -d1.imag() / h);
   cplx b = d2.imag() * gamma / h;
-  cplx c = std::conj(b);
-  cplx d = std::conj(a);
+  *pa = a;
+  *pb = b;
+  *pc = std::conj(b);
+  *pd = std::conj(a);
+}
+
+// [[Rcpp::export]]
+Rcpp::CharacterMatrix Image_eta(Rcpp::NumericVector x, cplx gamma, double t) {
+  cplx a, b, c, d;
+  get_mobius_params(gamma, t, &a, &b, &c, &d);
   //
   const size_t n = x.size();
   Rcpp::CharacterMatrix Z(n, n);
@@ -565,13 +596,40 @@ Rcpp::CharacterMatrix Image(Rcpp::NumericVector x, cplx gamma, double t) {
     for(size_t i = 0; i < n; i++) {
       cplx q0(x(i), xj);
       cplx q = (a * q0 + b) / (c * q0 + d);
-      if(std::abs(q) > 0.99 || (q.imag() == 0.0 && q.real() <= 0.0)) {
+      if(std::abs(q) > 0.995 || (q.imag() == 0.0 && q.real() <= 0.0)) {
         Zj(i) = "#15191e";
       } else {
         cplx tau = -_i_ * std::log(q) / M_PI;
-        cplx z = (std::pow(jtheta2_cpp(0, tau), 8.0) +
-          std::pow(jtheta3_cpp(0, tau), 8.0) +
-          std::pow(jtheta4_cpp(0, tau), 8.0)) /
+        cplx z = std::exp(_i_ * M_PI * tau / 12.0) *
+                 jtheta3_cpp((tau + 1.0) / 2.0, 3.0 * tau);
+        Zj(i) = colormap1(z);
+      }
+    }
+    Z(Rcpp::_, j) = Zj;
+  }
+  return Z;
+}
+
+// [[Rcpp::export]]
+Rcpp::CharacterMatrix Image_E4(Rcpp::NumericVector x, cplx gamma, double t) {
+  cplx a, b, c, d;
+  get_mobius_params(gamma, t, &a, &b, &c, &d);
+  //
+  const size_t n = x.size();
+  Rcpp::CharacterMatrix Z(n, n);
+  for(size_t j = 0; j < n; j++) {
+    Rcpp::CharacterVector Zj(n);
+    double xj = x(j);
+    for(size_t i = 0; i < n; i++) {
+      cplx q0(x(i), xj);
+      cplx q = (a * q0 + b) / (c * q0 + d);
+      if(std::abs(q) > 0.995 || (q.imag() == 0.0 && q.real() <= 0.0)) {
+        Zj(i) = "#15191e";
+      } else {
+        cplx tau = -_i_ * std::log(q) / M_PI;
+        cplx z = (std::pow(jtheta2_cpp(0.0, tau), 8.0) +
+          std::pow(jtheta3_cpp(0.0, tau), 8.0) +
+          std::pow(jtheta4_cpp(0.0, tau), 8.0)) /
             2.0;
         Zj(i) = colormap1(1.0/z);
       }
@@ -582,40 +640,72 @@ Rcpp::CharacterMatrix Image(Rcpp::NumericVector x, cplx gamma, double t) {
 }
 
 // [[Rcpp::export]]
-Rcpp::ComplexMatrix MOB(Rcpp::NumericVector x, cplx gamma, double t) {
-  double mgamma = std::abs(gamma);
-  double h = std::sqrt(1.0 - mgamma * mgamma);
-  cplx pz(cos(t * M_PI / 2.0), sin(t * M_PI / 2.0));
-  cplx d2 = pow(h, t) * pz;
-  cplx d1 = std::conj(d2);
-  cplx a(d1.real(), -d1.imag() / h);
-  cplx b = d2.imag() * gamma / h;
-  cplx c = std::conj(b);
-  cplx d = std::conj(a);
+Rcpp::CharacterMatrix Image_E6(Rcpp::NumericVector x, cplx gamma, double t) {
+  cplx a, b, c, d;
+  get_mobius_params(gamma, t, &a, &b, &c, &d);
   //
   const size_t n = x.size();
-  Rcpp::ComplexMatrix Z(n, n);
+  Rcpp::CharacterMatrix Z(n, n);
   for(size_t j = 0; j < n; j++) {
-    Rcpp::ComplexVector Zj(n);
+    Rcpp::CharacterVector Zj(n);
     double xj = x(j);
     for(size_t i = 0; i < n; i++) {
       cplx q0(x(i), xj);
       cplx q = (a * q0 + b) / (c * q0 + d);
-      if(std::abs(q) > 0.99 || (q.imag() == 0.0 && q.real() <= 0.0)) {
-        Zj(i) = Rcpp::ComplexVector::get_na();
+      if(std::abs(q) > 0.995 || (q.imag() == 0.0 && q.real() <= 0.0)) {
+        Zj(i) = "#15191e";
       } else {
         cplx tau = -_i_ * std::log(q) / M_PI;
-        cplx z = (std::pow(jtheta2_cpp(0, tau), 8.0) +
-                  std::pow(jtheta3_cpp(0, tau), 8.0) +
-                  std::pow(jtheta4_cpp(0, tau), 8.0)) /
-                 2.0;
-        Rcomplex zr;
-        zr.r = z.real();
-        zr.i = z.imag();
-        Zj(i) = zr;
+        cplx j2 = jtheta2_cpp(0.0, tau);
+        cplx j3 = jtheta3_cpp(0.0, tau);
+        cplx j4 = jtheta4_cpp(0.0, tau);
+        cplx z = (std::pow(j3, 12.0) + std::pow(j4, 12.0) -
+          3.0 * std::pow(j2, 8.0) *
+          (std::pow(j3, 4.0) + std::pow(j4, 4.0))) /
+            2.0;
+        Zj(i) = colormap2(z);
       }
     }
     Z(Rcpp::_, j) = Zj;
   }
   return Z;
 }
+
+// // [[Rcpp::export]]
+// Rcpp::ComplexMatrix MOB(Rcpp::NumericVector x, cplx gamma, double t) {
+//   double mgamma = std::abs(gamma);
+//   double h = std::sqrt(1.0 - mgamma * mgamma);
+//   cplx pz(cos(t * M_PI / 2.0), sin(t * M_PI / 2.0));
+//   cplx d2 = pow(h, t) * pz;
+//   cplx d1 = std::conj(d2);
+//   cplx a(d1.real(), -d1.imag() / h);
+//   cplx b = d2.imag() * gamma / h;
+//   cplx c = std::conj(b);
+//   cplx d = std::conj(a);
+//   //
+//   const size_t n = x.size();
+//   Rcpp::ComplexMatrix Z(n, n);
+//   for(size_t j = 0; j < n; j++) {
+//     Rcpp::ComplexVector Zj(n);
+//     double xj = x(j);
+//     for(size_t i = 0; i < n; i++) {
+//       cplx q0(x(i), xj);
+//       cplx q = (a * q0 + b) / (c * q0 + d);
+//       if(std::abs(q) > 0.99 || (q.imag() == 0.0 && q.real() <= 0.0)) {
+//         Zj(i) = Rcpp::ComplexVector::get_na();
+//       } else {
+//         cplx tau = -_i_ * std::log(q) / M_PI;
+//         cplx z = (std::pow(jtheta2_cpp(0, tau), 8.0) +
+//                   std::pow(jtheta3_cpp(0, tau), 8.0) +
+//                   std::pow(jtheta4_cpp(0, tau), 8.0)) /
+//                  2.0;
+//         Rcomplex zr;
+//         zr.r = z.real();
+//         zr.i = z.imag();
+//         Zj(i) = zr;
+//       }
+//     }
+//     Z(Rcpp::_, j) = Zj;
+//   }
+//   return Z;
+// }
