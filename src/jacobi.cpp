@@ -29,8 +29,8 @@ cplx calctheta3(cplx z, cplx tau) {
 
 cplx argtheta3(cplx z, cplx tau, unsigned pass_in) {
   unsigned passes = pass_in + 1;
-  if(passes > 500) {
-    Rcpp::stop("passes > 500 (argtheta3)");
+  if(passes > 800) {
+    Rcpp::stop("passes > 800 (argtheta3)");
   }
   double z_img = z.imag();
   double h = tau.imag() / 2.0;
@@ -54,8 +54,8 @@ cplx dologtheta4(cplx z, cplx tau, unsigned pass_in) {
 
 cplx dologtheta3(cplx z, cplx tau, unsigned pass_in) {
   unsigned passes = pass_in + 1;
-  if(passes > 500) {
-    Rcpp::stop("passes > 500 (dologtheta3)");
+  if(passes > 800) {
+    Rcpp::stop("passes > 800 (dologtheta3)");
   }
   cplx tau2;
   double rl = tau.real();
@@ -596,7 +596,7 @@ Rcpp::CharacterMatrix Image_eta(Rcpp::NumericVector x, cplx gamma, double t) {
     for(size_t i = 0; i < n; i++) {
       cplx q0(x(i), xj);
       cplx q = (a * q0 + b) / (c * q0 + d);
-      if(std::abs(q) > 0.9999 || (q.imag() == 0.0 && q.real() <= 0.0)) {
+      if(std::abs(q) > 0.99999 || (q.imag() == 0.0 && q.real() <= 0.0)) {
         Zj(i) = "#15191e";
       } else {
         cplx tau = -_i_ * std::log(q) / M_PI;
@@ -623,10 +623,10 @@ Rcpp::CharacterMatrix Image_E4(Rcpp::NumericVector x, cplx gamma, double t) {
     for(size_t i = 0; i < n; i++) {
       cplx q0(x(i), xj);
       cplx q = (a * q0 + b) / (c * q0 + d);
-      if(std::abs(q) > 0.995 || (q.imag() == 0.0 && q.real() <= 0.0)) {
+      if(std::abs(q) > 0.99999 || (q.imag() == 0.0 && q.real() <= 0.0)) {
         Zj(i) = "#15191e";
       } else {
-        cplx tau = -_i_ * std::log(q) / M_PI;
+        cplx tau = -_i_ * std::log(q) / M_PI / 2.0;
         cplx z = (std::pow(jtheta2_cpp(0.0, tau), 8.0) +
           std::pow(jtheta3_cpp(0.0, tau), 8.0) +
           std::pow(jtheta4_cpp(0.0, tau), 8.0)) /
@@ -652,10 +652,10 @@ Rcpp::CharacterMatrix Image_E6(Rcpp::NumericVector x, cplx gamma, double t) {
     for(size_t i = 0; i < n; i++) {
       cplx q0(x(i), xj);
       cplx q = (a * q0 + b) / (c * q0 + d);
-      if(std::abs(q) > 0.995 || (q.imag() == 0.0 && q.real() <= 0.0)) {
+      if(std::abs(q) > 0.99999 || (q.imag() == 0.0 && q.real() <= 0.0)) {
         Zj(i) = "#15191e";
       } else {
-        cplx tau = -_i_ * std::log(q) / M_PI;
+        cplx tau = -_i_ * std::log(q) / M_PI / 2.0;
         cplx j2 = jtheta2_cpp(0.0, tau);
         cplx j3 = jtheta3_cpp(0.0, tau);
         cplx j4 = jtheta4_cpp(0.0, tau);

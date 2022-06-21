@@ -67,7 +67,7 @@ par(opar)
 x <- seq(-1, 1, len = 2000)
 t_ <- head(seq(0, 2, len = 180), -1L)
 for(i in 1:length(t_)){
-  image <- jacobi:::Image_eta(x, 0.7-0.3i, t_[i])
+  image <- jacobi:::Image_E6(x, 0.7-0.3i, t_[i])
   svg("zzz.svg")
   opar <- par(mar = c(0,0,0,0), bg = bkgcol)
   plot(c(-100, 100), c(-100, 100), type = "n", 
@@ -76,7 +76,7 @@ for(i in 1:length(t_)){
   par(opar)
   dev.off()
   rsvg::rsvg_png(
-    "zzz.svg", sprintf("zzwwpic%03d.png", i), width = 512, height = 512
+    "zzz.svg", sprintf("zzpic%03d.png", i), width = 512, height = 512
   )
 }
 
