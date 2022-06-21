@@ -49,3 +49,7 @@ Image_E6 <- function(x, gamma, t) {
     .Call(`_jacobi_Image_E6`, x, gamma, t)
 }
 
+Image_lambda <- function(x, gamma, t) {
+    .Call(`_jacobi_Image_lambda`, x, gamma, t)
+}
+

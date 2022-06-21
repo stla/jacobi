@@ -158,6 +158,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// Image_lambda
+Rcpp::CharacterMatrix Image_lambda(Rcpp::NumericVector x, cplx gamma, double t);
+RcppExport SEXP _jacobi_Image_lambda(SEXP xSEXP, SEXP gammaSEXP, SEXP tSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< cplx >::type gamma(gammaSEXP);
+    Rcpp::traits::input_parameter< double >::type t(tSEXP);
+    rcpp_result_gen = Rcpp::wrap(Image_lambda(x, gamma, t));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_jacobi_modulo", (DL_FUNC) &_jacobi_modulo, 2},
@@ -172,6 +185,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_jacobi_Image_eta", (DL_FUNC) &_jacobi_Image_eta, 3},
     {"_jacobi_Image_E4", (DL_FUNC) &_jacobi_Image_E4, 3},
     {"_jacobi_Image_E6", (DL_FUNC) &_jacobi_Image_E6, 3},
+    {"_jacobi_Image_lambda", (DL_FUNC) &_jacobi_Image_lambda, 3},
     {NULL, NULL, 0}
 };
 
