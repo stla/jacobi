@@ -596,7 +596,7 @@ Rcpp::CharacterMatrix Image_eta(Rcpp::NumericVector x, cplx gamma, double t) {
     for(size_t i = 0; i < n; i++) {
       cplx q0(x(i), xj);
       cplx q = (a * q0 + b) / (c * q0 + d);
-      if(std::abs(q) > 0.995 || (q.imag() == 0.0 && q.real() <= 0.0)) {
+      if(std::abs(q) > 0.9999 || (q.imag() == 0.0 && q.real() <= 0.0)) {
         Zj(i) = "#15191e";
       } else {
         cplx tau = -_i_ * std::log(q) / M_PI;

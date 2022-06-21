@@ -65,10 +65,9 @@ par(opar)
 
 
 x <- seq(-1, 1, len = 2000)
-t_ <- head(seq(0, 2, len = 120), -1L)
+t_ <- head(seq(0, 2, len = 180), -1L)
 for(i in 1:length(t_)){
-  Z <- jacobi:::MOB(x, 0.7-0.4i, t_[i])
-  image <- apply(Z, c(1,2), colormap2)
+  image <- jacobi:::Image_eta(x, 0.7-0.3i, t_[i])
   svg("zzz.svg")
   opar <- par(mar = c(0,0,0,0), bg = bkgcol)
   plot(c(-100, 100), c(-100, 100), type = "n", 
@@ -77,7 +76,15 @@ for(i in 1:length(t_)){
   par(opar)
   dev.off()
   rsvg::rsvg_png(
-    "zzz.svg", sprintf("zzpic%03d.png", i), width = 512, height = 512
+    "zzz.svg", sprintf("zzwwpic%03d.png", i), width = 512, height = 512
   )
+}
+
+for(i in 1:length(t_)){
+  command <-  sprintf(
+    "magick convert -density 300 zzpic%03d.png -bordercolor #15191e -border 10x10 -colorspace RGB -trim -quality 100 -resize 512x512! aapic%03d.png",
+    i, i
+  )
+  system(command)
 }
 

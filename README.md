@@ -11,3 +11,9 @@ Jacobi theta functions and related functions.
 ![](https://raw.githubusercontent.com/stla/jacobi/main/inst/images/Eisenstein4.png)
 
 ![](https://raw.githubusercontent.com/stla/jacobi/main/inst/images/Eisenstein6.png)
+
+### Blog posts
+
+- [Beautiful complex functions](https://laustep.github.io/stlahblog/posts/beautifulComplexFunctions.html)
+
+- [On a Möbius transformation](https://laustep.github.io/stlahblog/posts/OnAMobiusTransformation.html)
