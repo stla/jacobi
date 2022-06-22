@@ -11,18 +11,6 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
-// modulo
-double modulo(double a, double p);
-RcppExport SEXP _jacobi_modulo(SEXP aSEXP, SEXP pSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< double >::type a(aSEXP);
-    Rcpp::traits::input_parameter< double >::type p(pSEXP);
-    rcpp_result_gen = Rcpp::wrap(modulo(a, p));
-    return rcpp_result_gen;
-END_RCPP
-}
 // ljtheta2_cpp
 cplx ljtheta2_cpp(cplx z, cplx tau);
 RcppExport SEXP _jacobi_ljtheta2_cpp(SEXP zSEXP, SEXP tauSEXP) {
@@ -173,7 +161,6 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_jacobi_modulo", (DL_FUNC) &_jacobi_modulo, 2},
     {"_jacobi_ljtheta2_cpp", (DL_FUNC) &_jacobi_ljtheta2_cpp, 2},
     {"_jacobi_jtheta2_cpp", (DL_FUNC) &_jacobi_jtheta2_cpp, 2},
     {"_jacobi_ljtheta1_cpp", (DL_FUNC) &_jacobi_ljtheta1_cpp, 2},

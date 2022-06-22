@@ -1,6 +1,5 @@
 #include "jacobi_types.h"
 
-// [[Rcpp::export]]
 double modulo(double a, double p) {
   double i = a > 0 ? std::floor(a / p) : std::ceil(a / p);
   return a - i * p;
@@ -188,35 +187,8 @@ static void get_bounds(double l, Bounds bounds[6]) {
   }
 }
 
-static double intersect_line_line(const Bounds* line1, const Bounds* line2) {
-  return (line1->b - line2->b) / (line2->a - line1->a);
-}
-
-static double dist_from_pole_squared(double x, double y) {
-  return x * x + y * y;
-}
-
 static double ray_length_until_intersect(double theta, const Bounds* line) {
   return line->b / (sin(theta) - line->a * cos(theta));
-}
-
-static double max_safe_chroma_for_l(double l) {
-  double min_len_squared = DBL_MAX;
-  Bounds bounds[6];
-  int i;
-  get_bounds(l, bounds);
-  for(i = 0; i < 6; i++) {
-    double m1 = bounds[i].a;
-    double b1 = bounds[i].b;
-    /* x where line intersects with perpendicular running though (0, 0) */
-    Bounds line2 = {-1.0 / m1, 0.0};
-    double x = intersect_line_line(&bounds[i], &line2);
-    double distance = dist_from_pole_squared(x, b1 + x * m1);
-    if(distance < min_len_squared) {
-      min_len_squared = distance;
-    }
-  }
-  return sqrt(min_len_squared);
 }
 
 static double max_chroma_for_lh(double l, double h) {
@@ -247,14 +219,6 @@ static double from_linear(double c) {
   }
 }
 
-static double to_linear(double c) {
-  if(c > 0.04045) {
-    return pow((c + 0.055) / 1.055, 2.4);
-  } else {
-    return c / 12.92;
-  }
-}
-
 static void xyz2rgb(Triplet* in_out) {
   double r = from_linear(dot_product(&m[0], in_out));
   double g = from_linear(dot_product(&m[1], in_out));
@@ -264,54 +228,12 @@ static void xyz2rgb(Triplet* in_out) {
   in_out->c = b;
 }
 
-static void rgb2xyz(Triplet* in_out) {
-  Triplet rgbl = {to_linear(in_out->a), to_linear(in_out->b),
-                  to_linear(in_out->c)};
-  double x = dot_product(&m_inv[0], &rgbl);
-  double y = dot_product(&m_inv[1], &rgbl);
-  double z = dot_product(&m_inv[2], &rgbl);
-  in_out->a = x;
-  in_out->b = y;
-  in_out->c = z;
-}
-
-/* http://en.wikipedia.org/wiki/CIELUV
- * In these formulas, Yn refers to the reference white point. We are using
- * illuminant D65, so Yn (see refY in Maxima file) equals 1. The formula is
- * simplified accordingly.
- */
-static double y2l(double y) {
-  if(y <= epsilon) {
-    return y * kappa;
-  } else {
-    return 116.0 * cbrt(y) - 16.0;
-  }
-}
-
 static double l2y(double l) {
   if(l <= 8.0) {
     return l / kappa;
   } else {
     double x = (l + 16.0) / 116.0;
     return (x * x * x);
-  }
-}
-
-static void xyz2luv(Triplet* in_out) {
-  double var_u =
-      (4.0 * in_out->a) / (in_out->a + (15.0 * in_out->b) + (3.0 * in_out->c));
-  double var_v =
-      (9.0 * in_out->b) / (in_out->a + (15.0 * in_out->b) + (3.0 * in_out->c));
-  double l = y2l(in_out->b);
-  double u = 13.0 * l * (var_u - ref_u);
-  double v = 13.0 * l * (var_v - ref_v);
-  in_out->a = l;
-  if(l < 0.00000001) {
-    in_out->b = 0.0;
-    in_out->c = 0.0;
-  } else {
-    in_out->b = u;
-    in_out->c = v;
   }
 }
 
@@ -331,26 +253,6 @@ static void luv2xyz(Triplet* in_out) {
   in_out->a = x;
   in_out->b = y;
   in_out->c = z;
-}
-
-static void luv2lch(Triplet* in_out) {
-  double l = in_out->a;
-  double u = in_out->b;
-  double v = in_out->c;
-  double h;
-  double c = sqrt(u * u + v * v);
-  /* Grays: disambiguate hue */
-  if(c < 0.00000001) {
-    h = 0;
-  } else {
-    h = atan2(v, u) * 57.29577951308232087680; /* (180 / pi) */
-    if(h < 0.0) {
-      h += 360.0;
-    }
-  }
-  in_out->a = l;
-  in_out->b = c;
-  in_out->c = h;
 }
 
 static void lch2luv(Triplet* in_out) {
@@ -381,66 +283,6 @@ static void hsluv2lch(Triplet* in_out) {
   in_out->c = h;
 }
 
-static void lch2hsluv(Triplet* in_out) {
-  double l = in_out->a;
-  double c = in_out->b;
-  double h = in_out->c;
-  double s;
-  /* White and black: disambiguate saturation */
-  if(l > 99.9999999 || l < 0.00000001) {
-    s = 0.0;
-  } else {
-    s = c / max_chroma_for_lh(l, h) * 100.0;
-  }
-  /* Grays: disambiguate hue */
-  if(c < 0.00000001) {
-    h = 0.0;
-  }
-  in_out->a = h;
-  in_out->b = s;
-  in_out->c = l;
-}
-
-static void hpluv2lch(Triplet* in_out) {
-  double h = in_out->a;
-  double s = in_out->b;
-  double l = in_out->c;
-  double c;
-  /* White and black: disambiguate chroma */
-  if(l > 99.9999999 || l < 0.00000001) {
-    c = 0.0;
-  } else {
-    c = max_safe_chroma_for_l(l) / 100.0 * s;
-  }
-  /* Grays: disambiguate hue */
-  if(s < 0.00000001) {
-    h = 0.0;
-  }
-  in_out->a = l;
-  in_out->b = c;
-  in_out->c = h;
-}
-
-static void lch2hpluv(Triplet* in_out) {
-  double l = in_out->a;
-  double c = in_out->b;
-  double h = in_out->c;
-  double s;
-  /* White and black: disambiguate saturation */
-  if(l > 99.9999999 || l < 0.00000001) {
-    s = 0.0;
-  } else {
-    s = c / max_safe_chroma_for_l(l) * 100.0;
-  }
-  /* Grays: disambiguate hue */
-  if(c < 0.00000001) {
-    h = 0.0;
-  }
-  in_out->a = h;
-  in_out->b = s;
-  in_out->c = l;
-}
-
 void hsluv2rgb(double h,
                double s,
                double l,
@@ -455,54 +297,6 @@ void hsluv2rgb(double h,
   *pr = tmp.a;
   *pg = tmp.b;
   *pb = tmp.c;
-}
-
-void hpluv2rgb(double h,
-               double s,
-               double l,
-               double* pr,
-               double* pg,
-               double* pb) {
-  Triplet tmp = {h, s, l};
-  hpluv2lch(&tmp);
-  lch2luv(&tmp);
-  luv2xyz(&tmp);
-  xyz2rgb(&tmp);
-  *pr = tmp.a;
-  *pg = tmp.b;
-  *pb = tmp.c;
-}
-
-void rgb2hsluv(double r,
-               double g,
-               double b,
-               double* ph,
-               double* ps,
-               double* pl) {
-  Triplet tmp = {r, g, b};
-  rgb2xyz(&tmp);
-  xyz2luv(&tmp);
-  luv2lch(&tmp);
-  lch2hsluv(&tmp);
-  *ph = tmp.a;
-  *ps = tmp.b;
-  *pl = tmp.c;
-}
-
-void rgb2hpluv(double r,
-               double g,
-               double b,
-               double* ph,
-               double* ps,
-               double* pl) {
-  Triplet tmp = {r, g, b};
-  rgb2xyz(&tmp);
-  xyz2luv(&tmp);
-  luv2lch(&tmp);
-  lch2hpluv(&tmp);
-  *ph = tmp.a;
-  *ps = tmp.b;
-  *pl = tmp.c;
 }
 
 Rcpp::NumericVector hsluv_rgb(Rcpp::NumericVector hsl) {
@@ -563,7 +357,7 @@ std::string colormap2(cplx z) {
     arg += 2.0 * M_PI;
   }
   double h = arg * 57.29577951308232087680; /* (180 / pi) */
-  double w = 2 * M_PI * log(1 + std::abs(z));
+  double w = 2 * M_PI * log1p(std::abs(z));
   double s = 100.0 * sqrt((1.0 + sin(w)) / 2.0);
   double v = 100.0 * (1.0 + cos(w)) / 2.0;
   return hsluv_hex(h, s, v);

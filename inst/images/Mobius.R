@@ -63,21 +63,23 @@ par(opar)
 
 
 
+# background color
+bkgcol <- rgb(21, 25, 30, maxColorValue = 255)
 
-x <- seq(-1, 1, len = 2000)
+x <- seq(-1, 1, len = 3000)
 t_ <- head(seq(0, 2, len = 180), -1L)
 for(i in 1:length(t_)){
-  image <- jacobi:::Image_E6(x, 0.7-0.3i, t_[i])
-  svg("zzz.svg")
+  image <- jacobi:::Image_lambda(x, 0.7-0.3i, t_[i])
+  svg(sprintf("zzpic%03d.svg", i))
   opar <- par(mar = c(0,0,0,0), bg = bkgcol)
   plot(c(-100, 100), c(-100, 100), type = "n", 
        xlab = "", ylab = "", axes = FALSE, asp = 1)
   rasterImage(image, -100, -100, 100, 100)
   par(opar)
   dev.off()
-  rsvg::rsvg_png(
-    "zzz.svg", sprintf("zzpic%03d.png", i), width = 512, height = 512
-  )
+  # rsvg::rsvg_png(
+  #   "zzz.svg", sprintf("zzpic%03d.png", i), width = 512, height = 512
+  # )
 }
 
 for(i in 1:length(t_)){
