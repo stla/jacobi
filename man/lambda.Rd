@@ -19,6 +19,6 @@ Evaluation of the lambda modular function.
 The lambda function is the square of the elliptic modulus.
 }
 \examples{
-eta(2i)
-gamma(1/4) / 2^(11/8) / pi^(3/4)
+x <- 2
+lambda(1i*sqrt(x)) + lambda(1i*sqrt(1/x)) # should be one
 }
