@@ -17,7 +17,11 @@ jtheta1prime <- function(z, tau){
 #' @export
 #' 
 #' @examples
-#' 2+2
+#' # Mirror symmetry property:
+#' z <- 1 + 1i
+#' g <- c(1i, 1+2i)
+#' zetaw(Conj(z), Conj(g))
+#' Conj(zetaw(z, g))
 zetaw <- function(z, g = NULL, omega = NULL){
   stopifnot(isComplex(z))
   if(is.null(g) && is.null(omega)){
@@ -33,9 +37,12 @@ zetaw <- function(z, g = NULL, omega = NULL){
     stopifnot(isComplexPair(omega))
     g <- g_from_omega(omega[1L], omega[2L])
   }
-  # g2 <- g[1L]
-  # g3 <- g[2L]
-  # r <- sort(polyroot(c(-g3, -g2, 0, 4)))
+  if(g[1L] == 0 && g[2L] == 0){
+    return(1/z)
+  }
+  if(g[1L] == 3 && g[2L] == 1){
+    return(z/2 + sqrt(3/2)/tan(sqrt(3/2)*z))
+  }
   r <- e3e2e1(g)
   r1 <- r[1L]
   r2 <- r[2L]
