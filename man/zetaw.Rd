@@ -4,7 +4,7 @@
 \alias{zetaw}
 \title{Weierstrass zeta function}
 \usage{
-zetaw(z, g = NULL, omega = NULL)
+zetaw(z, g = NULL, omega = NULL, fix = FALSE)
 }
 \arguments{
 \item{z}{complex number}
@@ -16,6 +16,10 @@ and \code{omega} must be given}
 \item{omega}{the half-periods, a vector of two complex numbers; they are 
 related to the elliptic invariants (\code{g}) and only one of \code{g} 
 and \code{omega} must be given}
+
+\item{fix}{Boolean; if \code{TRUE} and if there is \code{NaN} or \code{Inf} 
+in the result, the function tries to get the correct result by applying 
+some transformations}
 }
 \value{
 A complex number.

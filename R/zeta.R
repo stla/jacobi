@@ -1,10 +1,3 @@
-dljtheta1 <- function(z, tau, q){
-  if(z == 0){
-    return(jtheta1prime0(tau) / jtheta1_cpp(0, tau))
-  }
-  dlogjtheta1(z, q)
-}
-
 #' @title Weierstrass zeta function
 #' @description Evaluation of the Weierstrass zeta function.
 #'
@@ -15,6 +8,9 @@ dljtheta1 <- function(z, tau, q){
 #' @param omega the half-periods, a vector of two complex numbers; they are 
 #'   related to the elliptic invariants (\code{g}) and only one of \code{g} 
 #'   and \code{omega} must be given
+#' @param fix Boolean; if \code{TRUE} and if there is \code{NaN} or \code{Inf} 
+#'   in the result, the function tries to get the correct result by applying 
+#'   some transformations
 #'
 #' @return A complex number.
 #' @export
@@ -25,7 +21,7 @@ dljtheta1 <- function(z, tau, q){
 #' g <- c(1i, 1+2i)
 #' zetaw(Conj(z), Conj(g))
 #' Conj(zetaw(z, g))
-zetaw <- function(z, g = NULL, omega = NULL){
+zetaw <- function(z, g = NULL, omega = NULL, fix = FALSE){
   stopifnot(isComplex(z))
   if(is.null(g) && is.null(omega)){
     stop("You must supply either `g` or `omega`.")
@@ -71,5 +67,12 @@ zetaw <- function(z, g = NULL, omega = NULL){
   q <- exp(1i * pi * tau)
   p <- 1 / w1 
   eta1 <- p / 3 / w1 * jtheta1primeprimeprime0(tau) / jtheta1prime0(tau)
-  - eta1 * z + p * dljtheta1(p*z, tau, q)
+  out <- - eta1 * z + p * dljtheta1(p*z, tau, q)
+  if(fix && (is.nan(out) || is.infinite(out))){
+    out <- zeta(z-1, g = g, fix = FALSE) + 2*zetaw(1/2, g)
+    if(is.nan(out) || is.infinite(out)){
+      out <- zeta(z+1, g = g, fix = FALSE) - 2*zetaw(1/2, g)
+    }
+  }
+  out
 }

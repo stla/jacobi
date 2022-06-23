@@ -77,3 +77,10 @@ e3e2e1 <- function(g){
   e3 <- -(bp3c - 1i*bm3c)/12
   c(e3, e2, e1)
 }
+
+dljtheta1 <- function(z, tau, q){
+  if(z == 0){
+    return(jtheta1prime0(tau) / jtheta1_cpp(0, tau))
+  }
+  dlogjtheta1(z, q)
+}
