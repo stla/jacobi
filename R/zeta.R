@@ -1,5 +1,8 @@
-jtheta1prime <- function(z, tau){
-  jtheta1_cpp(z/pi, tau) * dlogjtheta1(z, exp(1i * pi * tau))
+dljtheta1 <- function(z, tau, q){
+  if(z == 0){
+    return(jtheta1prime0(tau) / jtheta1_cpp(0, tau))
+  }
+  dlogjtheta1(z, q)
 }
 
 #' @title Weierstrass zeta function
@@ -68,5 +71,5 @@ zetaw <- function(z, g = NULL, omega = NULL){
   q <- exp(1i * pi * tau)
   p <- 1 / w1 
   eta1 <- p / 3 / w1 * jtheta1primeprimeprime0(tau) / jtheta1prime0(tau)
-  - eta1 * z + p * dlogjtheta1(p*z, q)
+  - eta1 * z + p * dljtheta1(p*z, tau, q)
 }
