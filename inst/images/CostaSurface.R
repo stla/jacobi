@@ -2,21 +2,32 @@ library(rgl)
 library(Rvcg)
 library(jacobi)
 
+zetaw_m <- function(z, g) zetaw(z-1, g) + 2*zetaw(1/2, g)
+zetaw_p <- function(z, g) zetaw(z+1, g) - 2*zetaw(1/2, g)
 
 CostaMesh <- function(umin = 0.1, umax = 0.9, vmin = 0.1, vmax = 0.9, nu, nv){ 
   e1 <- Re(wp(1/2, omega = c(1/2, 1i/2)))
   c <- 4*e1^2
   zz1 <- function(u, v){
     w <- u + 1i*v
-    zetaw(w, c(c,0))
+    z <- zetaw(w, c(c,0))
+    if(is.nan(z) || is.infinite(z)) z <- zetaw_m(w, c(c,0))
+    if(is.nan(z) || is.infinite(z)) z <- zetaw_p(w, c(c,0))
+    z
   }
   zz2 <- function(u, v){
-    w <- u + 1i*v
-    zetaw(w-1/2, c(c,0))
+    w <- u + 1i*v - 1/2
+    z <- zetaw(w, c(c,0))
+    if(is.nan(z) || is.infinite(z)) z <- zetaw_m(w, c(c,0))
+    if(is.nan(z) || is.infinite(z)) z <- zetaw_p(w, c(c,0))
+    z
   }
   zz3 <- function(u, v){
-    w <- u + 1i*v
-    zetaw(w-1i/2, c(c,0))
+    w <- u + 1i*v - 1i/2
+    z <- zetaw(w, c(c,0))
+    if(is.nan(z) || is.infinite(z)) z <- zetaw_m(w, c(c,0))
+    if(is.nan(z) || is.infinite(z)) z <- zetaw_p(w, c(c,0))
+    z
   }
   fx <- function(u, z1, z2, z3){
     Re(pi*(u+pi/4/e1) - z1 + pi/2/e1*(z2 - z3))/2
@@ -65,12 +76,21 @@ CostaMesh <- function(umin = 0.1, umax = 0.9, vmin = 0.1, vmax = 0.9, nu, nv){
 }
 
 
-mesh <- CostaMesh(nu=100, nv=100)
+mesh0 <- CostaMesh(
+  nu = 50, nv = 50, 
+  umin = 0, vmin = 0, 
+  umax = 1, vmax = 1
+)
 
-open3d(windowRect = c(50, 50, 562, 562), zoom=0.95)
+vecnorm <- function(vals) apply(vals, 1, function(row) sqrt(sum(row^2)))
+mesh <- clipMesh3d(mesh0, fn = vecnorm, bound = 5, greater = FALSE)
+mesh <- vcgClean(mesh, sel = 6, tol = 0.001)
+
+open3d(windowRect = c(50, 50, 562, 562), zoom=0.9)
 bg3d(rgb(21, 25, 30, maxColorValue = 255))
 shade3d(mesh, color = "darkred", back="cull")
 shade3d(mesh, color = "darkorange", front="cull")
+
 
 # # -- if you want an animation 
 M <- par3d("userMatrix")
@@ -97,7 +117,7 @@ movie3d(
   webshot = FALSE
 )
 
-command <- "gifski --fps=10 --frames=zzpic*.png -o Costa.gif"
+command <- "gifski --fps=10 --frames=zzpic*.png -o Costa_full.gif"
 system(command)
 
 pngfiles <- list.files(pattern = "^zzpic?.*png$")
