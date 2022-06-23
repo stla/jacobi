@@ -107,6 +107,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// dlogjtheta1
+cplx dlogjtheta1(cplx z, cplx q);
+RcppExport SEXP _jacobi_dlogjtheta1(SEXP zSEXP, SEXP qSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< cplx >::type z(zSEXP);
+    Rcpp::traits::input_parameter< cplx >::type q(qSEXP);
+    rcpp_result_gen = Rcpp::wrap(dlogjtheta1(z, q));
+    return rcpp_result_gen;
+END_RCPP
+}
 // Image_eta
 Rcpp::CharacterMatrix Image_eta(Rcpp::NumericVector x, cplx gamma, double t);
 RcppExport SEXP _jacobi_Image_eta(SEXP xSEXP, SEXP gammaSEXP, SEXP tSEXP) {
@@ -169,6 +181,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_jacobi_jtheta3_cpp", (DL_FUNC) &_jacobi_jtheta3_cpp, 2},
     {"_jacobi_ljtheta4_cpp", (DL_FUNC) &_jacobi_ljtheta4_cpp, 2},
     {"_jacobi_jtheta4_cpp", (DL_FUNC) &_jacobi_jtheta4_cpp, 2},
+    {"_jacobi_dlogjtheta1", (DL_FUNC) &_jacobi_dlogjtheta1, 2},
     {"_jacobi_Image_eta", (DL_FUNC) &_jacobi_Image_eta, 3},
     {"_jacobi_Image_E4", (DL_FUNC) &_jacobi_Image_E4, 3},
     {"_jacobi_Image_E6", (DL_FUNC) &_jacobi_Image_E6, 3},

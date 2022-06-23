@@ -33,6 +33,10 @@ jtheta4_cpp <- function(z, tau) {
     .Call(`_jacobi_jtheta4_cpp`, z, tau)
 }
 
+dlogjtheta1 <- function(z, q) {
+    .Call(`_jacobi_dlogjtheta1`, z, q)
+}
+
 Image_eta <- function(x, gamma, t) {
     .Call(`_jacobi_Image_eta`, x, gamma, t)
 }

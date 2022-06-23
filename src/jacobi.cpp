@@ -124,6 +124,38 @@ cplx jtheta4_cpp(cplx z, cplx tau) {
   return std::exp(ljtheta4_cpp(z, tau));
 }
 
+// [[Rcpp::export]]
+cplx dlogjtheta1(cplx z, cplx q) {
+  int nc = 0;
+  const cplx qsq = q * q;
+  cplx q2n(1.0, 0.0);
+  const cplx Q2 = (1.0 - q) * (1.0 + q);
+  cplx Q2n = Q2;
+  cplx sum1 = 0;
+  const cplx zero(0.0, 0.0);
+  for(int n = 1; n < 10000; n++) {
+    q2n *= q;
+    if(q2n == zero) {
+      break;
+    }
+    const double ndbl = (double)n;
+    const cplx f = (q2n / Q2n) * std::sin(2.0 * ndbl * z);
+    const cplx term = q2n * f;
+    const cplx newsum1 = sum1 + term;
+    if(newsum1 == sum1) {
+      nc++;
+      if(nc > 1) {
+        break;
+      }
+    } else {
+      nc = 0;
+    }
+    sum1 = newsum1;
+    Q2n = qsq * Q2n + Q2;
+  }
+  return 4.0 * sum1 + 1.0 / std::tan(z);
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 
 std::string rgb2hex(int r, int g, int b, bool with_head) {
