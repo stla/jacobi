@@ -31,9 +31,10 @@ sigmaw <- function(z, g = NULL, omega = NULL){
     stopifnot(isComplexPair(omega))
     g <- g_from_omega(omega[1L], omega[2L])
   }
-  g2 <- g[1L]
-  g3 <- g[2L]
-  r <- sort(polyroot(c(-g3, -g2, 0, 4)))
+  # g2 <- g[1L]
+  # g3 <- g[2L]
+  # r <- sort(polyroot(c(-g3, -g2, 0, 4)))
+  r <- e3e2e1(g)
   r1 <- r[1L]
   r2 <- r[2L]
   r3 <- r[3L]

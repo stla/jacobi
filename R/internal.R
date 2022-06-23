@@ -63,3 +63,17 @@ check_and_get_tau_from_m <- function(tau, m){
   }
   tau
 }
+
+e3e2e1 <- function(g){
+  g2 <- g[1L]
+  g3 <- g[2L]
+  a <- 27*g3 + 3*sqrt(as.complex(-3*g2^3 + 81*g3^2))
+  b <- a^(1/3)
+  c <- g2/b
+  bp3c <- b + 3*c
+  bm3c <- sqrt(3)*(b - 3*c)
+  e1 <- bp3c/6
+  e2 <- -(bp3c + 1i*bm3c)/12
+  e3 <- -(bp3c - 1i*bm3c)/12
+  c(e3, e2, e1)
+}

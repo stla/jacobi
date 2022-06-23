@@ -60,9 +60,10 @@ wp <- function(z, g = NULL, omega = NULL, derivative = 0L){
     stopifnot(isComplexPair(omega))
     g <- g_from_omega(omega[1L], omega[2L])
   }
-  g2 <- g[1L]
-  g3 <- g[2L]
-  r <- sort(polyroot(c(-g3, -g2, 0, 4)))
+  # g2 <- g[1L]
+  # g3 <- g[2L]
+  # r <- sort(polyroot(c(-g3, -g2, 0, 4)))
+  r <- e3e2e1(g)
   # Delta <- g2^3 - 27*g3^2
   # if(FALSE && Im(Delta) == 0 && Re(Delta) > 0){
   #   r <- sort(Re(r), decreasing = TRUE)

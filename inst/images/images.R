@@ -156,13 +156,13 @@ bgcol <- rgb(21,25,30,maxColorValue = 255)
 f <- Vectorize(function(x, y){
   q <- x + 1i*y
   if(Mod(q) >= 0.99 || (Im(q) == 0 && Re(q) <= 0)) return(bgcol)
-  tau <- -1i * log(q) / pi
-  z <- En(6, q)
-  fcolor(z)
+  # tau <- -1i * log(q) / pi
+  z <- En(2, q)
+  colormap2(z)
 })
 
-x <- seq(-1, 1, len = 2000)
-y <- seq(-1, 1, len = 2000)
+x <- seq(-1, 1, len = 200)
+y <- seq(-1, 1, len = 200)
 
 z <- outer(x, y, f)
 
