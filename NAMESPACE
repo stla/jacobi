@@ -2,6 +2,7 @@
 
 export(En)
 export(agm)
+export(am)
 export(eta)
 export(jellip)
 export(jtheta1)
