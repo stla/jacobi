@@ -59,7 +59,7 @@ zetaw <- function(z, g = NULL, omega = NULL){
     stop("Invalid values of the parameters.")
   }
   q <- exp(1i * pi * tau)
-  p <- 1 / w1 / 2
-  eta1 <- p / 6 / w1 * jtheta1primeprimeprime0(tau) / jtheta1prime0(tau)
-  - eta1 * z + p * jtheta1prime(p*z, tau) / jtheta1_cpp(p*z/pi, tau)
+  p <- 1 / w1 
+  eta1 <- p / 3 / w1 * jtheta1primeprimeprime0(tau) / jtheta1prime0(tau)
+  - eta1 * z + p * dlogjtheta1(p*z, q)
 }
