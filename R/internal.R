@@ -35,6 +35,10 @@ check_and_get_tau <- function(tau, q){
   tau
 }
 
+isReal <- function(g){
+  all(Im(g) == 0)
+}
+
 #' @importFrom Carlson elliptic_F
 #' @noRd
 tau_from_m <- function(m){
@@ -86,7 +90,7 @@ dljtheta1 <- function(z, tau, q){
   }
   out <- dlogjtheta1(z, q)
   if(is.nan(out)){
-    elliptic::theta1dash(z, q=q) / jtheta1_cpp(z/pi, tau)
+    out <- elliptic::theta1dash(z, q=q) / jtheta1_cpp(z/pi, tau)
   }
   out
 }

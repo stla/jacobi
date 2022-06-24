@@ -45,9 +45,9 @@ zetaw <- function(z, g = NULL, omega = NULL, fix = FALSE){
     return(z/2 + sqrt(3/2)/tan(sqrt(3/2)*z))
   }
   r <- e3e2e1(g)
-  if(is.double(g)) r <- unname(elliptic::e1e2e3(g))
-  g2 <- g[1L]
-  g3 <- g[2L]
+  if(isReal(g)) r <- r[c(1L, 3L, 2L)]# unname(elliptic::e1e2e3(g))
+  # g2 <- g[1L]
+  # g3 <- g[2L]
   # r <- sort(polyroot(c(-g3, -g2, 0, 4)))
   r1 <- r[1L]
   r2 <- r[2L]
@@ -66,6 +66,8 @@ zetaw <- function(z, g = NULL, omega = NULL, fix = FALSE){
     w1 <- 1 / agm(a, b) / 2
   }
   w3 <- 1i / agm(a, c) / 2
+  # w1 <- 1
+  # w3 <- 1i
   tau <- w3 / w1
   if(Im(tau) <= 0){
     stop("Invalid values of the parameters.")
@@ -80,6 +82,6 @@ zetaw <- function(z, g = NULL, omega = NULL, fix = FALSE){
       out <- zetaw(z+1, g = g, fix = FALSE) - 2*zetaw(1/2, g)
     }
   }
-  # attr(out, "info") <- c(tau = tau, eta1 = eta1, p = p, w1 = w1)
+  # attr(out, "info") <- c(tau = tau, eta1 = eta1, p = p, w1 = w1, w3 = w3)
   out
 }

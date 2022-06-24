@@ -11,22 +11,30 @@ CostaMesh <- function(umin = 0.1, umax = 0.9, vmin = 0.1, vmax = 0.9, nu, nv){
   zz1 <- function(u, v){
     w <- u + 1i*v
     z <- zetaw(w, c(c,0))
-    if(is.nan(z) || is.infinite(z)) z <- zetaw_m(w, c(c,0))
-    if(is.nan(z) || is.infinite(z)) z <- zetaw_p(w, c(c,0))
-    z
+    # if(is.nan(z)) z <- zetaw_m(w, c(c,0))
+    # if(is.nan(z)) z <- zetaw_p(w, c(c,0))
+    # if(is.nan(z)) z <- Conj(zetaw(Conj(w), c(c,0), fix=TRUE))
+    return(z)
+    if(is.nan(z)) z <- Inf
   }
   zz2 <- function(u, v){
     w <- u + 1i*v - 1/2
-    z <- zetaw(w, c(c,0))
-    if(is.nan(z) || is.infinite(z)) z <- zetaw_m(w, c(c,0))
-    if(is.nan(z) || is.infinite(z)) z <- zetaw_p(w, c(c,0))
+    z <- 1i*zetaw(1i*w, c(c,0))
+    # if(is.nan(z)) z <- zetaw_m(w, c(c,0))
+    # if(is.nan(z)) z <- zetaw_p(w, c(c,0))
+    # if(is.nan(z)) z <- Conj(zetaw(Conj(w), c(c,0), fix=TRUE))
+    return(z)
+    if(is.nan(z)) z <- Inf
     z
   }
   zz3 <- function(u, v){
     w <- u + 1i*v - 1i/2
     z <- zetaw(w, c(c,0))
-    if(is.nan(z) || is.infinite(z)) z <- zetaw_m(w, c(c,0))
-    if(is.nan(z) || is.infinite(z)) z <- zetaw_p(w, c(c,0))
+    # if(is.nan(z)) z <- zetaw_m(w, c(c,0))
+    # if(is.nan(z)) z <- zetaw_p(w, c(c,0))
+    # if(is.nan(z)) z <- Conj(zetaw(Conj(w), c(c,0), fix=TRUE))
+    return(z)
+    if(is.nan(z)) z <- Inf
     z
   }
   fx <- function(u, z1, z2, z3){
@@ -55,6 +63,7 @@ CostaMesh <- function(umin = 0.1, umax = 0.9, vmin = 0.1, vmax = 0.9, nu, nv){
       z3 <- zz3(u_[i], v_[j])
       vsarray[, j, i] <- 
         c(fx(u_[i], z1, z2, z3), fy(v_[j], z1, z2, z3), fz(u_[i], v_[j]))
+      if(any(is.nan(vsarray[, j, i]))) vsarray[, j, i] <- c(Inf,Inf,Inf)
     }
   }
   vs <- matrix(vsarray[, -c(1L, nv+2L), -c(1L, nu+2L)], nrow = 3L, ncol = nu*nv)

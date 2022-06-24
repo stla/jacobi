@@ -66,7 +66,7 @@ wp <- function(z, g = NULL, omega = NULL, derivative = 0L){
   # g3 <- g[2L]
   # r <- sort(polyroot(c(-g3, -g2, 0, 4)))
   r <- e3e2e1(g)
-  if(is.double(g)) r <- unname(elliptic::e1e2e3(g))
+  if(isReal(g)) r <- r[c(1L, 3L, 2L)]# unname(elliptic::e1e2e3(g))
   # Delta <- g2^3 - 27*g3^2
   # if(FALSE && Im(Delta) == 0 && Re(Delta) > 0){
   #   r <- sort(Re(r), decreasing = TRUE)
