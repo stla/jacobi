@@ -51,7 +51,7 @@ cplx theta1dash(cplx z, cplx q) {
     }
     out = outnew;
   }
-  Rcpp::stop("Reached 1000 iterations.");
+  Rcpp::stop("Reached 1000 iterations (theta1dash).");
 }
 
 double modulo(double a, double p) {
@@ -64,8 +64,8 @@ const cplx _i_(0.0, 1.0);
 cplx calctheta3(cplx z, cplx tau) {
   cplx out(1.0, 0.0);
   unsigned n = 0;
-  bool iterate = true;
-  while(iterate) {
+//  bool iterate = true;
+  while(n < 1000) {
     n++;
     double nn = n;
     cplx qweight = std::exp(nn * _i_ * M_PI * (nn * tau + 2.0 * z)) +
@@ -74,10 +74,10 @@ cplx calctheta3(cplx z, cplx tau) {
     if(std::abs(out) == 0) {
       Rcpp::stop("log(0)");
     } else if(n >= 3 && close(out + qweight, out)) {
-      iterate = false;
+      return std::log(out);
     }
   }
-  return std::log(out);
+  Rcpp::stop("Reached 1000 iterations.");
 }
 
 cplx argtheta3(cplx z, cplx tau, unsigned pass_in) {
