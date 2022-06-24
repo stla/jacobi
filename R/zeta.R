@@ -69,9 +69,9 @@ zetaw <- function(z, g = NULL, omega = NULL, fix = FALSE){
   eta1 <- p / 3 / w1 * jtheta1primeprimeprime0(tau) / jtheta1prime0(tau)
   out <- - eta1 * z + p * dljtheta1(p*z, tau, q)
   if(fix && (is.nan(out) || is.infinite(out))){
-    out <- zeta(z-1, g = g, fix = FALSE) + 2*zetaw(1/2, g)
+    out <- zetaw(z-1, g = g, fix = FALSE) + 2*zetaw(1/2, g)
     if(is.nan(out) || is.infinite(out)){
-      out <- zeta(z+1, g = g, fix = FALSE) - 2*zetaw(1/2, g)
+      out <- zetaw(z+1, g = g, fix = FALSE) - 2*zetaw(1/2, g)
     }
   }
   out
