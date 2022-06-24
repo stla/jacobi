@@ -1,5 +1,59 @@
 #include "jacobi_types.h"
 
+template <typename T>
+T machinePrecision() {
+  const T one = (T)(1.0);
+  T epsilon = one;
+  do {
+    epsilon /= (T)(2.0);
+  } while((one + epsilon / 2.0) != 1.0);
+  return epsilon;
+}
+
+const double Epsilon = 2.0 * machinePrecision<double>();
+
+bool close(cplx z1, cplx z2) {
+  const cplx zero(0.0, 0.0);
+  const double norm = (z2 == zero) ? 1.0 : std::max(std::abs(z1), std::abs(z2));
+  return std::abs(z1 - z2) < Epsilon * norm;
+}
+
+bool even(int n) {
+  return n % 2 == 0;
+}
+
+cplx power(cplx z, int p) {
+  if(p == 0) {
+    return cplx(1.0);
+  }
+  if(p == 1) {
+    return z;
+  }
+  cplx tmp = power(z, p / 2);
+  if(even(p)) {
+    return tmp * tmp;
+  } else {
+    return z * tmp * tmp;
+  }
+}
+
+
+// [[Rcpp::export]]
+cplx theta1dash(cplx z, cplx q) {
+  cplx out(0.0, 0.0);
+  cplx alt(-1.0, 0.0);
+  for(int n = 0; n < 1000; n++) {
+    alt = -alt;
+    double k = (double)(2 * n + 1);
+    cplx outnew = out + alt + power(q, n * (n + 1)) * k * std::cos(k * z);
+    if(close(out, outnew)) {
+      return 2.0 * std::pow(q, 0.25) * out;
+    }
+    out = outnew;
+  }
+  Rcpp::stop("Reached 1000 iterations.");
+}
+
 double modulo(double a, double p) {
   double i = a > 0 ? std::floor(a / p) : std::ceil(a / p);
   return a - i * p;
@@ -19,7 +73,7 @@ cplx calctheta3(cplx z, cplx tau) {
     out += qweight;
     if(std::abs(out) == 0) {
       Rcpp::stop("log(0)");
-    } else if(n >= 3 && (out + qweight) == out) {
+    } else if(n >= 3 && close(out + qweight, out)) {
       iterate = false;
     }
   }
@@ -124,17 +178,17 @@ cplx jtheta4_cpp(cplx z, cplx tau) {
   return std::exp(ljtheta4_cpp(z, tau));
 }
 
-// std::complex<double> FMA(std::complex<double> a, std::complex<double> b, std::complex<double> c) {
-//   double re = std::fma(a.real(), b.real(), c.real()) - std::fma(a.imag(), b.imag(), 0.0);
-//   double im = std::fma(a.real(), b.imag(), c.imag()) + std::fma(a.imag(), b.real(), 0.0);
-//   std::complex<double> z(re, im);
-//   return z;
+// std::complex<double> FMA(std::complex<double> a, std::complex<double> b,
+// std::complex<double> c) {
+//   double re = std::fma(a.real(), b.real(), c.real()) - std::fma(a.imag(),
+//   b.imag(), 0.0); double im = std::fma(a.real(), b.imag(), c.imag()) +
+//   std::fma(a.imag(), b.real(), 0.0); std::complex<double> z(re, im); return
+//   z;
 // }
-// 
+//
 // std::complex<double> logsin(std::complex<double> z) {
 //   return _i_*z + std::log(1.0 - std::exp(-2.0*_i_*z)) - std::log(2.0*_i_);
 // }
-
 
 // [[Rcpp::export]]
 cplx dlogjtheta1(cplx z, cplx q) {
@@ -157,7 +211,7 @@ cplx dlogjtheta1(cplx z, cplx q) {
     const cplx f = (q2n / Q2n) * std::sin(2.0 * ndbl * z);
     const cplx term = q2n * f;
     const cplx newsum1 = sum1 + term;
-    //const cplx newsum1 = FMA(q2n, f, sum1);
+    // const cplx newsum1 = FMA(q2n, f, sum1);
     if(newsum1 == sum1) {
       nc++;
       if(nc > 1) {

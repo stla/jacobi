@@ -33,8 +33,6 @@ g_from_omega <- function(w1, w2){
 #'
 #' @return A complex number.
 #' @export
-#' 
-#' @importFrom elliptic e1e2e3
 #'
 #' @examples
 #' omega1 <- 1.4 - 1i

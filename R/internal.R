@@ -82,15 +82,13 @@ e3e2e1 <- function(g){
   c(e3, e2, e1)
 }
 
-#' @importFrom elliptic theta1dash
-#' @noRd
 dljtheta1 <- function(z, tau, q){
   if(z == 0){
     return(jtheta1prime0(tau) / jtheta1_cpp(0, tau))
   }
   out <- dlogjtheta1(z, q)
   if(is.nan(out)){
-    out <- elliptic::theta1dash(z, q=q) / jtheta1_cpp(z/pi, tau)
+    out <- theta1dash(z, q) / jtheta1_cpp(z/pi, tau)
   }
   out
 }

@@ -15,8 +15,6 @@
 #' @return A complex number.
 #' @export
 #' 
-#' @importFrom elliptic e1e2e3
-#' 
 #' @examples
 #' # Mirror symmetry property:
 #' z <- 1 + 1i
