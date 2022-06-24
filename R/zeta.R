@@ -15,6 +15,8 @@
 #' @return A complex number.
 #' @export
 #' 
+#' @importFrom elliptic e1e2e3
+#' 
 #' @examples
 #' # Mirror symmetry property:
 #' z <- 1 + 1i
@@ -43,6 +45,10 @@ zetaw <- function(z, g = NULL, omega = NULL, fix = FALSE){
     return(z/2 + sqrt(3/2)/tan(sqrt(3/2)*z))
   }
   r <- e3e2e1(g)
+  if(is.double(g)) r <- unname(elliptic::e1e2e3(g))
+  g2 <- g[1L]
+  g3 <- g[2L]
+  # r <- sort(polyroot(c(-g3, -g2, 0, 4)))
   r1 <- r[1L]
   r2 <- r[2L]
   r3 <- r[3L]
@@ -55,24 +61,25 @@ zetaw <- function(z, g = NULL, omega = NULL, fix = FALSE){
     a <- sqrt(r3 - r1)
     b <- sqrt(r3 - r2)
     c <- sqrt(r2 - r1)
-    w1 <- 1 / agm(1i*b, c) 
+    w1 <- 1 / agm(1i*b, c) / 2
   }else{
-    w1 <- 1 / agm(a, b)
+    w1 <- 1 / agm(a, b) / 2
   }
-  w3 <- 1i / agm(a, c)
+  w3 <- 1i / agm(a, c) / 2
   tau <- w3 / w1
   if(Im(tau) <= 0){
     stop("Invalid values of the parameters.")
   }
   q <- exp(1i * pi * tau)
-  p <- 1 / w1 
-  eta1 <- p / 3 / w1 * jtheta1primeprimeprime0(tau) / jtheta1prime0(tau)
-  out <- - eta1 * z + p * dljtheta1(p*z, tau, q)
-  if(fix && (is.nan(out) || is.infinite(out))){
+  p <- 1 / w1 / 2
+  eta1 <- p / 6 / w1 * jtheta1primeprimeprime0(tau) / jtheta1prime0(tau)
+  out <- - eta1 * z + p * dljtheta1(p * z, tau, q)
+  if(fix && (is.nan(out))){
     out <- zetaw(z-1, g = g, fix = FALSE) + 2*zetaw(1/2, g)
-    if(is.nan(out) || is.infinite(out)){
+    if(is.nan(out)){
       out <- zetaw(z+1, g = g, fix = FALSE) - 2*zetaw(1/2, g)
     }
   }
+  # attr(out, "info") <- c(tau = tau, eta1 = eta1, p = p, w1 = w1)
   out
 }

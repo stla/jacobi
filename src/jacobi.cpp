@@ -124,6 +124,18 @@ cplx jtheta4_cpp(cplx z, cplx tau) {
   return std::exp(ljtheta4_cpp(z, tau));
 }
 
+// std::complex<double> FMA(std::complex<double> a, std::complex<double> b, std::complex<double> c) {
+//   double re = std::fma(a.real(), b.real(), c.real()) - std::fma(a.imag(), b.imag(), 0.0);
+//   double im = std::fma(a.real(), b.imag(), c.imag()) + std::fma(a.imag(), b.real(), 0.0);
+//   std::complex<double> z(re, im);
+//   return z;
+// }
+// 
+// std::complex<double> logsin(std::complex<double> z) {
+//   return _i_*z + std::log(1.0 - std::exp(-2.0*_i_*z)) - std::log(2.0*_i_);
+// }
+
+
 // [[Rcpp::export]]
 cplx dlogjtheta1(cplx z, cplx q) {
   int nc = 0;
@@ -139,9 +151,13 @@ cplx dlogjtheta1(cplx z, cplx q) {
       break;
     }
     const double ndbl = (double)n;
+    // const cplx f = std::log(q2n) - std::log(Q2n) + logsin(2.0 * ndbl * z);
+    // const cplx term = std::log(q2n) + f;
+    // const cplx newsum1 = sum1 + std::exp(term);
     const cplx f = (q2n / Q2n) * std::sin(2.0 * ndbl * z);
     const cplx term = q2n * f;
     const cplx newsum1 = sum1 + term;
+    //const cplx newsum1 = FMA(q2n, f, sum1);
     if(newsum1 == sum1) {
       nc++;
       if(nc > 1) {
@@ -152,6 +168,7 @@ cplx dlogjtheta1(cplx z, cplx q) {
     }
     sum1 = newsum1;
     Q2n = qsq * Q2n + Q2;
+    // Q2n = FMA(qsq, Q2n, Q2);
   }
   return 4.0 * sum1 + 1.0 / std::tan(z);
 }
