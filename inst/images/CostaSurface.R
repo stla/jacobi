@@ -1,6 +1,7 @@
 library(rgl)
 library(Rvcg)
 library(jacobi)
+library(elliptic)
 
 zetaw_m <- function(z, g) zetaw(z-1, g) + 2*zetaw(1/2, g)
 zetaw_p <- function(z, g) zetaw(z+1, g) - 2*zetaw(1/2, g)
@@ -10,7 +11,7 @@ CostaMesh <- function(umin = 0.1, umax = 0.9, vmin = 0.1, vmax = 0.9, nu, nv){
   c <- 4*e1^2
   zz1 <- function(u, v){
     w <- u + 1i*v
-    z <- zetaw(w, c(c,0))
+    z <- zetaw(w, omega = c(1/2, 1i/2))
     # if(is.nan(z)) z <- zetaw_m(w, c(c,0))
     # if(is.nan(z)) z <- zetaw_p(w, c(c,0))
     # if(is.nan(z)) z <- Conj(zetaw(Conj(w), c(c,0), fix=TRUE))
@@ -19,7 +20,7 @@ CostaMesh <- function(umin = 0.1, umax = 0.9, vmin = 0.1, vmax = 0.9, nu, nv){
   }
   zz2 <- function(u, v){
     w <- u + 1i*v - 1/2
-    z <- 1i*zetaw(1i*w, c(c,0))
+    z <- 1i*zetaw(1i*w, omega = c(1/2, 1i/2))
     # if(is.nan(z)) z <- zetaw_m(w, c(c,0))
     # if(is.nan(z)) z <- zetaw_p(w, c(c,0))
     # if(is.nan(z)) z <- Conj(zetaw(Conj(w), c(c,0), fix=TRUE))
@@ -29,7 +30,7 @@ CostaMesh <- function(umin = 0.1, umax = 0.9, vmin = 0.1, vmax = 0.9, nu, nv){
   }
   zz3 <- function(u, v){
     w <- u + 1i*v - 1i/2
-    z <- zetaw(w, c(c,0))
+    z <- zetaw(w, omega = c(1/2, 1i/2))
     # if(is.nan(z)) z <- zetaw_m(w, c(c,0))
     # if(is.nan(z)) z <- zetaw_p(w, c(c,0))
     # if(is.nan(z)) z <- Conj(zetaw(Conj(w), c(c,0), fix=TRUE))
@@ -45,7 +46,7 @@ CostaMesh <- function(umin = 0.1, umax = 0.9, vmin = 0.1, vmax = 0.9, nu, nv){
   }
   fz <- function(u,v){
     w <- u + 1i*v
-    p <- wp(w, c(c,0))
+    p <- wp(w, omega = c(1/2, 1i/2))
     sqrt(pi/2)*log(Mod((p-e1)/(p+e1)))/2
   }
   #
@@ -61,6 +62,9 @@ CostaMesh <- function(umin = 0.1, umax = 0.9, vmin = 0.1, vmax = 0.9, nu, nv){
       z1 <- zz1(u_[i], v_[j])
       z2 <- zz2(u_[i], v_[j])
       z3 <- zz3(u_[i], v_[j])
+      cat("u: ", sprintf("%.16f", u_[i]))
+      cat(" u == 1", u_[i] == 1, "\n")
+      cat(" --- v: ", v_[j], "\n")
       vsarray[, j, i] <- 
         c(fx(u_[i], z1, z2, z3), fy(v_[j], z1, z2, z3), fz(u_[i], v_[j]))
       if(any(is.nan(vsarray[, j, i]))) vsarray[, j, i] <- c(Inf,Inf,Inf)

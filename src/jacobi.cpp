@@ -10,11 +10,12 @@ T machinePrecision() {
   return epsilon;
 }
 
-const double Epsilon = 2.0 * machinePrecision<double>();
+const double Epsilon = 2 * machinePrecision<double>();
 
 bool close(cplx z1, cplx z2) {
   const cplx zero(0.0, 0.0);
-  const double norm = (z2 == zero) ? 1.0 : std::max(std::abs(z1), std::abs(z2));
+  const double mod_z2 = std::abs(z2);
+  const double norm = (mod_z2 < Epsilon) ? 1.0 : std::max(std::abs(z1), mod_z2);
   return std::abs(z1 - z2) < Epsilon * norm;
 }
 
@@ -45,7 +46,7 @@ cplx theta1dash(cplx z, cplx q) {
   for(int n = 0; n < 1000; n++) {
     alt = -alt;
     double k = (double)(2 * n + 1);
-    cplx outnew = out + alt + power(q, n * (n + 1)) * k * std::cos(k * z);
+    cplx outnew = out + alt * power(q, n * (n + 1)) * k * std::cos(k * z);
     if(close(out, outnew)) {
       return 2.0 * std::pow(q, 0.25) * out;
     }
@@ -129,7 +130,7 @@ cplx dologtheta3(cplx z, cplx tau, unsigned pass_in) {
           dologtheta3(-z * tauprime, tauprime, passes) -
           std::log(std::sqrt(-_i_ * tau2));
   } else {
-    out = argtheta3(z, tau2, 0);
+    out = argtheta3(z, tau2, passes);
   }
   return out;
 }
