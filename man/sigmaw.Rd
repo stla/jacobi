@@ -4,18 +4,19 @@
 \alias{sigmaw}
 \title{Weierstrass sigma function}
 \usage{
-sigmaw(z, g = NULL, omega = NULL)
+sigmaw(z, g = NULL, omega = NULL, tau = NULL)
 }
 \arguments{
-\item{z}{complex number}
+\item{z}{a complex number}
 
-\item{g}{the elliptic invariants, a vector of two complex numbers; they are 
-related to the half-periods (\code{omega}) and only one of \code{g} 
-and \code{omega} must be given}
+\item{g}{the elliptic invariants, a vector of two complex numbers; only 
+one of \code{g}, \code{omega} and \code{tau} must be given}
 
-\item{omega}{the half-periods, a vector of two complex numbers; they are 
-related to the elliptic invariants (\code{g}) and only one of \code{g} 
-and \code{omega} must be given}
+\item{omega}{the half-periods, a vector of two complex numbers; only 
+one of \code{g}, \code{omega} and \code{tau} must be given}
+
+\item{tau}{the half-periods ratio; supplying \code{tau} is equivalent to 
+supply \code{omega = c(1/2, tau/2)}}
 }
 \value{
 A complex number.
