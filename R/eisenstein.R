@@ -1,3 +1,11 @@
+#' @importFrom Carlson elliptic_E
+#' @noRd
+E2 <- function(tau){
+  q3 <- jtheta3_cpp(0, tau)^2
+  6/pi * elliptic_E(pi/2, lambda(tau), minerror = 10 * .Machine$double.eps) * 
+    q3 - q3^2 - jtheta4_cpp(0, tau)^4
+}
+
 E4 <- function(tau){
   (jtheta2_cpp(0, tau)^8 + jtheta3_cpp(0, tau)^8 + jtheta4_cpp(0, tau)^8) / 2
 }
