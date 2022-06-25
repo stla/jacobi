@@ -1,3 +1,71 @@
+wp_from_tau <- function(z, tau){ # wp(z, omega1 = 1/2, omega2 = tau/2)
+  j2 <- jtheta2_cpp(0, tau)
+  j3 <- jtheta3_cpp(0, tau)
+  (pi * j2 * j3 * jtheta4_cpp(z, tau) / jtheta1_cpp(z, tau))^2 -
+    pi^2/3 * (j2^4 + j3^4)
+}
+
+wp_from_omega <- function(z, omega){
+  omega1 <- omega[1L]
+  omega2 <- omega[2L]
+  wp_from_tau(z/omega1/2, omega2/omega1) / omega1 / omega1 / 4
+}
+
+wp_from_omega1_and_tau <- function(z, omega1, tau){
+  wp_from_tau(z/omega1/2, tau) / omega1 / omega1 / 4
+}
+
+G4 <- function(tau){
+  pi^4/45 * E4(tau)
+}
+
+halfPeriods <- function(g){
+  g2 <- g[1L]
+  g2cube <- g2*g2*g2
+  g3 <- g[2L]
+  j <- 1728 * g2cube / (g2cube - 27*g3*g3)
+  tau <- kleinjinv(j) 
+  omega1 <- 1i * sqrt(sqrt(15 / 4 / g2 * G4(tau)))
+  c(omega1, tau)
+}
+
+wp_from_g <- function(z, g){
+  om1_tau <- halfPeriods(g)
+  wp_from_omega1_and_tau(om1_tau[1L], om1_tau[2L])
+}
+
+wp <- function(z, g = NULL, omega = NULL, tau = NULL, derivative = 0L){
+  stopifnot(isComplex(z))
+  if(!is.element(derivative, 0L:3L)){
+    stop("`derivative` must be an integer between 0 and 3.") 
+  }
+  if((is.null(g) + is.null(omega) + is.null(tau)) != 1L){
+    stop("You must supply exactly one of `g`, `omega` or `tau`.")
+  }
+  if(!is.null(g)){
+    stopifnot(isComplexPair(g))
+    if(derivative != 1){
+      weier <- wp_from_g(z, g)
+      if(derivative == 0){
+        return(weier)
+      } 
+      if(derivative == 2){
+        return(6*weier*weier - g[1L]/2)
+      }
+      f <- jtheta1prime0(tau = tau)**3 /
+        (jtheta2_cpp(0, tau) * jtheta3_cpp(0, tau) * jtheta4_cpp(0, tau))
+      w1 <- -2 * omega1 / pi
+      z1 <- -z / 2 / omega1
+      weierPrime <- -2*(1/w1)**3 * jtheta2_cpp(z1, tau) * jtheta3_cpp(z1, tau) *
+        jtheta4_cpp(z1, tau) * f / jtheta1_cpp(z1, tau)**3
+      if(derivative == 1){
+        return(weierPrime)
+      } 
+      12 * weier * weierPrime 
+    }
+  }
+}
+
 g_from_omega <- function(w1, w2){
   if(Im(w2)*Re(w1) <= Im(w1)*Re(w2)){
     stop(
@@ -8,7 +76,6 @@ g_from_omega <- function(w1, w2){
   if(Im(tau) <= 0){
     stop("The ratio `omega2/omega1` must have a positive imaginary part.")
   }
-  # q <- exp(1i * pi * ratio)
   j2 <- jtheta2_cpp(0, tau)
   j3 <- jtheta3_cpp(0, tau)
   g2 <- 4/3 * (pi/2/w1)**4 * (j2**8 - (j2*j3)**4 + j3**8) 
@@ -101,7 +168,7 @@ wp <- function(z, g = NULL, omega = NULL, derivative = 0L){
   if(Im(tau) <= 0){
     stop("Invalid values of the parameters.")
   }
-  z1 <- z/w1/pi
+  z1 <- z/w1/pi #  w1 = -omega1/pi*2
   if(derivative != 1){
     pw0 <- e3 + 
       (jtheta2_cpp(0, tau) * jtheta3_cpp(0, tau) * jtheta4_cpp(z1, tau) /

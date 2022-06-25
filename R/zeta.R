@@ -80,6 +80,6 @@ zetaw <- function(z, g = NULL, omega = NULL, fix = FALSE){
       out <- zetaw(z+1, g = g, fix = FALSE) - 2*zetaw(1/2, g)
     }
   }
-  # attr(out, "info") <- c(tau = tau, eta1 = eta1, p = p, w1 = w1, w3 = w3)
+  attr(out, "info") <- c(tau = tau, eta1 = eta1, p = p, w1 = w1, w3 = w3)
   out
 }

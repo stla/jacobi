@@ -1,14 +1,16 @@
-#' @title Klein j-function
-#' @description Evaluation of the Klein j-invariant function.
+#' @title Klein j-function and its inverse
+#' @description Evaluation of the Klein j-invariant function and its inverse.
 #'
 #' @param tau a complex number with strictly positive imaginary part
+#' @param j a complex number
 #'
 #' @return A complex number.
 #' @export
 #'
 #' @examples
-#' kleinj(2i)
+#' ( j <- kleinj(2i) )
 #' 66^3
+#' kleinjinv(j)
 kleinj <- function(tau){
   stopifnot(isComplex(tau))
   if(Im(tau) <= 0){
@@ -22,4 +24,13 @@ kleinj <- function(tau){
   ) + j3**12)
   g2cube <- g2*g2*g2
   1728 * g2cube / (g2cube - 27*g3*g3)
+}
+
+#' @rdname kleinj
+#' @export
+kleinjinv <- function(j){
+  stopifnot(isComplex(j))
+  x <- polyroot(c(256, -768, 768-j, -256))[1L]
+  lbd <- polyroot(c(-x, 1, -1))[1L]
+  1i * agm(1, sqrt(1-lbd)) / agm(1, sqrt(lbd))
 }
