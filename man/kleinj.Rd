@@ -2,20 +2,26 @@
 % Please edit documentation in R/klein-j.R
 \name{kleinj}
 \alias{kleinj}
-\title{Klein j-function}
+\alias{kleinjinv}
+\title{Klein j-function and its inverse}
 \usage{
 kleinj(tau)
+
+kleinjinv(j)
 }
 \arguments{
 \item{tau}{a complex number with strictly positive imaginary part}
+
+\item{j}{a complex number}
 }
 \value{
 A complex number.
 }
 \description{
-Evaluation of the Klein j-invariant function.
+Evaluation of the Klein j-invariant function and its inverse.
 }
 \examples{
-kleinj(2i)
+( j <- kleinj(2i) )
 66^3
+kleinjinv(j)
 }
