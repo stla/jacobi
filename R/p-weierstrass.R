@@ -29,7 +29,7 @@ halfPeriods <- function(g){
 
 wp_from_g <- function(z, g){
   om1_tau <- halfPeriods(g)
-  wp_from_omega1_and_tau(om1_tau[1L], om1_tau[2L])
+  wp_from_omega1_and_tau(z, om1_tau[1L], om1_tau[2L])
 }
 
 g2_from_omega1_and_tau <- function(omega1, tau){
@@ -81,7 +81,7 @@ wp <- function(z, g = NULL, omega = NULL, tau = NULL, derivative = 0L){
   if(!is.element(derivative, 0L:3L)){
     stop("`derivative` must be an integer between 0 and 3.") 
   }
-  if((is.null(g) + is.null(omega) + is.null(tau)) != 1L){
+  if((is.null(g) + is.null(omega) + is.null(tau)) != 2L){
     stop("You must supply exactly one of `g`, `omega` or `tau`.")
   }
   if(!is.null(g)){
@@ -102,7 +102,7 @@ wp <- function(z, g = NULL, omega = NULL, tau = NULL, derivative = 0L){
     if(derivative == 1){
       return(weierPrime)
     } 
-    12 * weier * weierPrime # derivative = 3
+    return(12 * weier * weierPrime) # derivative = 3
   }
   if(!is.null(tau)){
     stopifnot(isComplex(tau))
