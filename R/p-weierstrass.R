@@ -116,7 +116,7 @@ wp <- function(z, g = NULL, omega = NULL, tau = NULL, derivative = 0L){
     if(derivative != 1){
       weier <- wp_from_tau(z, tau)
     }
-  }else{
+  }else{ # omega is given
     stopifnot(isComplexPair(omega))
     omega1 <- omega[1L]
     tau <- omega[2L]/omega1
