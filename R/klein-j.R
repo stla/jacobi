@@ -30,7 +30,11 @@ kleinj <- function(tau){
 #' @export
 kleinjinv <- function(j){
   stopifnot(isComplex(j))
-  x <- polyroot(c(256, -768, 768-j, -256))[1L]
+  if(is.infinite(j)){
+    x <- 0
+  }else{
+    x <- polyroot(c(256, -768, 768-j, -256))[1L]
+  }
   lbd <- polyroot(c(-x, 1, -1))[1L]
   1i * agm(1, sqrt(1-lbd)) / agm(1, sqrt(lbd))
 }
