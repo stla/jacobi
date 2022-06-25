@@ -20,7 +20,8 @@ Imports:
     Carlson,
     Rcpp (>= 1.0.8)
 Suggests: 
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    elliptic
 LinkingTo: 
     Rcpp
 Config/testthat/edition: 3

@@ -140,25 +140,6 @@ wp <- function(z, g = NULL, omega = NULL, tau = NULL, derivative = 0L){
   12 * weier * weierPrime # derivative = 3
 }
 
-# g_from_omega <- function(w1, w2){
-#   if(Im(w2)*Re(w1) <= Im(w1)*Re(w2)){
-#     stop(
-#       "Invalid `omega` values. Do you want to exchange `omega1` and `omega2`?"
-#     )
-#   }
-#   tau <- w2 / w1
-#   if(Im(tau) <= 0){
-#     stop("The ratio `omega2/omega1` must have a positive imaginary part.")
-#   }
-#   j2 <- jtheta2_cpp(0, tau)
-#   j3 <- jtheta3_cpp(0, tau)
-#   g2 <- 4/3 * (pi/2/w1)**4 * (j2**8 - (j2*j3)**4 + j3**8) 
-#   g3 <- 8/27 * (pi/2/w1)**6 * (j2**12 - (
-#     (3/2 * j2**8 * j3**4) + (3/2 * j2**4 * j3**8) 
-#   ) + j3**12)
-#   c(g2, g3)
-# }
-
 # wp <- function(z, g = NULL, omega = NULL, derivative = 0L){
 #   stopifnot(isComplex(z))
 #   if(!is.element(derivative, 0L:3L)){
