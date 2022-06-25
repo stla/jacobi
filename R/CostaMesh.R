@@ -1,7 +1,24 @@
-library(rgl)
-library(jacobi)
-library(Rvcg)
-
+#' @title Costa surface
+#' @description Computes a mesh of the Costa surface.
+#'
+#' @param nu,nv numbers of subdivisions 
+#'
+#' @return A triangle \strong{rgl} mesh (object of class \code{mesh3d}).
+#' @export
+#' 
+#' @importFrom rgl tmesh3d clipMesh3d
+#' @importFrom Rvcg vcgClean
+#'
+#' @examples
+#' library(jacobi)
+#' library(rgl)
+#' \donttest{
+#' mesh <- CostaMesh(nu = 150, nv = 150) # (a bit slow)
+#' open3d(windowRect = c(50, 50, 562, 562), zoom = 0.9)
+#' bg3d("#15191E")
+#' shade3d(mesh, color = "darkred", back = "cull")
+#' shade3d(mesh, color = "orange", front = "cull")
+#' }
 CostaMesh <- function(nu = 50L, nv = 50L){ 
   e1 <- Re(wp(1/2, omega = c(1/2, 1i/2)))
   c <- 4*e1^2
@@ -72,43 +89,4 @@ CostaMesh <- function(nu = 50L, nv = 50L){
   )
   vcgClean(mesh, sel = 6, tol = 0.001)
 }
-
-
-mesh <- CostaMesh(nu = 150, nv = 150) # (a bit slow)
-open3d(windowRect = c(50, 50, 562, 562), zoom = 0.9)
-bg3d("#15191E")
-shade3d(mesh, color = "darkred", back = "cull")
-shade3d(mesh, color = "orange", front = "cull")
-
-
-# # -- if you want an animation 
-M <- par3d("userMatrix")
-movie3d(
-  par3dinterp(
-    time = seq(0, 1, len = 9),
-    userMatrix = list(
-      M,
-      rotate3d(M, pi, 1, 0, 0),
-      rotate3d(M, pi, 1, 1, 0),
-      rotate3d(M, pi, 1, 1, 1),
-      rotate3d(M, pi, 0, 1, 1),
-      rotate3d(M, pi, 0, 1, 0),
-      rotate3d(M, pi, 1, 0, 1),
-      rotate3d(M, pi, 0, 0, 1),
-      M
-    )
-  ),
-  fps = 120,
-  duration = 1,
-  dir = ".",
-  movie = "zzpic",
-  convert = FALSE,
-  webshot = FALSE
-)
-
-command <- "gifski --fps=10 --frames=zzpic*.png -o Costa_full.gif"
-system(command)
-
-pngfiles <- list.files(pattern = "^zzpic?.*png$")
-file.remove(pngfiles)
 
