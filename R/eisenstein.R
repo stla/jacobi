@@ -16,7 +16,7 @@ E6 <- function(tau){
 #'
 #' @return A complex number, the value of the Eisenstein series.
 #' @export
-En <- function(n, q){
+EisensteinE <- function(n, q){
   stopifnot(n %in% c(2, 4, 6))
   stopifnot(isComplex(q))
   if(Mod(q) >= 1){
