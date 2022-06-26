@@ -12,6 +12,8 @@ Jacobi theta functions and related functions.
 
 ![](https://raw.githubusercontent.com/stla/jacobi/main/inst/images/Eisenstein6.png)
 
+![](https://raw.githubusercontent.com/stla/jacobi/main/inst/images/sigma.png)
+
 ![](https://raw.githubusercontent.com/stla/jacobi/main/inst/images/Costa_full.gif)
 
 ![](https://raw.githubusercontent.com/stla/jacobi/main/inst/images/Costa2.gif)
