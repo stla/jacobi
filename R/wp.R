@@ -2,7 +2,7 @@ wp_from_tau <- function(z, tau){ # wp(z, omega1 = 1/2, omega2 = tau/2)
   j2 <- jtheta2_cpp(0, tau)
   j3 <- jtheta3_cpp(0, tau)
   (pi * j2 * j3 * jtheta4_cpp(z, tau) / jtheta1_cpp(z, tau))^2 -
-    pi^2/3 * (j2^4 + j3^4)
+    pi^2 * (j2^4 + j3^4) / 3
 }
 
 wp_from_omega <- function(z, omega1, omega2){

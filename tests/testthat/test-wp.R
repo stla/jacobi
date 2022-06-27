@@ -15,7 +15,21 @@ test_that("Differential equation.", {
   g <- c(g2, g3)
   pw <- wp(z, g)
   pwprimesquared <- wp(z, g, derivative = 1)^2
-  expect_equal(pwprimesquared, 4*pw**3 - g2*pw - g3)
+  expect_equal(
+    pwprimesquared, 
+    4*pw**3 - g2*pw - g3
+  )
 })
 
-
+test_that("wpprime value.", {
+  z <- 0.1 + 0.1i
+  g2 <- 2 + 1i
+  g3 <- 2 - 1i
+  g <- c(g2, g3)
+  wpprime <- wp(z, g, derivative = 1)
+  expect_equal(
+    wpprime,
+    500.009714501399 + 500.03085572727i,
+    tolerance = 1e-4
+  )
+})
