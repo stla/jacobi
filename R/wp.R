@@ -19,12 +19,13 @@ wp_from_g <- function(z, g){
 }
 
 weierDerivative <- function(z, omega1, tau){
-  f <- jtheta1prime0(tau = tau)**3 /
-    (jtheta2_cpp(0, tau) * jtheta3_cpp(0, tau) * jtheta4_cpp(0, tau))
   w1 <- 2 * omega1 / pi
   z1 <- -z / 2 / omega1
-  2*(1/w1)**3 * jtheta2_cpp(z1, tau) * jtheta3_cpp(z1, tau) *
-    jtheta4_cpp(z1, tau) * f / jtheta1_cpp(z1, tau)**3
+  f <- jtheta1prime0(tau = tau)**3 /
+    (jtheta2_cpp(0, tau) * jtheta3_cpp(0, tau) * 
+       jtheta4_cpp(0, tau) * jtheta1_cpp(z1, tau)**3)
+  2/(w1*w1*w1) * jtheta2_cpp(z1, tau) * jtheta3_cpp(z1, tau) *
+    jtheta4_cpp(z1, tau) * f
 }
 
 #' @title Weierstrass elliptic function

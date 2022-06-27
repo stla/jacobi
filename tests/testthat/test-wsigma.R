@@ -5,6 +5,6 @@ test_that("wsigma values", {
   )
   expect_equal(
     wsigma(2, g = c(1, 2i)), 
-    1.864625371572 - 0.306600135476i
+    1.8646253716-0.3066001355i
   )
 })

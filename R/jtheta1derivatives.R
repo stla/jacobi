@@ -1,6 +1,6 @@
 jtheta1prime0 <- function(tau = NULL, q = NULL){
   tau <- check_and_get_tau(tau, q)
-  jtheta2_cpp(0, tau) * jtheta3_cpp(0, tau) * jtheta4_cpp(0, tau)
+  exp(ljtheta2_cpp(0, tau) + ljtheta3_cpp(0, tau) + ljtheta4_cpp(0, tau))
 }
 
 jtheta1primeprimeprime0 <- function(tau){

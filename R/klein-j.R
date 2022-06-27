@@ -33,8 +33,13 @@ kleinjinv <- function(j){
   if(is.infinite(j)){
     x <- 0
   }else{
-    x <- polyroot(c(256, -768, 768-j, -256))[1L]
+    # x <- polyroot(c(1, -3, 3-j/256, -1))[1L]
+    t <- -j*j*j + 2304 * j*j + 12288 * 
+      sqrt(3 * (1728 * j*j - j*j*j)) - 884736 * j
+    u <- t^(1/3)
+    x <- 1/768 * u - (1536 * j - j*j) / (768 * u) + (1 - j/768)
   }
-  lbd <- polyroot(c(-x, 1, -1))[1L]
+  # lbd <- polyroot(c(-x, 1, -1))[1L]
+  lbd <- -(-1 - sqrt(1-4*x)) / 2
   1i * agm(1, sqrt(1-lbd)) / agm(1, sqrt(lbd))
 }

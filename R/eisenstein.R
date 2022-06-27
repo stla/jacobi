@@ -7,7 +7,9 @@ E2 <- function(tau){
 }
 
 E4 <- function(tau){
-  (jtheta2_cpp(0, tau)^8 + jtheta3_cpp(0, tau)^8 + jtheta4_cpp(0, tau)^8) / 2
+  (exp(8*ljtheta2_cpp(0, tau)) + 
+     exp(8*ljtheta3_cpp(0, tau)) + 
+     exp(8*ljtheta4_cpp(0, tau))) / 2
 }
 
 E6 <- function(tau){
