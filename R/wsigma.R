@@ -1,7 +1,7 @@
-#' @title Weierstrass zeta function
-#' @description Evaluation of the Weierstrass zeta function.
+#' @title Weierstrass sigma function
+#' @description Evaluation of the Weierstrass sigma function.
 #'
-#' @param z complex number
+#' @param z a complex number
 #' @param g the elliptic invariants, a vector of two complex numbers; only 
 #'   one of \code{g}, \code{omega} and \code{tau} must be given
 #' @param omega the half-periods, a vector of two complex numbers; only 
@@ -13,12 +13,10 @@
 #' @export
 #' 
 #' @examples
-#' # Mirror symmetry property:
-#' z <- 1 + 1i
-#' g <- c(1i, 1+2i)
-#' zetaw(Conj(z), Conj(g))
-#' Conj(zetaw(z, g))
-zetaw <- function(z, g = NULL, omega = NULL, tau = NULL){
+#' wsigma(1, g = c(12, -8))
+#' # should be equal to:
+#' sin(1i*sqrt(3))/(1i*sqrt(3)) / sqrt(exp(1))
+wsigma <- function(z, g = NULL, omega = NULL, tau = NULL){
   stopifnot(isComplex(z))
   if((is.null(g) + is.null(omega) + is.null(tau)) != 2L){
     stop("You must supply exactly one of `g`, `omega` or `tau`.")
@@ -28,8 +26,10 @@ zetaw <- function(z, g = NULL, omega = NULL, tau = NULL){
     om1_tau <- halfPeriods(g)
     omega1 <- om1_tau[1L]
     tau <- om1_tau[2L]
-  }
-  if(!is.null(tau)){
+    if(is.infinite(tau)){
+      return(2*omega1/pi * exp(1/6*(pi*z/2/omega1)^2) * sin(pi*z/2/omega1))
+    }
+  }else if(!is.null(tau)){
     stopifnot(isComplex(tau))
     if(Im(tau) <= 0){
       stop("The imaginary part of `tau` must be nonnegative.")
@@ -53,16 +53,8 @@ zetaw <- function(z, g = NULL, omega = NULL, tau = NULL){
   if(g[1L] == 3 && g[2L] == 1){
     return(z/2 + sqrt(3/2)/tan(sqrt(3/2)*z))
   }
-  w1 <- - omega1 / pi
-  q <- exp(1i * pi * tau)
-  p <- 1 / w1 / 2
-  eta1 <- p / 6 / w1 * jtheta1primeprimeprime0(tau) / jtheta1prime0(tau)
-  - eta1 * z + p * dljtheta1(p * z, tau, q)
-  # if(fix && (is.nan(out))){
-  #   out <- zetaw(z-1, g = g, fix = FALSE) + 2*zetaw(1/2, g)
-  #   if(is.nan(out)){
-  #     out <- zetaw(z+1, g = g, fix = FALSE) - 2*zetaw(1/2, g)
-  #   }
-  # }
-  # attr(out, "info") <- c(tau = tau, eta1 = eta1, p = p, w1 = w1, w3 = w3)
+  w1 <- -2 * omega1 / pi
+  f <- jtheta1prime0(tau = tau)
+  h <- -pi/6/w1 * jtheta1primeprimeprime0(tau) / f
+  w1 * exp(h*z*z/w1/pi) * jtheta1_cpp(z/w1/pi, tau) / f
 }
