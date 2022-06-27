@@ -26,6 +26,9 @@ wsigma <- function(z, g = NULL, omega = NULL, tau = NULL){
     om1_tau <- halfPeriods(g)
     omega1 <- om1_tau[1L]
     tau <- om1_tau[2L]
+    if(is.infinite(omega1)){
+      return(z)
+    }
     if(is.infinite(tau)){
       return(2*omega1/pi * exp(1/6*(pi*z/2/omega1)^2) * sin(pi*z/2/omega1))
     }

@@ -21,7 +21,7 @@ colormap1 <- function(z){
     return("#000000")
   }
   rgb(
-    (1.0 - cos(r-0.5))*8.0, 
+    1 - (1.0 - cos(r-0.5))*8.0, 
     (1.0 - cos(g-0.5))*8.0, 
     (1.0 - cos(b-0.5))*8.0,
     maxColorValue = 1
@@ -57,7 +57,7 @@ image <- z
 rasterImage(image, -100, -100, 100, 100)
 par(opar)
 
-svg("zeta.svg")
+svg("wpprime.svg")
 opar <- par(mar = c(0,0,0,0), bg = bkgcol)
 plot(c(-100, 100), c(-100, 100), type = "n", 
      xlab = "", ylab = "", axes = FALSE, asp = 1)
@@ -66,5 +66,7 @@ rasterImage(image, -100, -100, 100, 100)
 par(opar)
 dev.off()
 
-rsvg::rsvg_png("zeta.svg", "zeta.png", width = 512, height = 512)
+rsvg::rsvg_png(
+  "wpprime.svg", "wpprime.png", width = 512, height = 512
+)
 
