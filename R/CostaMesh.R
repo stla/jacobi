@@ -23,15 +23,15 @@ CostaMesh <- function(nu = 50L, nv = 50L){
   e1 <- Re(wp(1/2, omega = c(1/2, 1i/2)))
   c <- 4*e1^2
   zf1 <- function(u, v){
-    zetaw(u + 1i*v, omega = c(1/2, 1i/2))
+    wzeta(u + 1i*v, omega = c(1/2, 1i/2))
   }
   zf2 <- function(u, v){
     z <- -v + 1i*(u - 1/2)
-    1i * zetaw(z, omega = c(1/2, 1i/2))
+    1i * wzeta(z, omega = c(1/2, 1i/2))
   }
   zf3 <- function(u, v){
     z <- u + 1i*(v - 1/2)
-    zetaw(z, omega = c(1/2, 1i/2))
+    wzeta(z, omega = c(1/2, 1i/2))
   }
   wf <- function(u, v){
     pi/2/e1 * (zf2(u, v) - zf3(u, v))
