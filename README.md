@@ -16,6 +16,8 @@ Jacobi theta functions and related functions.
 
 ![](https://raw.githubusercontent.com/stla/jacobi/main/inst/images/zeta.png)
 
+![](https://raw.githubusercontent.com/stla/jacobi/main/inst/images/wpprime.png)
+
 ![](https://raw.githubusercontent.com/stla/jacobi/main/inst/images/Costa_full.gif)
 
 ![](https://raw.githubusercontent.com/stla/jacobi/main/inst/images/Costa2.gif)

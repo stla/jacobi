@@ -42,12 +42,12 @@ colormap2 <- function(z){
 
 f <- Vectorize(function(x, y){
   w <- x + 1i*y
-  z <- wp(w, omega = c(1/2, 1i/2), derivative = 3)
-  colormap2(z)
+  z <- wp(w, omega = c(1/2, 1i/2), derivative = 1)
+  colormap1(z)
 })
 
-x <- seq(-0.5, 0.5, len = 100)
-y <- seq(-0.5, 0.5, len = 100)
+x <- seq(-0.5, 0.5, len = 2000)
+y <- seq(-0.5, 0.5, len = 2000)
 z <- outer(x, y, f)
 
 opar <- par(mar = c(0,0,0,0), bg = bkgcol)
