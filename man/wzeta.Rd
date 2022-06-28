@@ -7,7 +7,7 @@
 wzeta(z, g = NULL, omega = NULL, tau = NULL)
 }
 \arguments{
-\item{z}{complex number}
+\item{z}{complex number, vector or matrix}
 
 \item{g}{the elliptic invariants, a vector of two complex numbers; only 
 one of \code{g}, \code{omega} and \code{tau} must be given}
@@ -19,7 +19,7 @@ one of \code{g}, \code{omega} and \code{tau} must be given}
 supply \code{omega = c(1/2, tau/2)}}
 }
 \value{
-A complex number.
+A complex number, vector or matrix.
 }
 \description{
 Evaluation of the Weierstrass zeta function.

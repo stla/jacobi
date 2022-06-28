@@ -1,7 +1,7 @@
 #' @title Weierstrass sigma function
 #' @description Evaluation of the Weierstrass sigma function.
 #'
-#' @param z a complex number
+#' @param z a complex number, vector or matrix
 #' @param g the elliptic invariants, a vector of two complex numbers; only 
 #'   one of \code{g}, \code{omega} and \code{tau} must be given
 #' @param omega the half-periods, a vector of two complex numbers; only 
@@ -9,7 +9,7 @@
 #' @param tau the half-periods ratio; supplying \code{tau} is equivalent to 
 #'   supply \code{omega = c(1/2, tau/2)}
 #'
-#' @return A complex number.
+#' @return A complex number, vector or matrix.
 #' @export
 #' 
 #' @examples
@@ -17,7 +17,7 @@
 #' # should be equal to:
 #' sin(1i*sqrt(3))/(1i*sqrt(3)) / sqrt(exp(1))
 wsigma <- function(z, g = NULL, omega = NULL, tau = NULL){
-  stopifnot(isComplexNumber(z))
+  stopifnot(isComplex(z))
   if((is.null(g) + is.null(omega) + is.null(tau)) != 2L){
     stop("You must supply exactly one of `g`, `omega` or `tau`.")
   }
@@ -57,7 +57,16 @@ wsigma <- function(z, g = NULL, omega = NULL, tau = NULL){
     return(z/2 + sqrt(3/2)/tan(sqrt(3/2)*z))
   }
   w1 <- -2 * omega1 / pi
+  if(length(z) == 1L){
+    j1 <- jtheta1_cpp(z/w1/pi, tau)
+  }else{
+    if(!is.matrix(z)){
+      j1 <- JTheta1(cbind(z/w1/pi), tau)[, 1L] 
+    }else{
+      j1 <- JTheta1(z/w1/pi, tau)
+    }
+  }
   f <- jtheta1prime0(tau = tau)
   h <- -pi/6/w1 * jtheta1primeprimeprime0(tau) / f
-  w1 * exp(h*z*z/w1/pi) * jtheta1_cpp(z/w1/pi, tau) / f
+  w1 * exp(h*z*z/w1/pi) * j1 / f
 }

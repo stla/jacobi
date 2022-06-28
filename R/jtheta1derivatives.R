@@ -12,7 +12,7 @@ dljtheta1 <- function(z, tau, q){
     return(jtheta1prime0(tau) / jtheta1_cpp(0, tau))
   }
   if(length(z) == 1L){
-    theta1dash(z, q=q) / jtheta1_cpp(z/pi, tau)
+    theta1dash(z, q) / jtheta1_cpp(z/pi, tau)
   }else{
     if(!is.matrix(z)){
       Theta1dash(cbind(z), tau)[, 1L] / JTheta1(cbind(z/pi), tau)[, 1L]

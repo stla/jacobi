@@ -1,7 +1,7 @@
 #' @title Weierstrass zeta function
 #' @description Evaluation of the Weierstrass zeta function.
 #'
-#' @param z complex number
+#' @param z complex number, vector or matrix
 #' @param g the elliptic invariants, a vector of two complex numbers; only 
 #'   one of \code{g}, \code{omega} and \code{tau} must be given
 #' @param omega the half-periods, a vector of two complex numbers; only 
@@ -9,7 +9,7 @@
 #' @param tau the half-periods ratio; supplying \code{tau} is equivalent to 
 #'   supply \code{omega = c(1/2, tau/2)}
 #'
-#' @return A complex number.
+#' @return A complex number, vector or matrix.
 #' @export
 #' 
 #' @examples
@@ -57,7 +57,7 @@ wzeta <- function(z, g = NULL, omega = NULL, tau = NULL){
   q <- exp(1i * pi * tau)
   p <- 1 / w1 / 2
   eta1 <- p / 6 / w1 * jtheta1primeprimeprime0(tau) / jtheta1prime0(tau)
-  - eta1 * z + p * dljtheta1(p * z, tau, q)
+  - eta1 * z + p * dljtheta1(p * z, tau, q = q)
   # if(fix && (is.nan(out))){
   #   out <- zetaw(z-1, g = g, fix = FALSE) + 2*zetaw(1/2, g)
   #   if(is.nan(out)){
