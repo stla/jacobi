@@ -16,7 +16,7 @@ theta.n(z, tau = NULL, m = NULL)
 theta.d(z, tau = NULL, m = NULL)
 }
 \arguments{
-\item{z}{a complex number}
+\item{z}{a complex number, vector, or matrix}
 
 \item{tau}{complex number with strictly positive imaginary part; it is 
 related to \code{m} and only one of them must be supplied}
@@ -25,7 +25,7 @@ related to \code{m} and only one of them must be supplied}
 \code{tau} and only one of them must be supplied}
 }
 \value{
-A complex number.
+A complex number, vector or matrix.
 }
 \description{
 Evaluation of the Neville theta functions.

@@ -10,13 +10,13 @@ isString <- function(x){
 #'   letters respectively denote the basic functions \eqn{sn}, \eqn{cn}, 
 #'   \eqn{dn} and \eqn{1}, and the string specifies the ratio of two such 
 #'   functions, e.g. \eqn{ns = 1/sn} and \eqn{cd = cn/dn}   
-#' @param u a complex number
+#' @param u a complex number, vector or matrix
 #' @param tau complex number with strictly positive imaginary part; it is 
 #'   related to \code{m} and only one of them must be supplied
 #' @param m the "parameter", square of the elliptic modulus; it is related to 
 #'   \code{tau} and only one of them must be supplied
 #'
-#' @return A complex number.
+#' @return A complex number, vector or matrix.
 #' @export
 #' 
 #' @examples 

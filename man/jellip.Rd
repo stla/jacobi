@@ -13,7 +13,7 @@ letters respectively denote the basic functions \eqn{sn}, \eqn{cn},
 \eqn{dn} and \eqn{1}, and the string specifies the ratio of two such 
 functions, e.g. \eqn{ns = 1/sn} and \eqn{cd = cn/dn}}
 
-\item{u}{a complex number}
+\item{u}{a complex number, vector or matrix}
 
 \item{tau}{complex number with strictly positive imaginary part; it is 
 related to \code{m} and only one of them must be supplied}
@@ -22,7 +22,7 @@ related to \code{m} and only one of them must be supplied}
 \code{tau} and only one of them must be supplied}
 }
 \value{
-A complex number.
+A complex number, vector or matrix.
 }
 \description{
 Evaluation of the Jacobi elliptic functions.
