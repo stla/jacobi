@@ -1,6 +1,8 @@
-# jacobi 1.0.0.9001
+# jacobi 1.0.0.9002
 
-- Zeta Weierstrass function.
+- Weierstrass sigma function.
+
+- Weierstrass zeta function.
 
 - Costa surface.
 

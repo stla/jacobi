@@ -1,7 +1,7 @@
 Type: Package
 Package: jacobi
 Title: Jacobi Theta Functions and Related Functions
-Version: 1.0.0.9001
+Version: 1.0.0.9002
 Authors@R: c(
     person("Stéphane", "Laurent", , "laurent_step@outlook.fr", role = c("aut", "cre")),
     person("Mikael", "Fremling", role = "aut",
