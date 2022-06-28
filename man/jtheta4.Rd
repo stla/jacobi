@@ -10,7 +10,7 @@ jtheta4(z, tau = NULL, q = NULL)
 ljtheta4(z, tau = NULL, q = NULL)
 }
 \arguments{
-\item{z}{complex number}
+\item{z}{complex number, vector, or matrix}
 
 \item{tau}{lattice parameter, a complex number with strictly positive 
 imaginary part; the two complex numbers \code{tau} and \code{q} are 
@@ -21,8 +21,8 @@ supplied}
 and which is not zero nor a negative real number}
 }
 \value{
-A complex number; \code{jtheta4} evaluates the fourth Jacobi theta 
-  function and \code{ljtheta4} evaluates its logarithm.
+A complex number, vector or matrix; \code{jtheta4} evaluates the 
+  fourth Jacobi theta function and \code{ljtheta4} evaluates its logarithm.
 }
 \description{
 Evaluates the fourth Jacobi theta function.

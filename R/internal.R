@@ -6,6 +6,10 @@ isComplexPair <- function(x){
   (is.complex(x) || is.numeric(x)) && length(x) == 2L && !anyNA(x)
 }
 
+isComplex <- function(x){
+  (is.complex(x) || is.numeric(x)) && !anyNA(x)
+}
+
 check_and_get_tau <- function(tau, q){
   if(is.null(tau) && is.null(q)){
     stop("You must supply either `tau` or `q`.")
