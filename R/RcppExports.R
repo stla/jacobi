@@ -49,6 +49,30 @@ JTheta2 <- function(z, daleth) {
     .Call(`_jacobi_JTheta2`, z, daleth)
 }
 
+JTheta3 <- function(z, daleth) {
+    .Call(`_jacobi_JTheta3`, z, daleth)
+}
+
+JTheta4 <- function(z, daleth) {
+    .Call(`_jacobi_JTheta4`, z, daleth)
+}
+
+LJTheta1 <- function(z, daleth) {
+    .Call(`_jacobi_LJTheta1`, z, daleth)
+}
+
+LJTheta2 <- function(z, daleth) {
+    .Call(`_jacobi_LJTheta2`, z, daleth)
+}
+
+LJTheta3 <- function(z, daleth) {
+    .Call(`_jacobi_LJTheta3`, z, daleth)
+}
+
+LJTheta4 <- function(z, daleth) {
+    .Call(`_jacobi_LJTheta4`, z, daleth)
+}
+
 Image_eta <- function(x, gamma, t) {
     .Call(`_jacobi_Image_eta`, x, gamma, t)
 }
