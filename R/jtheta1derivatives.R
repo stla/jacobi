@@ -7,17 +7,18 @@ jtheta1primeprimeprime0 <- function(tau){
   -2 * eta(tau)^3 * E2(tau)
 }
 
-dljtheta1 <- function(z, tau, q){
-  if(z == 0){
-    return(jtheta1prime0(tau) / jtheta1_cpp(0, tau))
-  }
+dljtheta1 <- function(z, tau){
+  # out <- z
+  # if(z == 0){
+  #   return(jtheta1prime0(tau) / jtheta1_cpp(0, tau))
+  # }
   if(length(z) == 1L){
-    theta1dash(z, q) / jtheta1_cpp(z/pi, tau)
+    theta1dash(z, tau) / jtheta1_cpp(z/pi, tau)
   }else{
     if(!is.matrix(z)){
-      Theta1dash(cbind(z), tau)[, 1L] / JTheta1(cbind(z/pi), tau)[, 1L]
+      dLTheta1(cbind(z), tau)[, 1L]
     }else{
-      Theta1dash(z, tau) / JTheta1(z/pi, tau)
+      dLTheta1(z, tau)
     }
   }
   # out <- dlogjtheta1(z, q)

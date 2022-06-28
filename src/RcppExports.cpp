@@ -12,14 +12,14 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // theta1dash
-cplx theta1dash(cplx z, cplx q);
-RcppExport SEXP _jacobi_theta1dash(SEXP zSEXP, SEXP qSEXP) {
+cplx theta1dash(cplx z, cplx tau);
+RcppExport SEXP _jacobi_theta1dash(SEXP zSEXP, SEXP tauSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< cplx >::type z(zSEXP);
-    Rcpp::traits::input_parameter< cplx >::type q(qSEXP);
-    rcpp_result_gen = Rcpp::wrap(theta1dash(z, q));
+    Rcpp::traits::input_parameter< cplx >::type tau(tauSEXP);
+    rcpp_result_gen = Rcpp::wrap(theta1dash(z, tau));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -227,15 +227,15 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// Theta1dash
-Rcpp::ComplexMatrix Theta1dash(Rcpp::ComplexMatrix z0, Rcomplex fei);
-RcppExport SEXP _jacobi_Theta1dash(SEXP z0SEXP, SEXP feiSEXP) {
+// dLTheta1
+Rcpp::ComplexMatrix dLTheta1(Rcpp::ComplexMatrix z0, Rcomplex dalet);
+RcppExport SEXP _jacobi_dLTheta1(SEXP z0SEXP, SEXP daletSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::ComplexMatrix >::type z0(z0SEXP);
-    Rcpp::traits::input_parameter< Rcomplex >::type fei(feiSEXP);
-    rcpp_result_gen = Rcpp::wrap(Theta1dash(z0, fei));
+    Rcpp::traits::input_parameter< Rcomplex >::type dalet(daletSEXP);
+    rcpp_result_gen = Rcpp::wrap(dLTheta1(z0, dalet));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -311,7 +311,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_jacobi_LJTheta2", (DL_FUNC) &_jacobi_LJTheta2, 2},
     {"_jacobi_LJTheta3", (DL_FUNC) &_jacobi_LJTheta3, 2},
     {"_jacobi_LJTheta4", (DL_FUNC) &_jacobi_LJTheta4, 2},
-    {"_jacobi_Theta1dash", (DL_FUNC) &_jacobi_Theta1dash, 2},
+    {"_jacobi_dLTheta1", (DL_FUNC) &_jacobi_dLTheta1, 2},
     {"_jacobi_Image_eta", (DL_FUNC) &_jacobi_Image_eta, 3},
     {"_jacobi_Image_E4", (DL_FUNC) &_jacobi_Image_E4, 3},
     {"_jacobi_Image_E6", (DL_FUNC) &_jacobi_Image_E6, 3},

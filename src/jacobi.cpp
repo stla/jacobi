@@ -37,9 +37,11 @@ cplx power(cplx z, int p) {
   }
 }
 
+const cplx _i_(0.0, 1.0);
 
 // [[Rcpp::export]]
-cplx theta1dash(cplx z, cplx q) {
+cplx theta1dash(cplx z, cplx tau) {
+  cplx q = std::exp(_i_ * M_PI * tau);
   cplx out(0.0, 0.0);
   cplx alt(-1.0, 0.0);
   for(int n = 0; n < 1000; n++) {
@@ -58,8 +60,6 @@ double modulo(double a, double p) {
   double i = a > 0 ? std::floor(a / p) : std::ceil(a / p);
   return a - i * p;
 }
-
-const cplx _i_(0.0, 1.0);
 
 cplx calctheta3(cplx z, cplx tau) {
   cplx out(1.0, 0.0);
@@ -369,17 +369,29 @@ Rcpp::ComplexMatrix LJTheta4(Rcpp::ComplexMatrix z0, Rcomplex dalet) {
 }
 
 // [[Rcpp::export]]
-Rcpp::ComplexMatrix Theta1dash(Rcpp::ComplexMatrix z0, Rcomplex fei) {
+Rcpp::ComplexMatrix dLTheta1(Rcpp::ComplexMatrix z0, Rcomplex dalet) {
   Rcpp::ComplexMatrix z = Rcpp::clone(z0);
-  cplx q = fromCplx(fei);
+  cplx tau = fromCplx(dalet);
   int m = z.nrow();
   int n = z.ncol();
   for(int j = 0; j < n; j++) {
-    Rcpp::ComplexVector zj(m);
+    Rcpp::ComplexVector zj = z(Rcpp::_, j);
+    Rcpp::ComplexVector zoutj(m);
     for(int i = 0; i < m; i++) {
-      zj(i) = toCplx(theta1dash(fromCplx(z(i,j)), q));
+      cplx zij = fromCplx(zj(i));
+      if(zij == 0.0) {
+        cplx jp0 = std::exp(
+          ljtheta2_cpp(0.0, tau) + ljtheta3_cpp(0.0, tau) + 
+            ljtheta4_cpp(0.0, tau)
+        );
+        cplx j1 = jtheta1_cpp(0.0, tau);
+        zoutj(i) = toCplx(jp0 / j1);
+      } else {
+        zoutj(i) = 
+          toCplx(theta1dash(zij, tau) / jtheta1_cpp(zij/M_PI, tau));
+      }
     }
-    z(Rcpp::_, j) = zj;
+    z(Rcpp::_, j) = zoutj;
   }
   return z;
 }

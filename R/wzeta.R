@@ -19,7 +19,7 @@
 #' wzeta(Conj(z), Conj(g))
 #' Conj(wzeta(z, g))
 wzeta <- function(z, g = NULL, omega = NULL, tau = NULL){
-  stopifnot(isComplexNumber(z))
+  stopifnot(isComplex(z))
   if((is.null(g) + is.null(omega) + is.null(tau)) != 2L){
     stop("You must supply exactly one of `g`, `omega` or `tau`.")
   }
@@ -54,10 +54,10 @@ wzeta <- function(z, g = NULL, omega = NULL, tau = NULL){
     return(z/2 + sqrt(3/2)/tan(sqrt(3/2)*z))
   }
   w1 <- - omega1 / pi
-  q <- exp(1i * pi * tau)
+  # q <- exp(1i * pi * tau)
   p <- 1 / w1 / 2
   eta1 <- p / 6 / w1 * jtheta1primeprimeprime0(tau) / jtheta1prime0(tau)
-  - eta1 * z + p * dljtheta1(p * z, tau, q = q)
+  - eta1 * z + p * dljtheta1(p * z, tau)
   # if(fix && (is.nan(out))){
   #   out <- zetaw(z-1, g = g, fix = FALSE) + 2*zetaw(1/2, g)
   #   if(is.nan(out)){

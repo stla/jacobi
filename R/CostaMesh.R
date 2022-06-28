@@ -13,7 +13,7 @@
 #' library(jacobi)
 #' library(rgl)
 #' \donttest{
-#' mesh <- CostaMesh(nu = 150, nv = 150) # (a bit slow)
+#' mesh <- CostaMesh(nu = 250, nv = 250)
 #' open3d(windowRect = c(50, 50, 562, 562), zoom = 0.9)
 #' bg3d("#15191E")
 #' shade3d(mesh, color = "darkred", back = "cull")
@@ -54,16 +54,12 @@ CostaMesh <- function(nu = 50L, nv = 50L){
   v_ <- seq(0, 1, length.out = nv)
   vsarray <- array(NA_real_, dim = c(3L, nv, nu))
   for(j in 1L:nv){
-    for(i in 1L:nu){
-      z1 <- zf1(u_[i], v_[j])
-      w  <- wf(u_[i], v_[j])
-      z <- c(fx(u_[i], z1, w), fy(v_[j], z1, w), fz(u_[i], v_[j]))
-      if(any(is.nan(z))){
-        vsarray[, j, i] <- c(Inf, Inf, Inf)
-      }else{
-        vsarray[, j, i] <- z
-      }
-    }
+    v <- v_[j]
+    z1 <- zf1(u_, v)
+    w  <- wf(u_, v)
+    z <- rbind(fx(u_, z1, w), fy(v, z1, w), fz(u_, v))
+    z[is.nan(z)] <- Inf
+    vsarray[, j, ] <- z
   }
   vs <- matrix(vsarray, nrow = 3L, ncol = nu*nv)
   # triangles
@@ -89,4 +85,3 @@ CostaMesh <- function(nu = 50L, nv = 50L){
   )
   vcgClean(mesh, sel = 6, tol = 0.001)
 }
-

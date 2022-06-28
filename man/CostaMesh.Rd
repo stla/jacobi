@@ -19,7 +19,7 @@ Computes a mesh of the Costa surface.
 library(jacobi)
 library(rgl)
 \donttest{
-mesh <- CostaMesh(nu = 150, nv = 150) # (a bit slow)
+mesh <- CostaMesh(nu = 250, nv = 250)
 open3d(windowRect = c(50, 50, 562, 562), zoom = 0.9)
 bg3d("#15191E")
 shade3d(mesh, color = "darkred", back = "cull")
