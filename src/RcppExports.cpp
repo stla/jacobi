@@ -131,6 +131,30 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// JTheta1
+Rcpp::ComplexMatrix JTheta1(Rcpp::ComplexMatrix z, Rcomplex daleth);
+RcppExport SEXP _jacobi_JTheta1(SEXP zSEXP, SEXP dalethSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::ComplexMatrix >::type z(zSEXP);
+    Rcpp::traits::input_parameter< Rcomplex >::type daleth(dalethSEXP);
+    rcpp_result_gen = Rcpp::wrap(JTheta1(z, daleth));
+    return rcpp_result_gen;
+END_RCPP
+}
+// JTheta2
+Rcpp::ComplexMatrix JTheta2(Rcpp::ComplexMatrix z, Rcomplex daleth);
+RcppExport SEXP _jacobi_JTheta2(SEXP zSEXP, SEXP dalethSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::ComplexMatrix >::type z(zSEXP);
+    Rcpp::traits::input_parameter< Rcomplex >::type daleth(dalethSEXP);
+    rcpp_result_gen = Rcpp::wrap(JTheta2(z, daleth));
+    return rcpp_result_gen;
+END_RCPP
+}
 // Image_eta
 Rcpp::CharacterMatrix Image_eta(Rcpp::NumericVector x, cplx gamma, double t);
 RcppExport SEXP _jacobi_Image_eta(SEXP xSEXP, SEXP gammaSEXP, SEXP tSEXP) {
@@ -195,6 +219,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_jacobi_ljtheta4_cpp", (DL_FUNC) &_jacobi_ljtheta4_cpp, 2},
     {"_jacobi_jtheta4_cpp", (DL_FUNC) &_jacobi_jtheta4_cpp, 2},
     {"_jacobi_dlogjtheta1", (DL_FUNC) &_jacobi_dlogjtheta1, 2},
+    {"_jacobi_JTheta1", (DL_FUNC) &_jacobi_JTheta1, 2},
+    {"_jacobi_JTheta2", (DL_FUNC) &_jacobi_JTheta2, 2},
     {"_jacobi_Image_eta", (DL_FUNC) &_jacobi_Image_eta, 3},
     {"_jacobi_Image_E4", (DL_FUNC) &_jacobi_Image_E4, 3},
     {"_jacobi_Image_E6", (DL_FUNC) &_jacobi_Image_E6, 3},

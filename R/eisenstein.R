@@ -28,7 +28,7 @@ E6 <- function(tau){
 #' @export
 EisensteinE <- function(n, q){
   stopifnot(n %in% c(2, 4, 6))
-  stopifnot(isComplex(q))
+  stopifnot(isComplexNumber(q))
   if(Mod(q) >= 1){
     stop("The modulus of `q` must be strictly less than one.")
   }

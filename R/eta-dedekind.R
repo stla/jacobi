@@ -10,7 +10,7 @@
 #' eta(2i)
 #' gamma(1/4) / 2^(11/8) / pi^(3/4)
 eta <- function(tau){
-  stopifnot(isComplex(tau))
+  stopifnot(isComplexNumber(tau))
   if(Im(tau) <= 0){
     stop("The complex number `tau` must have a positive imaginary part.")
   }

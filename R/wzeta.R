@@ -19,7 +19,7 @@
 #' wzeta(Conj(z), Conj(g))
 #' Conj(wzeta(z, g))
 wzeta <- function(z, g = NULL, omega = NULL, tau = NULL){
-  stopifnot(isComplex(z))
+  stopifnot(isComplexNumber(z))
   if((is.null(g) + is.null(omega) + is.null(tau)) != 2L){
     stop("You must supply exactly one of `g`, `omega` or `tau`.")
   }
@@ -30,7 +30,7 @@ wzeta <- function(z, g = NULL, omega = NULL, tau = NULL){
     tau <- om1_tau[2L]
   }
   if(!is.null(tau)){
-    stopifnot(isComplex(tau))
+    stopifnot(isComplexNumber(tau))
     if(Im(tau) <= 0){
       stop("The imaginary part of `tau` must be nonnegative.")
     }

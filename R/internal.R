@@ -1,4 +1,4 @@
-isComplex <- function(z){
+isComplexNumber <- function(z){
   (is.complex(z) || is.numeric(z)) && length(z) == 1L && !is.na(z)
 }
 
@@ -14,13 +14,13 @@ check_and_get_tau <- function(tau, q){
     stop("You must supply either `tau` or `q`, not both.")
   }
   if(!is.null(tau)){
-    stopifnot(isComplex(tau))
+    stopifnot(isComplexNumber(tau))
     if(Im(tau) <= 0){
       stop("The imaginary part of `tau` must be strictly positive.")
     }
   }
   if(!is.null(q)){
-    stopifnot(isComplex(q))
+    stopifnot(isComplexNumber(q))
     if(Mod(q) >= 1){
       stop("The modulus of `q` must be strictly less than one.")
     }
@@ -53,13 +53,13 @@ check_and_get_tau_from_m <- function(tau, m){
     stop("You must supply either `tau` or `m`, not both.")
   }
   if(!is.null(tau)){
-    stopifnot(isComplex(tau))
+    stopifnot(isComplexNumber(tau))
     if(Im(tau) <= 0){
       stop("The imaginary part of `tau` must be strictly positive.")
     }
   }
   if(!is.null(m)){
-    stopifnot(isComplex(m))
+    stopifnot(isComplexNumber(m))
     tau <- tau_from_m(m)
     if(Im(tau) <= 0){
       stop("Invalid value of `m`.")

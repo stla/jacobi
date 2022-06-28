@@ -41,6 +41,14 @@ dlogjtheta1 <- function(z, q) {
     .Call(`_jacobi_dlogjtheta1`, z, q)
 }
 
+JTheta1 <- function(z, daleth) {
+    .Call(`_jacobi_JTheta1`, z, daleth)
+}
+
+JTheta2 <- function(z, daleth) {
+    .Call(`_jacobi_JTheta2`, z, daleth)
+}
+
 Image_eta <- function(x, gamma, t) {
     .Call(`_jacobi_Image_eta`, x, gamma, t)
 }

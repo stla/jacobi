@@ -53,7 +53,7 @@ weierDerivative <- function(z, omega1, tau){
 #' e3 <- wp(-omega1-omega2, omega = omega)
 #' e1 + e2 + e3 # should be 0
 wp <- function(z, g = NULL, omega = NULL, tau = NULL, derivative = 0L){
-  stopifnot(isComplex(z))
+  stopifnot(isComplexNumber(z))
   if(!is.element(derivative, 0L:3L)){
     stop("`derivative` must be an integer between 0 and 3.") 
   }
@@ -81,7 +81,7 @@ wp <- function(z, g = NULL, omega = NULL, tau = NULL, derivative = 0L){
     return(12 * weier * weierPrime) # derivative = 3
   }
   if(!is.null(tau)){
-    stopifnot(isComplex(tau))
+    stopifnot(isComplexNumber(tau))
     if(Im(tau) <= 0){
       stop("The imaginary part of `tau` must be nonnegative.")
     }
@@ -117,7 +117,7 @@ wp <- function(z, g = NULL, omega = NULL, tau = NULL, derivative = 0L){
 }
 
 # wp <- function(z, g = NULL, omega = NULL, derivative = 0L){
-#   stopifnot(isComplex(z))
+#   stopifnot(isComplexNumber(z))
 #   if(!is.element(derivative, 0L:3L)){
 #     stop("`derivative` must be an integer between 0 and 3.") 
 #   }

@@ -253,6 +253,96 @@ Rcpp::ComplexMatrix JTheta1(Rcpp::ComplexMatrix z, Rcomplex daleth) {
   return z;
 }
 
+// [[Rcpp::export]]
+Rcpp::ComplexMatrix JTheta2(Rcpp::ComplexMatrix z, Rcomplex daleth) {
+  cplx tau = fromCplx(daleth);
+  int m = z.nrow();
+  int n = z.ncol();
+  for(int j = 0; j < n; j++) {
+    for(int i = 0; i < m; i++) {
+      z(i, j) = toCplx(jtheta2_cpp(fromCplx(z(i,j)), tau));
+    }
+  }
+  return z;
+}
+
+// [[Rcpp::export]]
+Rcpp::ComplexMatrix JTheta3(Rcpp::ComplexMatrix z, Rcomplex daleth) {
+  cplx tau = fromCplx(daleth);
+  int m = z.nrow();
+  int n = z.ncol();
+  for(int j = 0; j < n; j++) {
+    for(int i = 0; i < m; i++) {
+      z(i, j) = toCplx(jtheta3_cpp(fromCplx(z(i,j)), tau));
+    }
+  }
+  return z;
+}
+
+// [[Rcpp::export]]
+Rcpp::ComplexMatrix JTheta4(Rcpp::ComplexMatrix z, Rcomplex daleth) {
+  cplx tau = fromCplx(daleth);
+  int m = z.nrow();
+  int n = z.ncol();
+  for(int j = 0; j < n; j++) {
+    for(int i = 0; i < m; i++) {
+      z(i, j) = toCplx(jtheta4_cpp(fromCplx(z(i,j)), tau));
+    }
+  }
+  return z;
+}
+
+// [[Rcpp::export]]
+Rcpp::ComplexMatrix LJTheta1(Rcpp::ComplexMatrix z, Rcomplex daleth) {
+  cplx tau = fromCplx(daleth);
+  int m = z.nrow();
+  int n = z.ncol();
+  for(int j = 0; j < n; j++) {
+    for(int i = 0; i < m; i++) {
+      z(i, j) = toCplx(ljtheta1_cpp(fromCplx(z(i,j)), tau));
+    }
+  }
+  return z;
+}
+
+// [[Rcpp::export]]
+Rcpp::ComplexMatrix LJTheta2(Rcpp::ComplexMatrix z, Rcomplex daleth) {
+  cplx tau = fromCplx(daleth);
+  int m = z.nrow();
+  int n = z.ncol();
+  for(int j = 0; j < n; j++) {
+    for(int i = 0; i < m; i++) {
+      z(i, j) = toCplx(ljtheta2_cpp(fromCplx(z(i,j)), tau));
+    }
+  }
+  return z;
+}
+
+// [[Rcpp::export]]
+Rcpp::ComplexMatrix LJTheta3(Rcpp::ComplexMatrix z, Rcomplex daleth) {
+  cplx tau = fromCplx(daleth);
+  int m = z.nrow();
+  int n = z.ncol();
+  for(int j = 0; j < n; j++) {
+    for(int i = 0; i < m; i++) {
+      z(i, j) = toCplx(ljtheta3_cpp(fromCplx(z(i,j)), tau));
+    }
+  }
+  return z;
+}
+
+// [[Rcpp::export]]
+Rcpp::ComplexMatrix LJTheta4(Rcpp::ComplexMatrix z, Rcomplex daleth) {
+  cplx tau = fromCplx(daleth);
+  int m = z.nrow();
+  int n = z.ncol();
+  for(int j = 0; j < n; j++) {
+    for(int i = 0; i < m; i++) {
+      z(i, j) = toCplx(ljtheta4_cpp(fromCplx(z(i,j)), tau));
+    }
+  }
+  return z;
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 

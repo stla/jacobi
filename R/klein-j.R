@@ -12,7 +12,7 @@
 #' 66^3
 #' kleinjinv(j)
 kleinj <- function(tau){
-  stopifnot(isComplex(tau))
+  stopifnot(isComplexNumber(tau))
   if(Im(tau) <= 0){
     stop("The complex number `tau` must have a positive imaginary part.")
   }
@@ -29,7 +29,7 @@ kleinj <- function(tau){
 #' @rdname kleinj
 #' @export
 kleinjinv <- function(j){
-  stopifnot(isComplex(j))
+  stopifnot(isComplexNumber(j))
   if(is.infinite(j)){
     x <- 0
   }else{

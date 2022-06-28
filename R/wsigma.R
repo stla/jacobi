@@ -17,7 +17,7 @@
 #' # should be equal to:
 #' sin(1i*sqrt(3))/(1i*sqrt(3)) / sqrt(exp(1))
 wsigma <- function(z, g = NULL, omega = NULL, tau = NULL){
-  stopifnot(isComplex(z))
+  stopifnot(isComplexNumber(z))
   if((is.null(g) + is.null(omega) + is.null(tau)) != 2L){
     stop("You must supply exactly one of `g`, `omega` or `tau`.")
   }
@@ -33,7 +33,7 @@ wsigma <- function(z, g = NULL, omega = NULL, tau = NULL){
       return(2*omega1/pi * exp(1/6*(pi*z/2/omega1)^2) * sin(pi*z/2/omega1))
     }
   }else if(!is.null(tau)){
-    stopifnot(isComplex(tau))
+    stopifnot(isComplexNumber(tau))
     if(Im(tau) <= 0){
       stop("The imaginary part of `tau` must be nonnegative.")
     }

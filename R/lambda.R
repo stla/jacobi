@@ -12,7 +12,7 @@
 #' x <- 2
 #' lambda(1i*sqrt(x)) + lambda(1i*sqrt(1/x)) # should be one
 lambda <- function(tau){
-  stopifnot(isComplex(tau))
+  stopifnot(isComplexNumber(tau))
   if(Im(tau) <= 0){
     stop("The complex number `tau` must have a positive imaginary part.")
   }
