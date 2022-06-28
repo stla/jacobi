@@ -44,7 +44,7 @@ cplx theta1dash(cplx z, cplx tau) {
   cplx q = std::exp(_i_ * M_PI * tau);
   cplx out(0.0, 0.0);
   cplx alt(-1.0, 0.0);
-  for(int n = 0; n < 1000; n++) {
+  for(int n = 0; n < 2000; n++) {
     alt = -alt;
     double k = (double)(2 * n + 1);
     cplx outnew = out + alt * power(q, n * (n + 1)) * k * std::cos(k * z);
@@ -53,7 +53,7 @@ cplx theta1dash(cplx z, cplx tau) {
     }
     out = outnew;
   }
-  Rcpp::stop("Reached 1000 iterations (theta1dash).");
+  Rcpp::stop("Reached 2000 iterations (theta1dash).");
 }
 
 double modulo(double a, double p) {
@@ -65,7 +65,7 @@ cplx calctheta3(cplx z, cplx tau) {
   cplx out(1.0, 0.0);
   unsigned n = 0;
 //  bool iterate = true;
-  while(n < 1000) {
+  while(n < 2000) {
     n++;
     double nn = n;
     cplx qweight = std::exp(nn * _i_ * M_PI * (nn * tau + 2.0 * z)) +
@@ -77,13 +77,13 @@ cplx calctheta3(cplx z, cplx tau) {
       return std::log(out);
     }
   }
-  Rcpp::stop("Reached 1000 iterations.");
+  Rcpp::stop("Reached 2000 iterations.");
 }
 
 cplx argtheta3(cplx z, cplx tau, unsigned pass_in) {
   unsigned passes = pass_in + 1;
-  if(passes > 1000) {
-    Rcpp::stop("passes > 1000 (argtheta3)");
+  if(passes > 2000) {
+    Rcpp::stop("passes > 2000 (argtheta3)");
   }
   double z_img = z.imag();
   double h = tau.imag() / 2.0;
@@ -107,8 +107,8 @@ cplx dologtheta4(cplx z, cplx tau, unsigned pass_in) {
 
 cplx dologtheta3(cplx z, cplx tau, unsigned pass_in) {
   unsigned passes = pass_in + 1;
-  if(passes > 1000) {
-    Rcpp::stop("passes > 1000 (dologtheta3)");
+  if(passes > 2000) {
+    Rcpp::stop("passes > 2000 (dologtheta3)");
   }
   cplx tau2;
   double rl = tau.real();
