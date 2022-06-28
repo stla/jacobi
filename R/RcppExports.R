@@ -41,36 +41,40 @@ dlogjtheta1 <- function(z, q) {
     .Call(`_jacobi_dlogjtheta1`, z, q)
 }
 
-JTheta1 <- function(z, daleth) {
-    .Call(`_jacobi_JTheta1`, z, daleth)
+JTheta1 <- function(z, dalet) {
+    .Call(`_jacobi_JTheta1`, z, dalet)
 }
 
-JTheta2 <- function(z, daleth) {
-    .Call(`_jacobi_JTheta2`, z, daleth)
+JTheta2 <- function(z, dalet) {
+    .Call(`_jacobi_JTheta2`, z, dalet)
 }
 
-JTheta3 <- function(z, daleth) {
-    .Call(`_jacobi_JTheta3`, z, daleth)
+JTheta3 <- function(z, dalet) {
+    .Call(`_jacobi_JTheta3`, z, dalet)
 }
 
-JTheta4 <- function(z, daleth) {
-    .Call(`_jacobi_JTheta4`, z, daleth)
+JTheta4 <- function(z, dalet) {
+    .Call(`_jacobi_JTheta4`, z, dalet)
 }
 
-LJTheta1 <- function(z, daleth) {
-    .Call(`_jacobi_LJTheta1`, z, daleth)
+LJTheta1 <- function(z, dalet) {
+    .Call(`_jacobi_LJTheta1`, z, dalet)
 }
 
-LJTheta2 <- function(z, daleth) {
-    .Call(`_jacobi_LJTheta2`, z, daleth)
+LJTheta2 <- function(z, dalet) {
+    .Call(`_jacobi_LJTheta2`, z, dalet)
 }
 
-LJTheta3 <- function(z, daleth) {
-    .Call(`_jacobi_LJTheta3`, z, daleth)
+LJTheta3 <- function(z, dalet) {
+    .Call(`_jacobi_LJTheta3`, z, dalet)
 }
 
-LJTheta4 <- function(z, daleth) {
-    .Call(`_jacobi_LJTheta4`, z, daleth)
+LJTheta4 <- function(z, dalet) {
+    .Call(`_jacobi_LJTheta4`, z, dalet)
+}
+
+Theta1dash <- function(z, fei) {
+    .Call(`_jacobi_Theta1dash`, z, fei)
 }
 
 Image_eta <- function(x, gamma, t) {

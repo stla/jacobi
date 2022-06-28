@@ -132,98 +132,110 @@ BEGIN_RCPP
 END_RCPP
 }
 // JTheta1
-Rcpp::ComplexMatrix JTheta1(Rcpp::ComplexMatrix z, Rcomplex daleth);
-RcppExport SEXP _jacobi_JTheta1(SEXP zSEXP, SEXP dalethSEXP) {
+Rcpp::ComplexMatrix JTheta1(Rcpp::ComplexMatrix z, Rcomplex dalet);
+RcppExport SEXP _jacobi_JTheta1(SEXP zSEXP, SEXP daletSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::ComplexMatrix >::type z(zSEXP);
-    Rcpp::traits::input_parameter< Rcomplex >::type daleth(dalethSEXP);
-    rcpp_result_gen = Rcpp::wrap(JTheta1(z, daleth));
+    Rcpp::traits::input_parameter< Rcomplex >::type dalet(daletSEXP);
+    rcpp_result_gen = Rcpp::wrap(JTheta1(z, dalet));
     return rcpp_result_gen;
 END_RCPP
 }
 // JTheta2
-Rcpp::ComplexMatrix JTheta2(Rcpp::ComplexMatrix z, Rcomplex daleth);
-RcppExport SEXP _jacobi_JTheta2(SEXP zSEXP, SEXP dalethSEXP) {
+Rcpp::ComplexMatrix JTheta2(Rcpp::ComplexMatrix z, Rcomplex dalet);
+RcppExport SEXP _jacobi_JTheta2(SEXP zSEXP, SEXP daletSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::ComplexMatrix >::type z(zSEXP);
-    Rcpp::traits::input_parameter< Rcomplex >::type daleth(dalethSEXP);
-    rcpp_result_gen = Rcpp::wrap(JTheta2(z, daleth));
+    Rcpp::traits::input_parameter< Rcomplex >::type dalet(daletSEXP);
+    rcpp_result_gen = Rcpp::wrap(JTheta2(z, dalet));
     return rcpp_result_gen;
 END_RCPP
 }
 // JTheta3
-Rcpp::ComplexMatrix JTheta3(Rcpp::ComplexMatrix z, Rcomplex daleth);
-RcppExport SEXP _jacobi_JTheta3(SEXP zSEXP, SEXP dalethSEXP) {
+Rcpp::ComplexMatrix JTheta3(Rcpp::ComplexMatrix z, Rcomplex dalet);
+RcppExport SEXP _jacobi_JTheta3(SEXP zSEXP, SEXP daletSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::ComplexMatrix >::type z(zSEXP);
-    Rcpp::traits::input_parameter< Rcomplex >::type daleth(dalethSEXP);
-    rcpp_result_gen = Rcpp::wrap(JTheta3(z, daleth));
+    Rcpp::traits::input_parameter< Rcomplex >::type dalet(daletSEXP);
+    rcpp_result_gen = Rcpp::wrap(JTheta3(z, dalet));
     return rcpp_result_gen;
 END_RCPP
 }
 // JTheta4
-Rcpp::ComplexMatrix JTheta4(Rcpp::ComplexMatrix z, Rcomplex daleth);
-RcppExport SEXP _jacobi_JTheta4(SEXP zSEXP, SEXP dalethSEXP) {
+Rcpp::ComplexMatrix JTheta4(Rcpp::ComplexMatrix z, Rcomplex dalet);
+RcppExport SEXP _jacobi_JTheta4(SEXP zSEXP, SEXP daletSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::ComplexMatrix >::type z(zSEXP);
-    Rcpp::traits::input_parameter< Rcomplex >::type daleth(dalethSEXP);
-    rcpp_result_gen = Rcpp::wrap(JTheta4(z, daleth));
+    Rcpp::traits::input_parameter< Rcomplex >::type dalet(daletSEXP);
+    rcpp_result_gen = Rcpp::wrap(JTheta4(z, dalet));
     return rcpp_result_gen;
 END_RCPP
 }
 // LJTheta1
-Rcpp::ComplexMatrix LJTheta1(Rcpp::ComplexMatrix z, Rcomplex daleth);
-RcppExport SEXP _jacobi_LJTheta1(SEXP zSEXP, SEXP dalethSEXP) {
+Rcpp::ComplexMatrix LJTheta1(Rcpp::ComplexMatrix z, Rcomplex dalet);
+RcppExport SEXP _jacobi_LJTheta1(SEXP zSEXP, SEXP daletSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::ComplexMatrix >::type z(zSEXP);
-    Rcpp::traits::input_parameter< Rcomplex >::type daleth(dalethSEXP);
-    rcpp_result_gen = Rcpp::wrap(LJTheta1(z, daleth));
+    Rcpp::traits::input_parameter< Rcomplex >::type dalet(daletSEXP);
+    rcpp_result_gen = Rcpp::wrap(LJTheta1(z, dalet));
     return rcpp_result_gen;
 END_RCPP
 }
 // LJTheta2
-Rcpp::ComplexMatrix LJTheta2(Rcpp::ComplexMatrix z, Rcomplex daleth);
-RcppExport SEXP _jacobi_LJTheta2(SEXP zSEXP, SEXP dalethSEXP) {
+Rcpp::ComplexMatrix LJTheta2(Rcpp::ComplexMatrix z, Rcomplex dalet);
+RcppExport SEXP _jacobi_LJTheta2(SEXP zSEXP, SEXP daletSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::ComplexMatrix >::type z(zSEXP);
-    Rcpp::traits::input_parameter< Rcomplex >::type daleth(dalethSEXP);
-    rcpp_result_gen = Rcpp::wrap(LJTheta2(z, daleth));
+    Rcpp::traits::input_parameter< Rcomplex >::type dalet(daletSEXP);
+    rcpp_result_gen = Rcpp::wrap(LJTheta2(z, dalet));
     return rcpp_result_gen;
 END_RCPP
 }
 // LJTheta3
-Rcpp::ComplexMatrix LJTheta3(Rcpp::ComplexMatrix z, Rcomplex daleth);
-RcppExport SEXP _jacobi_LJTheta3(SEXP zSEXP, SEXP dalethSEXP) {
+Rcpp::ComplexMatrix LJTheta3(Rcpp::ComplexMatrix z, Rcomplex dalet);
+RcppExport SEXP _jacobi_LJTheta3(SEXP zSEXP, SEXP daletSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::ComplexMatrix >::type z(zSEXP);
-    Rcpp::traits::input_parameter< Rcomplex >::type daleth(dalethSEXP);
-    rcpp_result_gen = Rcpp::wrap(LJTheta3(z, daleth));
+    Rcpp::traits::input_parameter< Rcomplex >::type dalet(daletSEXP);
+    rcpp_result_gen = Rcpp::wrap(LJTheta3(z, dalet));
     return rcpp_result_gen;
 END_RCPP
 }
 // LJTheta4
-Rcpp::ComplexMatrix LJTheta4(Rcpp::ComplexMatrix z, Rcomplex daleth);
-RcppExport SEXP _jacobi_LJTheta4(SEXP zSEXP, SEXP dalethSEXP) {
+Rcpp::ComplexMatrix LJTheta4(Rcpp::ComplexMatrix z, Rcomplex dalet);
+RcppExport SEXP _jacobi_LJTheta4(SEXP zSEXP, SEXP daletSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::ComplexMatrix >::type z(zSEXP);
-    Rcpp::traits::input_parameter< Rcomplex >::type daleth(dalethSEXP);
-    rcpp_result_gen = Rcpp::wrap(LJTheta4(z, daleth));
+    Rcpp::traits::input_parameter< Rcomplex >::type dalet(daletSEXP);
+    rcpp_result_gen = Rcpp::wrap(LJTheta4(z, dalet));
+    return rcpp_result_gen;
+END_RCPP
+}
+// Theta1dash
+Rcpp::ComplexMatrix Theta1dash(Rcpp::ComplexMatrix z, Rcomplex fei);
+RcppExport SEXP _jacobi_Theta1dash(SEXP zSEXP, SEXP feiSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::ComplexMatrix >::type z(zSEXP);
+    Rcpp::traits::input_parameter< Rcomplex >::type fei(feiSEXP);
+    rcpp_result_gen = Rcpp::wrap(Theta1dash(z, fei));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -299,6 +311,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_jacobi_LJTheta2", (DL_FUNC) &_jacobi_LJTheta2, 2},
     {"_jacobi_LJTheta3", (DL_FUNC) &_jacobi_LJTheta3, 2},
     {"_jacobi_LJTheta4", (DL_FUNC) &_jacobi_LJTheta4, 2},
+    {"_jacobi_Theta1dash", (DL_FUNC) &_jacobi_Theta1dash, 2},
     {"_jacobi_Image_eta", (DL_FUNC) &_jacobi_Image_eta, 3},
     {"_jacobi_Image_E4", (DL_FUNC) &_jacobi_Image_E4, 3},
     {"_jacobi_Image_E6", (DL_FUNC) &_jacobi_Image_E6, 3},
