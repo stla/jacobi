@@ -359,11 +359,11 @@ Rcpp::ComplexMatrix LJTheta4(Rcpp::ComplexMatrix z0, Rcomplex dalet) {
   int m = z.nrow();
   int n = z.ncol();
   for(int j = 0; j < n; j++) {
-    Rcpp::ComplexVector zj(m);
+    Rcpp::ComplexVector zj = z(Rcpp::_, j);
     for(int i = 0; i < m; i++) {
-      zj(i) = toCplx(ljtheta4_cpp(fromCplx(z(i,j)), tau));
+      zj(i) = toCplx(ljtheta4_cpp(fromCplx(zj(i)), tau));
     }
-    z(Rcpp::_, j) = zj;
+    //z(Rcpp::_, j) = zj;
   }
   return z;
 }
@@ -617,6 +617,22 @@ std::string colormap1(cplx z) {
   return rgb2hex((int)lround((1.0 - cos(r - 0.5)) * 8.0 * 255.0),
                  (int)lround((1.0 - cos(g - 0.5)) * 8.0 * 255.0),
                  (int)lround((1.0 - cos(b - 0.5)) * 8.0 * 255.0), true);
+}
+
+// [[Rcpp::export]]
+Rcpp::CharacterMatrix ColorMap1(Rcpp::ComplexMatrix Z) {
+  const int m = Z.nrow();
+  const int n = Z.ncol();
+  Rcpp::CharacterMatrix P(m, n);
+  for(int j = 0; j < n; j++) {
+    Rcpp::CharacterVector Pj(m);
+    const Rcpp::ComplexVector Zj = Z(Rcpp::_, j);
+    for(int i = 0; i < m; i++) {
+      Pj(i) = colormap1(fromCplx(Zj(i)));
+    }
+    P(Rcpp::_, j) = Pj;
+  }
+  return P;
 }
 
 std::string colormap2(cplx z) {

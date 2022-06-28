@@ -77,6 +77,10 @@ dLTheta1 <- function(z0, dalet) {
     .Call(`_jacobi_dLTheta1`, z0, dalet)
 }
 
+ColorMap1 <- function(Z) {
+    .Call(`_jacobi_ColorMap1`, Z)
+}
+
 Image_eta <- function(x, gamma, t) {
     .Call(`_jacobi_Image_eta`, x, gamma, t)
 }

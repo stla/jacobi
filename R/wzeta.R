@@ -42,7 +42,7 @@ wzeta <- function(z, g = NULL, omega = NULL, tau = NULL){
     tau <- omega[2L]/omega1
     if(Im(tau) <= 0){
       stop(
-        "The imaginary part of the `omega[2]/omega[1]` must be nonnegative."
+        "The imaginary part of the ratio `omega[2]/omega[1]` must be nonnegative."
       )
     }
     g <- g_from_omega1_and_tau(omega1, tau)
