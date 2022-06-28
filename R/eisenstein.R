@@ -2,7 +2,7 @@
 #' @noRd
 E2 <- function(tau){
   q3 <- jtheta3_cpp(0, tau)^2
-  6/pi * elliptic_E(pi/2, lambda(tau), minerror = 10 * .Machine$double.eps) * 
+  6/pi * elliptic_E(pi/2, lambda(tau), minerror = 2 * .Machine$double.eps) * 
     q3 - q3^2 - jtheta4_cpp(0, tau)^4
 }
 

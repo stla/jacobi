@@ -13,7 +13,6 @@ T machinePrecision() {
 const double Epsilon = 2 * machinePrecision<double>();
 
 bool close(cplx z1, cplx z2) {
-  const cplx zero(0.0, 0.0);
   const double mod_z2 = std::abs(z2);
   const double norm = (mod_z2 < Epsilon) ? 1.0 : std::max(std::abs(z1), mod_z2);
   return std::abs(z1 - z2) < Epsilon * norm;
@@ -227,6 +226,33 @@ cplx dlogjtheta1(cplx z, cplx q) {
   }
   return 4.0 * sum1 + 1.0 / std::tan(z);
 }
+
+////////////////////////////////////////////////////////////////////////////////
+Rcomplex toCplx(cplx z) {
+  Rcomplex zr;
+  zr.r = z.real();
+  zr.i = z.imag();
+  return zr;
+}
+
+cplx fromCplx(Rcomplex zr) {
+  cplx z(zr.r, zr.i);
+  return z;
+}
+
+// [[Rcpp::export]]
+Rcpp::ComplexMatrix JTheta1(Rcpp::ComplexMatrix z, Rcomplex daleth) {
+  cplx tau = fromCplx(daleth);
+  int m = z.nrow();
+  int n = z.ncol();
+  for(int j = 0; j < n; j++) {
+    for(int i = 0; i < m; i++) {
+      z(i, j) = toCplx(jtheta1_cpp(fromCplx(z(i,j)), tau));
+    }
+  }
+  return z;
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////
 
