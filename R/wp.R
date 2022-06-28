@@ -1,8 +1,19 @@
 wp_from_tau <- function(z, tau){ # wp(z, omega1 = 1/2, omega2 = tau/2)
   j2 <- jtheta2_cpp(0, tau)
   j3 <- jtheta3_cpp(0, tau)
-  (pi * j2 * j3 * jtheta4_cpp(z, tau) / jtheta1_cpp(z, tau))^2 -
-    pi^2 * (j2^4 + j3^4) / 3
+  if(length(z) == 1L){
+    j1 <- jtheta1_cpp(z, tau)
+    j4 <- jtheta4_cpp(z, tau)
+  }else{
+    if(!is.matrix(z)){
+      j1 <- JTheta1(cbind(z), tau)[, 1L] 
+      j4 <- JTheta4(cbind(z), tau)[, 1L] 
+    }else{
+      j1 <- JTheta1(z, tau)
+      j4 <- JTheta4(z, tau) 
+    }
+  }
+  (pi * j2 * j3 * j4 / j1)^2 - pi^2 * (j2^4 + j3^4) / 3
 }
 
 wp_from_omega <- function(z, omega1, omega2){
@@ -21,18 +32,35 @@ wp_from_g <- function(z, g){
 weierDerivative <- function(z, omega1, tau){
   w1 <- 2 * omega1 / pi
   z1 <- -z / 2 / omega1
+  if(length(z) == 1L){
+    j1 <- jtheta1_cpp(z1, tau)
+    j2 <- jtheta2_cpp(z1, tau)
+    j3 <- jtheta3_cpp(z1, tau)
+    j4 <- jtheta4_cpp(z1, tau)
+  }else{
+    if(!is.matrix(z)){
+      j1 <- JTheta1(cbind(z1), tau)[, 1L] 
+      j2 <- JTheta2(cbind(z1), tau)[, 1L] 
+      j3 <- JTheta3(cbind(z1), tau)[, 1L] 
+      j4 <- JTheta4(cbind(z1), tau)[, 1L] 
+    }else{
+      j1 <- JTheta1(z1, tau)
+      j2 <- JTheta2(z1, tau)
+      j3 <- JTheta3(z1, tau) 
+      j4 <- JTheta4(z1, tau) 
+    }
+  }
   f <- jtheta1prime0(tau = tau)**3 /
     (jtheta2_cpp(0, tau) * jtheta3_cpp(0, tau) * 
-       jtheta4_cpp(0, tau) * jtheta1_cpp(z1, tau)**3)
-  2/(w1*w1*w1) * jtheta2_cpp(z1, tau) * jtheta3_cpp(z1, tau) *
-    jtheta4_cpp(z1, tau) * f
+       jtheta4_cpp(0, tau) * j1**3)
+  2/(w1*w1*w1) * j2 * j3 * j4 * f
 }
 
 #' @title Weierstrass elliptic function
 #' @description Evaluation of the Weierstrass elliptic function and its 
 #'   derivatives.
 #'
-#' @param z complex number
+#' @param z complex number, vector or matrix
 #' @param g the elliptic invariants, a vector of two complex numbers; only 
 #'   one of \code{g}, \code{omega} and \code{tau} must be given
 #' @param omega the half-periods, a vector of two complex numbers; only 
@@ -41,7 +69,7 @@ weierDerivative <- function(z, omega1, tau){
 #'   supply \code{omega = c(1/2, tau/2)}
 #' @param derivative differentiation order, an integer between 0 and 3
 #'
-#' @return A complex number.
+#' @return A complex number, vector or matrix.
 #' @export
 #'
 #' @examples
@@ -53,7 +81,7 @@ weierDerivative <- function(z, omega1, tau){
 #' e3 <- wp(-omega1-omega2, omega = omega)
 #' e1 + e2 + e3 # should be 0
 wp <- function(z, g = NULL, omega = NULL, tau = NULL, derivative = 0L){
-  stopifnot(isComplexNumber(z))
+  stopifnot(isComplex(z))
   if(!is.element(derivative, 0L:3L)){
     stop("`derivative` must be an integer between 0 and 3.") 
   }

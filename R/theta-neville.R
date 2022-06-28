@@ -19,7 +19,7 @@ theta.s <- function(z, tau = NULL, m = NULL){
     j3sq * jtheta1_cpp(zprime, tau) / jtheta1prime0(tau)
   }else{
     if(!is.matrix(z)){
-      j3sq * JTheta1(zprime, tau)[, 1L] / jtheta1prime0(tau)
+      j3sq * JTheta1(cbind(zprime), tau)[, 1L] / jtheta1prime0(tau)
     }else{
       j3sq * JTheta1(zprime, tau) / jtheta1prime0(tau)
     }
@@ -38,7 +38,7 @@ theta.c <- function(z, tau = NULL, m = NULL){
     jtheta2_cpp(zprime, tau) / jtheta2_cpp(0, tau)
   }else{
     if(!is.matrix(z)){
-      JTheta2(zprime, tau)[, 1L] / jtheta2_cpp(0, tau)
+      JTheta2(cbind(zprime), tau)[, 1L] / jtheta2_cpp(0, tau)
     }else{
       JTheta2(zprime, tau) / jtheta2_cpp(0, tau)
     }
@@ -55,7 +55,7 @@ theta.n <- function(z, tau = NULL, m = NULL){
     jtheta4_cpp(zprime, tau) / jtheta4_cpp(0, tau)
   }else{
     if(!is.matrix(z)){
-      JTheta4(zprime, tau)[, 1L] / jtheta4_cpp(0, tau)
+      JTheta4(cbind(zprime), tau)[, 1L] / jtheta4_cpp(0, tau)
     }else{
       JTheta4(zprime, tau) / jtheta4_cpp(0, tau)
     }
@@ -73,7 +73,7 @@ theta.d <- function(z, tau = NULL, m = NULL){
     jtheta3_cpp(zprime, tau) / jtheta3_cpp(0, tau)
   }else{
     if(!is.matrix(z)){
-      JTheta3(zprime, tau)[, 1L] / j3
+      JTheta3(cbind(zprime), tau)[, 1L] / j3
     }else{
       JTheta3(zprime, tau) / j3
     }

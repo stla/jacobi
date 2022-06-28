@@ -15,7 +15,7 @@ dljtheta1 <- function(z, tau, q){
     theta1dash(z, q=q) / jtheta1_cpp(z/pi, tau)
   }else{
     if(!is.matrix(z)){
-      Theta1dash(z, tau)[, 1L] / JTheta1(z/pi, tau)[, 1L]
+      Theta1dash(cbind(z), tau)[, 1L] / JTheta1(cbind(z/pi), tau)[, 1L]
     }else{
       Theta1dash(z, tau) / JTheta1(z/pi, tau)
     }

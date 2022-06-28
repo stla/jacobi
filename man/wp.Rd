@@ -7,7 +7,7 @@
 wp(z, g = NULL, omega = NULL, tau = NULL, derivative = 0L)
 }
 \arguments{
-\item{z}{complex number}
+\item{z}{complex number, vector or matrix}
 
 \item{g}{the elliptic invariants, a vector of two complex numbers; only 
 one of \code{g}, \code{omega} and \code{tau} must be given}
@@ -21,7 +21,7 @@ supply \code{omega = c(1/2, tau/2)}}
 \item{derivative}{differentiation order, an integer between 0 and 3}
 }
 \value{
-A complex number.
+A complex number, vector or matrix.
 }
 \description{
 Evaluation of the Weierstrass elliptic function and its 

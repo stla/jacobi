@@ -6,6 +6,8 @@
 
 - Costa surface.
 
+- Vectorization.
+
 
 # jacobi 1.0.0
 
