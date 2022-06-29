@@ -404,8 +404,12 @@ Rcpp::ComplexMatrix lambda_cpp(Rcpp::ComplexMatrix Dalet) {
   for(int j = 0; j < n; j++) {
     Rcpp::ComplexVector zj = z(Rcpp::_, j);
     for(int i = 0; i < m; i++) {
-      cplx zij = fromCplx(zj(i));
-      zj(i) = toCplx(power(jtheta2_cpp(0.0, zij) / jtheta3_cpp(0.0, zij), 4));
+      if(Rcpp::ComplexVector::is_na(zj(i))) {
+        zj(i) = Rcpp::ComplexVector::get_na();
+      } else {
+        cplx zij = fromCplx(zj(i));
+        zj(i) = toCplx(power(jtheta2_cpp(0.0, zij) / jtheta3_cpp(0.0, zij), 4));
+      }
     }
     z(Rcpp::_, j) = zj;
   }

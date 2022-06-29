@@ -11,7 +11,7 @@ kleinjinv(j)
 }
 \arguments{
 \item{tau}{a complex number with strictly positive imaginary part, or a 
-vector or matrix of such complex numbers}
+vector or matrix of such complex numbers; missing values allowed}
 
 \item{j}{a complex number}
 }

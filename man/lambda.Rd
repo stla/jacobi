@@ -8,7 +8,7 @@ lambda(tau)
 }
 \arguments{
 \item{tau}{a complex number with strictly positive imaginary part, or 
-a vector or matrix of such complex numbers}
+a vector or matrix of such complex numbers; missing values allowed}
 }
 \value{
 A complex number, vector or matrix.

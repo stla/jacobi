@@ -2,7 +2,7 @@
 #' @description Evaluation of the Klein j-invariant function and its inverse.
 #'
 #' @param tau a complex number with strictly positive imaginary part, or a 
-#'   vector or matrix of such complex numbers
+#'   vector or matrix of such complex numbers; missing values allowed
 #' @param j a complex number
 #'
 #' @return A complex number, vector or matrix.
