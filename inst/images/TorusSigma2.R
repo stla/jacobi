@@ -1,23 +1,24 @@
 # https://math.stackexchange.com/questions/107966/how-do-i-map-the-torus-to-a-plane
+# https://static1.bridgesmathart.org/2011/cdrom/proceedings/134/paper_134.pdf
 
 library(jacobi)
 library(rgl)
+library(Rvcg)
 library(RcppColors)
 
 s <- 1
-fx <- function(u,v){
-  w <- sqrt(s*s + 1) - cos(2*pi*v)
+fw <- function(v){
+  sqrt(s*s + 1) - cos(2*pi*v)
+}
+fx <- function(u, w){
   s * cos(2*pi*u/s)/w
 }
-fy <- function(u,v){
-  w <- sqrt(s*s + 1) - cos(2*pi*v)
+fy <- function(u, w){
   s * sin(2*pi*u/s)/w
 }
-fz <- function(v){
-  w <- sqrt(s*s + 1) - cos(2*pi*v)
-  s * sin(2*pi*v)/w
+fz <- function(v, w){
+  sin(2*pi*v)/w
 }
-
 
 torusMesh <- function(nu = 50, nv = 30, rgl = TRUE){
   nu <- as.integer(nu)
@@ -27,21 +28,18 @@ torusMesh <- function(nu = 50, nv = 30, rgl = TRUE){
   normals <- matrix(NA_real_, nrow = nu*nv, ncol = 3L)
   tris1   <- matrix(NA_integer_, nrow = 3L, ncol = nunv)
   tris2   <- matrix(NA_integer_, nrow = 3L, ncol = nunv)
-  u_ <- seq(-1/2, 1/2, length.out = nu + 1L)[-1L]
+  u_ <- seq(-s/2, s/2, length.out = nu + 1L)[-1L]
   v_ <- seq(-1/2, 1/2, length.out = nv + 1L)[-1L]
   jp1_ <- c(2L:nv, 1L)
   j_ <- 1L:nv
-  color <- NULL
+  w_ <- fw(v_)
+  z_ <- fz(v_, w_)
   for(i in 1L:(nu-1L)){
     i_nv <- i*nv
     rg <- (i_nv - nv + 1L):i_nv
     vs[, rg] <- rbind(
-      fx(u_[i], v_), fy(u_[i], v_), fz(v_)
+      fx(u_[i], w_), fy(u_[i], w_), z_
     )
-    # color <- c(
-    #   color,
-    #   wsigma((u_[i]) + 1i*(v_), tau = 2+2i)
-    # )
     k1 <- i_nv - nv
     k_ <- k1 + j_
     l_ <- k1 + jp1_
@@ -52,12 +50,8 @@ torusMesh <- function(nu = 50, nv = 30, rgl = TRUE){
   i_nv <- nunv
   rg <- (i_nv - nv + 1L):i_nv
   vs[, rg] <- rbind(
-    fx(1/2, v_), fy(1, v_), fz(v_)
+    fx(s/2, w_), fy(s/2, w_), z_
   )
-  # color <- c(
-  #   color,
-  #   wsigma(1 + 1i*(v_), tau = 2+2i)
-  # )
   k1 <- i_nv - nv
   l_ <- k1 + jp1_
   k_ <- k1 + j_
@@ -68,33 +62,27 @@ torusMesh <- function(nu = 50, nv = 30, rgl = TRUE){
     indices = cbind(tris1, tris2),
     homogeneous = FALSE
   )
-  # tmesh$material <- list(color=colorMap1(color, reverse = c(T,T,T)))
-  if(rgl){
-    tmesh
-  }else{
-    out <- Mesh(mesh = tmesh)
-    out[["normals"]] <- normals
-    out
-  }
+  vcgUpdateNormals(tmesh)
 }
 
 
-mesh <- Rvcg::vcgUpdateNormals(torusMesh(nu = 600, nv = 600))
+mesh <- Rvcg::vcgUpdateNormals(torusMesh(nu = 200, nv = 200))
 
 coords <- function(xyz){
   x <- xyz[, 1L]
   y <- xyz[, 2L]
   z <- xyz[, 3L]
   u <- s/(2*pi) * atan(y/x)
-  sgn <- ifelse(x*x + y*y >= 2, 1, -1)
+  sgn <- ifelse(x*x + y*y >= s*s+1, 1, -1)
   v <- sign(z)/(2*pi)*acos((z*z*sqrt(s*s+1) + sgn*sqrt(1-z*z*s*s))/(z*z+1))
-  cbind(u,v)
+  cbind(u, v)
 }
-sphcoords <- coords(t(mesh$vb[-4L, ]))
-theta <- sphcoords[, 1L]*2
-phi   <- sphcoords[, 2L]
+uv <- coords(t(mesh$vb[-4L, ]))
+theta <- 2*uv[, 1L]
+phi   <- uv[, 2L]
 Z <- wsigma(theta + 1i * phi, omega=c(1/4, 1/4*(1/2+1i/2)))
 color <- colorMap1(Z, reverse = c(FALSE, FALSE, TRUE))
+# color <- ifelse(theta <= 0, ifelse(phi <= 0, "navy", "yellow"), ifelse(phi > 0, "navy", "yellow"))
 mesh$material <- list(color = color)
 
 open3d(windowRect = c(50, 50, 562, 562), zoom = 0.75)
