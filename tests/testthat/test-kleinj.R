@@ -7,11 +7,16 @@ test_that("kleinj at 2i", {
 
 test_that("kleinj alternate expression", {
   tau <- 0.5 + 0.3i
-  lbd <- lambda(tau) 
-  x <- lbd * (1- lbd)
+  j2 <- jtheta2_cpp(0, tau)
+  j3 <- jtheta3_cpp(0, tau)
+  g2 <- 4/3 * (pi/2)**4 * (j2**8 - (j2*j3)**4 + j3**8) 
+  g3 <- 8/27 * (pi/2)**6 * (j2**12 - (
+    (3/2 * j2**8 * j3**4) + (3/2 * j2**4 * j3**8) 
+  ) + j3**12)
+  g2cube <- g2*g2*g2
   expect_equal(
     kleinj(tau), 
-    256*(1-x)^3 / x^2
+    1728 * g2cube / (g2cube - 27*g3*g3)
   )
 })
 

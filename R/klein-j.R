@@ -1,29 +1,35 @@
 #' @title Klein j-function and its inverse
 #' @description Evaluation of the Klein j-invariant function and its inverse.
 #'
-#' @param tau a complex number with strictly positive imaginary part
+#' @param tau a complex number with strictly positive imaginary part, or a 
+#'   vector or matrix of such complex numbers
 #' @param j a complex number
 #'
-#' @return A complex number.
+#' @return A complex number, vector or matrix.
 #' @export
+#' 
+#' @note The Klein-j function is the one with the factor 1728.
 #'
 #' @examples
 #' ( j <- kleinj(2i) )
 #' 66^3
 #' kleinjinv(j)
 kleinj <- function(tau){
-  stopifnot(isComplexNumber(tau))
-  if(Im(tau) <= 0){
-    stop("The complex number `tau` must have a positive imaginary part.")
-  }
-  j2 <- jtheta2_cpp(0, tau)
-  j3 <- jtheta3_cpp(0, tau)
-  g2 <- 4/3 * (pi/2)**4 * (j2**8 - (j2*j3)**4 + j3**8) 
-  g3 <- 8/27 * (pi/2)**6 * (j2**12 - (
-    (3/2 * j2**8 * j3**4) + (3/2 * j2**4 * j3**8) 
-  ) + j3**12)
-  g2cube <- g2*g2*g2
-  1728 * g2cube / (g2cube - 27*g3*g3)
+  lbd <- lambda(tau) 
+  x <- lbd * (1 - lbd)
+  256 * (1-x)^3 / x^2
+  # stopifnot(isComplexNumber(tau))
+  # if(Im(tau) <= 0){
+  #   stop("The complex number `tau` must have a positive imaginary part.")
+  # }
+  # j2 <- jtheta2_cpp(0, tau)
+  # j3 <- jtheta3_cpp(0, tau)
+  # g2 <- 4/3 * (pi/2)**4 * (j2**8 - (j2*j3)**4 + j3**8) 
+  # g3 <- 8/27 * (pi/2)**6 * (j2**12 - (
+  #   (3/2 * j2**8 * j3**4) + (3/2 * j2**4 * j3**8) 
+  # ) + j3**12)
+  # g2cube <- g2*g2*g2
+  # 1728 * g2cube / (g2cube - 27*g3*g3)
 }
 
 #' @rdname kleinj

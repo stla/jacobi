@@ -247,9 +247,9 @@ Rcpp::ComplexMatrix JTheta1(Rcpp::ComplexMatrix z0, Rcomplex dalet) {
   int m = z.nrow();
   int n = z.ncol();
   for(int j = 0; j < n; j++) {
-    Rcpp::ComplexVector zj(m);
+    Rcpp::ComplexVector zj = z(Rcpp::_, j);
     for(int i = 0; i < m; i++) {
-      zj(i) = toCplx(jtheta1_cpp(fromCplx(z(i,j)), tau));
+      zj(i) = toCplx(jtheta1_cpp(fromCplx(zj(i)), tau));
     }
     z(Rcpp::_, j) = zj;
   }
@@ -263,9 +263,9 @@ Rcpp::ComplexMatrix JTheta2(Rcpp::ComplexMatrix z0, Rcomplex dalet) {
   int m = z.nrow();
   int n = z.ncol();
   for(int j = 0; j < n; j++) {
-    Rcpp::ComplexVector zj(m);
+    Rcpp::ComplexVector zj = z(Rcpp::_, j);
     for(int i = 0; i < m; i++) {
-      zj(i) = toCplx(jtheta2_cpp(fromCplx(z(i,j)), tau));
+      zj(i) = toCplx(jtheta2_cpp(fromCplx(zj(i)), tau));
     }
     z(Rcpp::_, j) = zj;
   }
@@ -279,9 +279,9 @@ Rcpp::ComplexMatrix JTheta3(Rcpp::ComplexMatrix z0, Rcomplex dalet) {
   int m = z.nrow();
   int n = z.ncol();
   for(int j = 0; j < n; j++) {
-    Rcpp::ComplexVector zj(m);
+    Rcpp::ComplexVector zj = z(Rcpp::_, j);
     for(int i = 0; i < m; i++) {
-      zj(i) = toCplx(jtheta3_cpp(fromCplx(z(i,j)), tau));
+      zj(i) = toCplx(jtheta3_cpp(fromCplx(zj(i)), tau));
     }
     z(Rcpp::_, j) = zj;
   }
@@ -295,9 +295,9 @@ Rcpp::ComplexMatrix JTheta4(Rcpp::ComplexMatrix z0, Rcomplex dalet) {
   int m = z.nrow();
   int n = z.ncol();
   for(int j = 0; j < n; j++) {
-    Rcpp::ComplexVector zj(m);
+    Rcpp::ComplexVector zj = z(Rcpp::_, j);
     for(int i = 0; i < m; i++) {
-      zj(i) = toCplx(jtheta4_cpp(fromCplx(z(i,j)), tau));
+      zj(i) = toCplx(jtheta4_cpp(fromCplx(zj(i)), tau));
     }
     z(Rcpp::_, j) = zj;
   }
@@ -311,9 +311,9 @@ Rcpp::ComplexMatrix LJTheta1(Rcpp::ComplexMatrix z0, Rcomplex dalet) {
   int m = z.nrow();
   int n = z.ncol();
   for(int j = 0; j < n; j++) {
-    Rcpp::ComplexVector zj(m);
+    Rcpp::ComplexVector zj = z(Rcpp::_, j);
     for(int i = 0; i < m; i++) {
-      zj(i) = toCplx(ljtheta1_cpp(fromCplx(z(i,j)), tau));
+      zj(i) = toCplx(ljtheta1_cpp(fromCplx(zj(i)), tau));
     }
     z(Rcpp::_, j) = zj;
   }
@@ -327,9 +327,9 @@ Rcpp::ComplexMatrix LJTheta2(Rcpp::ComplexMatrix z0, Rcomplex dalet) {
   int m = z.nrow();
   int n = z.ncol();
   for(int j = 0; j < n; j++) {
-    Rcpp::ComplexVector zj(m);
+    Rcpp::ComplexVector zj = z(Rcpp::_, j);
     for(int i = 0; i < m; i++) {
-      zj(i) = toCplx(ljtheta2_cpp(fromCplx(z(i,j)), tau));
+      zj(i) = toCplx(ljtheta2_cpp(fromCplx(zj(i)), tau));
     }
     z(Rcpp::_, j) = zj;
   }
@@ -343,9 +343,9 @@ Rcpp::ComplexMatrix LJTheta3(Rcpp::ComplexMatrix z0, Rcomplex dalet) {
   int m = z.nrow();
   int n = z.ncol();
   for(int j = 0; j < n; j++) {
-    Rcpp::ComplexVector zj(m);
+    Rcpp::ComplexVector zj = z(Rcpp::_, j);
     for(int i = 0; i < m; i++) {
-      zj(i) = toCplx(ljtheta3_cpp(fromCplx(z(i,j)), tau));
+      zj(i) = toCplx(ljtheta3_cpp(fromCplx(zj(i)), tau));
     }
     z(Rcpp::_, j) = zj;
   }
@@ -363,7 +363,7 @@ Rcpp::ComplexMatrix LJTheta4(Rcpp::ComplexMatrix z0, Rcomplex dalet) {
     for(int i = 0; i < m; i++) {
       zj(i) = toCplx(ljtheta4_cpp(fromCplx(zj(i)), tau));
     }
-    //z(Rcpp::_, j) = zj;
+    z(Rcpp::_, j) = zj;
   }
   return z;
 }
@@ -395,6 +395,23 @@ Rcpp::ComplexMatrix dLTheta1(Rcpp::ComplexMatrix z0, Rcomplex dalet) {
   }
   return z;
 }
+
+// [[Rcpp::export]]
+Rcpp::ComplexMatrix lambda_cpp(Rcpp::ComplexMatrix Dalet) {
+  Rcpp::ComplexMatrix z = Rcpp::clone(Dalet);
+  int m = z.nrow();
+  int n = z.ncol();
+  for(int j = 0; j < n; j++) {
+    Rcpp::ComplexVector zj = z(Rcpp::_, j);
+    for(int i = 0; i < m; i++) {
+      cplx zij = fromCplx(zj(i));
+      zj(i) = toCplx(power(jtheta2_cpp(0.0, zij) / jtheta3_cpp(0.0, zij), 4));
+    }
+    z(Rcpp::_, j) = zj;
+  }
+  return z;
+}
+
 
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -7,10 +7,11 @@
 lambda(tau)
 }
 \arguments{
-\item{tau}{a complex number with strictly positive imaginary part}
+\item{tau}{a complex number with strictly positive imaginary part, or 
+a vector or matrix of such complex numbers}
 }
 \value{
-A complex number.
+A complex number, vector or matrix.
 }
 \description{
 Evaluation of the lambda modular function.

@@ -10,15 +10,19 @@ kleinj(tau)
 kleinjinv(j)
 }
 \arguments{
-\item{tau}{a complex number with strictly positive imaginary part}
+\item{tau}{a complex number with strictly positive imaginary part, or a 
+vector or matrix of such complex numbers}
 
 \item{j}{a complex number}
 }
 \value{
-A complex number.
+A complex number, vector or matrix.
 }
 \description{
 Evaluation of the Klein j-invariant function and its inverse.
+}
+\note{
+The Klein-j function is the one with the factor 1728.
 }
 \examples{
 ( j <- kleinj(2i) )
