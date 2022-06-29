@@ -1,6 +1,7 @@
 isBoolean <- function(x){
-  is.logical(x) && length(z) == 1L && !is.na(x)
+  is.logical(x) && length(x) == 1L && !is.na(x)
 }
+
 isComplexNumber <- function(z){
   (is.complex(z) || is.numeric(z)) && length(z) == 1L && !is.na(z)
 }
