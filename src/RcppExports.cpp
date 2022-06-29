@@ -250,6 +250,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// lambda_transfo
+Rcpp::ComplexMatrix lambda_transfo(Rcpp::ComplexMatrix Dalet);
+RcppExport SEXP _jacobi_lambda_transfo(SEXP DaletSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::ComplexMatrix >::type Dalet(DaletSEXP);
+    rcpp_result_gen = Rcpp::wrap(lambda_transfo(Dalet));
+    return rcpp_result_gen;
+END_RCPP
+}
 // ColorMap1
 Rcpp::CharacterMatrix ColorMap1(Rcpp::ComplexMatrix Z);
 RcppExport SEXP _jacobi_ColorMap1(SEXP ZSEXP) {
@@ -335,6 +346,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_jacobi_LJTheta4", (DL_FUNC) &_jacobi_LJTheta4, 2},
     {"_jacobi_dLTheta1", (DL_FUNC) &_jacobi_dLTheta1, 2},
     {"_jacobi_lambda_cpp", (DL_FUNC) &_jacobi_lambda_cpp, 1},
+    {"_jacobi_lambda_transfo", (DL_FUNC) &_jacobi_lambda_transfo, 1},
     {"_jacobi_ColorMap1", (DL_FUNC) &_jacobi_ColorMap1, 1},
     {"_jacobi_Image_eta", (DL_FUNC) &_jacobi_Image_eta, 3},
     {"_jacobi_Image_E4", (DL_FUNC) &_jacobi_Image_E4, 3},

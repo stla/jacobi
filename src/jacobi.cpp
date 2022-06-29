@@ -44,7 +44,7 @@ cplx theta1dash(cplx z, cplx tau) {
   cplx q = std::exp(_i_ * M_PI * tau);
   cplx out(0.0, 0.0);
   cplx alt(-1.0, 0.0);
-  for(int n = 0; n < 4000; n++) {
+  for(int n = 0; n < 2000; n++) {
     alt = -alt;
     double k = (double)(2 * n + 1);
     cplx outnew = out + alt * power(q, n * (n + 1)) * k * std::cos(k * z);
@@ -53,7 +53,7 @@ cplx theta1dash(cplx z, cplx tau) {
     }
     out = outnew;
   }
-  Rcpp::stop("Reached 4000 iterations (theta1dash).");
+  Rcpp::stop("Reached 2000 iterations (theta1dash).");
 }
 
 double modulo(double a, double p) {
@@ -61,11 +61,13 @@ double modulo(double a, double p) {
   return a - i * p;
 }
 
-cplx calctheta3(cplx z, cplx tau) {
+cplx calctheta3(cplx z, cplx tau, unsigned passes) {
+  if(passes >= 1000) {
+    Rcpp::warning("Reached 1000 iterations.");
+  }
   cplx out(1.0, 0.0);
   unsigned n = 0;
-//  bool iterate = true;
-  while(n < 4000) {
+  while(n < 2000) {
     n++;
     double nn = n;
     cplx qweight = std::exp(nn * _i_ * M_PI * (nn * tau + 2.0 * z)) +
@@ -77,13 +79,13 @@ cplx calctheta3(cplx z, cplx tau) {
       return std::log(out);
     }
   }
-  Rcpp::stop("Reached 4000 iterations.");
+  Rcpp::stop("Reached 2000 iterations.");
 }
 
 cplx argtheta3(cplx z, cplx tau, unsigned pass_in) {
   unsigned passes = pass_in + 1;
-  if(passes > 4000) {
-    Rcpp::stop("passes > 4000 (argtheta3)");
+  if(passes > 2000) {
+    Rcpp::stop("passes > 2000 (argtheta3)");
   }
   double z_img = z.imag();
   double h = tau.imag() / 2.0;
@@ -96,7 +98,7 @@ cplx argtheta3(cplx z, cplx tau, unsigned pass_in) {
     out = -2.0 * M_PI * _i_ * zmin + argtheta3(zmin, tau, passes) -
           _i_ * M_PI * tau;
   } else {
-    out = calctheta3(zuse, tau);
+    out = calctheta3(zuse, tau, passes);
   }
   return out;
 }
@@ -107,8 +109,8 @@ cplx dologtheta4(cplx z, cplx tau, unsigned pass_in) {
 
 cplx dologtheta3(cplx z, cplx tau, unsigned pass_in) {
   unsigned passes = pass_in + 1;
-  if(passes > 4000) {
-    Rcpp::stop("passes > 4000 (dologtheta3)");
+  if(passes > 2000) {
+    Rcpp::stop("passes > 2000 (dologtheta3)");
   }
   cplx tau2;
   double rl = tau.real();
@@ -136,10 +138,6 @@ cplx dologtheta3(cplx z, cplx tau, unsigned pass_in) {
 
 cplx M(cplx z, cplx tau) {
   return _i_ * M_PI * (z + tau / 4.0);
-}
-
-cplx alpha(cplx z, cplx tau) {
-  return sqrt(-_i_ * tau) * std::exp(M_PI / tau * _i_ * z * z);
 }
 
 // [[Rcpp::export]]
@@ -400,6 +398,25 @@ Rcpp::ComplexMatrix dLTheta1(Rcpp::ComplexMatrix z0, Rcomplex dalet) {
   return z;
 }
 
+////////////////////////////////////////////////////////////////////////////////
+// cplx alpha(cplx z, cplx tau) {
+//   return sqrt(-_i_ * tau) * std::exp(M_PI / tau * _i_ * z * z);
+// }
+// 
+// cplx alpha0(cplx tau) {
+//   return sqrt(-_i_ * tau);
+// }
+// 
+// cplx jtheta2transfo0(cplx tau) {
+//   return jtheta4_cpp(0.0, -1 / tau) / alpha0(tau);
+// }
+// 
+// cplx jtheta3transfo0(cplx tau) {
+//   return jtheta3_cpp(0.0, -1 / tau) / alpha0(tau);
+// }
+
+
+
 // [[Rcpp::export]]
 Rcpp::ComplexMatrix lambda_cpp(Rcpp::ComplexMatrix Dalet) {
   Rcpp::ComplexMatrix z = Rcpp::clone(Dalet);
@@ -411,8 +428,8 @@ Rcpp::ComplexMatrix lambda_cpp(Rcpp::ComplexMatrix Dalet) {
       if(Rcpp::ComplexVector::is_na(zj(i))) {
         zj(i) = Rcpp::ComplexVector::get_na();
       } else {
-        cplx zij = fromCplx(zj(i));
-        zj(i) = toCplx(power(jtheta2_cpp(0.0, zij) / jtheta3_cpp(0.0, zij), 4));
+        cplx tau = fromCplx(zj(i));
+        zj(i) = toCplx(power(jtheta2_cpp(0.0, tau) / jtheta3_cpp(0.0, tau), 4));
       }
     }
     z(Rcpp::_, j) = zj;
@@ -420,7 +437,31 @@ Rcpp::ComplexMatrix lambda_cpp(Rcpp::ComplexMatrix Dalet) {
   return z;
 }
 
-
+// [[Rcpp::export]]
+Rcpp::ComplexMatrix lambda_transfo(Rcpp::ComplexMatrix Dalet) {
+  Rcpp::ComplexMatrix z = Rcpp::clone(Dalet);
+  int m = z.nrow();
+  int n = z.ncol();
+  for(int j = 0; j < n; j++) {
+    Rcpp::ComplexVector zj = z(Rcpp::_, j);
+    for(int i = 0; i < m; i++) {
+      if(Rcpp::ComplexVector::is_na(zj(i))) {
+        zj(i) = Rcpp::ComplexVector::get_na();
+      } else {
+        cplx tau = fromCplx(zj(i));
+        cplx ratio;
+        if(tau.imag() < 0.98 && std::abs(tau) < 0.98) {
+          ratio = jtheta2_cpp(0.0, -1.0/ tau) / jtheta3_cpp(0.0, -1.0 / tau);
+        } else {
+          ratio = jtheta2_cpp(0.0, tau) / jtheta3_cpp(0.0, tau);
+        }
+        zj(i) = toCplx(power(ratio, 4));
+      }
+    }
+    z(Rcpp::_, j) = zj;
+  }
+  return z;
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 

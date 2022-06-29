@@ -3,6 +3,10 @@
 #'
 #' @param tau a complex number with strictly positive imaginary part, or 
 #'   a vector or matrix of such complex numbers; missing values allowed
+#' @param transfo Boolean, whether to use a transformation of the values  
+#'   of \code{tau} close to the real line; using this option can fix some 
+#'   failures of the computation (at the cost of speed), e.g. when the 
+#'   algorithm reaches the maximal number of iterations
 #'
 #' @return A complex number, vector or matrix.
 #' @export
@@ -12,7 +16,8 @@
 #' @examples
 #' x <- 2
 #' lambda(1i*sqrt(x)) + lambda(1i*sqrt(1/x)) # should be one
-lambda <- function(tau){
+lambda <- function(tau, transfo = FALSE){
+  stopifnot(isBoolean(transfo))
   stopifnot(isComplexObject(tau))
   storage.mode(tau) <- "complex"
   nonmissing <- !is.na(tau)
@@ -27,9 +32,17 @@ lambda <- function(tau){
     }
   }else{
     if(is.matrix(tau)){
-      lambda_cpp(tau)
+      if(transfo){
+        lambda_transfo(tau)
+      }else{
+        lambda_cpp(tau)
+      }
     }else{
-      lambda_cpp(cbind(tau))[, 1L]
+      if(transfo){
+        lambda_transfo(cbind(tau))[, 1L]
+      }else{
+        lambda_cpp(cbind(tau))[, 1L]
+      }
     }
   }
 }

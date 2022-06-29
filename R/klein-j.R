@@ -4,6 +4,10 @@
 #' @param tau a complex number with strictly positive imaginary part, or a 
 #'   vector or matrix of such complex numbers; missing values allowed
 #' @param j a complex number
+#' @param transfo Boolean, whether to use a transformation of the values  
+#'   of \code{tau} close to the real line; using this option can fix some 
+#'   failures of the computation (at the cost of speed), e.g. when the 
+#'   algorithm reaches the maximal number of iterations
 #'
 #' @return A complex number, vector or matrix.
 #' @export
@@ -14,8 +18,9 @@
 #' ( j <- kleinj(2i) )
 #' 66^3
 #' kleinjinv(j)
-kleinj <- function(tau){
-  lbd <- lambda(tau) 
+kleinj <- function(tau, transfo = FALSE){
+  stopifnot(isBoolean(transfo))
+  lbd <- lambda(tau, transfo) 
   x <- lbd * (1 - lbd)
   256 * (1-x)^3 / x^2
   # stopifnot(isComplexNumber(tau))

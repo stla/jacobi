@@ -81,6 +81,10 @@ lambda_cpp <- function(Dalet) {
     .Call(`_jacobi_lambda_cpp`, Dalet)
 }
 
+lambda_transfo <- function(Dalet) {
+    .Call(`_jacobi_lambda_transfo`, Dalet)
+}
+
 ColorMap1 <- function(Z) {
     .Call(`_jacobi_ColorMap1`, Z)
 }
