@@ -4,7 +4,7 @@
 \alias{am}
 \title{Amplitude function}
 \usage{
-am(u, k)
+am(u, m)
 }
 \arguments{
 \item{u}{complex number}
@@ -20,7 +20,7 @@ Evaluation of the amplitude function.
 \examples{
 library(Carlson)
 phi <- 1 + 1i
-k <- 2
-u <- elliptic_F(phi, k^2)
-am(u, k) # should be phi
+m <- 2
+u <- elliptic_F(phi, m)
+am(u, m) # should be phi
 }

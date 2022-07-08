@@ -1,9 +1,9 @@
 test_that("am works", {
   phi <- 1 + 1i
-  k <- 2
-  u <- Carlson::elliptic_F(phi, k^2)
+  m <- 2
+  u <- Carlson::elliptic_F(phi, m)
   expect_equal(
-    am(u, k), 
+    am(u, m), 
     phi
   )
 })

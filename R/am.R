@@ -10,9 +10,11 @@
 #' @examples
 #' library(Carlson)
 #' phi <- 1 + 1i
-#' k <- 2
-#' u <- elliptic_F(phi, k^2)
-#' am(u, k) # should be phi
-am <- function(u, k){
-  asin(jellip("sn", u, m = k*k))
+#' m <- 2
+#' u <- elliptic_F(phi, m)
+#' am(u, m) # should be phi
+am <- function(u, m){
+  w <- asin(jellip("sn", u, m=m))
+  k <- round(Re(u)/pi) + round(Re(w)/pi)
+  (-1)^k * w + k * pi
 }
