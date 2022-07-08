@@ -9,7 +9,7 @@ am(u, m)
 \arguments{
 \item{u}{complex number}
 
-\item{k}{elliptic modulus, a complex number}
+\item{m}{square of elliptic modulus, a complex number}
 }
 \value{
 A complex number.

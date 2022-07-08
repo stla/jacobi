@@ -2,7 +2,7 @@
 #' @description Evaluation of the amplitude function.
 #'
 #' @param u complex number
-#' @param k elliptic modulus, a complex number
+#' @param m square of elliptic modulus, a complex number
 #'
 #' @return A complex number.
 #' @export
