@@ -147,3 +147,23 @@ cplx jtheta3_cpp(cplx z, cplx tau) {
 cplx jtheta4_cpp(cplx z, cplx tau) {
   return altjtheta4(z * M_PI, tau);
 }
+
+// [[Rcpp::export]]
+cplx ljtheta1_cpp(cplx z, cplx tau) {
+  return log(jtheta1_cpp(z, tau));
+}
+
+// [[Rcpp::export]]
+cplx ljtheta2_cpp(cplx z, cplx tau) {
+  return log(jtheta2_cpp(z, tau));
+}
+
+// [[Rcpp::export]]
+cplx ljtheta3_cpp(cplx z, cplx tau) {
+  return log(jtheta3_cpp(z, tau));
+}
+
+// [[Rcpp::export]]
+cplx ljtheta4_cpp(cplx z, cplx tau) {
+  return log(jtheta4_cpp(z, tau));
+}

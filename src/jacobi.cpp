@@ -138,40 +138,40 @@ cplx M(cplx z, cplx tau) {
   return _i_ * M_PI * (z + tau / 4.0);
 }
 
-// [[Rcpp::export]]
-cplx ljtheta2_cpp(cplx z, cplx tau) {
-  return M(z, tau) + dologtheta3(z + 0.5 * tau, tau, 0);
-}
+// // [[Rcpp::export]]
+// cplx ljtheta2_cpp(cplx z, cplx tau) {
+//   return M(z, tau) + dologtheta3(z + 0.5 * tau, tau, 0);
+// }
 
 // // [[Rcpp::export]]
 // cplx jtheta2_cpp(cplx z, cplx tau) {
 //   return std::exp(ljtheta2_cpp(z, tau));
 // }
 
-// [[Rcpp::export]]
-cplx ljtheta1_cpp(cplx z, cplx tau) {
-  return ljtheta2_cpp(z - 0.5, tau);
-}
+// // [[Rcpp::export]]
+// cplx ljtheta1_cpp(cplx z, cplx tau) {
+//   return ljtheta2_cpp(z - 0.5, tau);
+// }
 
 // // [[Rcpp::export]]
 // cplx jtheta1_cpp(cplx z, cplx tau) {
 //   return std::exp(ljtheta1_cpp(z, tau));
 // }
 
-// [[Rcpp::export]]
-cplx ljtheta3_cpp(cplx z, cplx tau) {
-  return dologtheta3(z, tau, 0);
-}
+// // [[Rcpp::export]]
+// cplx ljtheta3_cpp(cplx z, cplx tau) {
+//   return dologtheta3(z, tau, 0);
+// }
 
 // // [[Rcpp::export]]
 // cplx jtheta3_cpp(cplx z, cplx tau) {
 //   return std::exp(ljtheta3_cpp(z, tau));
 // }
 
-// [[Rcpp::export]]
-cplx ljtheta4_cpp(cplx z, cplx tau) {
-  return dologtheta4(z, tau, 0);
-}
+// // [[Rcpp::export]]
+// cplx ljtheta4_cpp(cplx z, cplx tau) {
+//   return dologtheta4(z, tau, 0);
+// }
 
 // // [[Rcpp::export]]
 // cplx jtheta4_cpp(cplx z, cplx tau) {

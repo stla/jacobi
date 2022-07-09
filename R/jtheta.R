@@ -31,7 +31,7 @@ ljtheta1 <- function(z, tau = NULL, q = NULL){
   storage.mode(z) <- "complex"
   tau <- check_and_get_tau(tau, q)
   if(length(z) == 1L){
-    log(jtheta1_cpp(z[1L]/pi, tau))
+    ljtheta1_cpp(z[1L]/pi, tau)
   }else{
     if(!is.matrix(z)){
       LJTheta1(cbind(z/pi), tau)[, 1L]
@@ -61,9 +61,9 @@ jtheta2 <- function(z, tau = NULL, q = NULL){
     jtheta2_cpp(z[1L]/pi, tau)
   }else{
     if(!is.matrix(z)){
-      LJTheta2(cbind(z/pi), tau)[, 1L]
+      JTheta2(cbind(z/pi), tau)[, 1L]
     }else{
-      LJTheta2(z/pi, tau)
+      JTheta2(z/pi, tau)
     }
   }
 }
@@ -75,7 +75,7 @@ ljtheta2 <- function(z, tau = NULL, q = NULL){
   storage.mode(z) <- "complex"
   tau <- check_and_get_tau(tau, q)
   if(length(z) == 1L){
-    log(jtheta2_cpp(z[1L]/pi, tau))
+    ljtheta2_cpp(z[1L]/pi, tau)
   }else{
     if(!is.matrix(z)){
       LJTheta2(cbind(z/pi), tau)[, 1L]
@@ -118,7 +118,7 @@ ljtheta3 <- function(z, tau = NULL, q = NULL){
   storage.mode(z) <- "complex"
   tau <- check_and_get_tau(tau, q)
   if(length(z) == 1L){
-    log(jtheta3_cpp(z[1L]/pi, tau))
+    ljtheta3_cpp(z[1L]/pi, tau)
   }else{
     if(!is.matrix(z)){
       LJTheta3(cbind(z/pi), tau)[, 1L]
@@ -161,7 +161,7 @@ ljtheta4 <- function(z, tau = NULL, q = NULL){
   storage.mode(z) <- "complex"
   tau <- check_and_get_tau(tau, q)
   if(length(z) == 1L){
-    log(jtheta4_cpp(z[1L]/pi, tau))
+    ljtheta4_cpp(z[1L]/pi, tau)
   }else{
     if(!is.matrix(z)){
       LJTheta4(cbind(z/pi), tau)[, 1L]

@@ -33,16 +33,12 @@ jtheta4_cpp <- function(z, tau) {
     .Call(`_jacobi_jtheta4_cpp`, z, tau)
 }
 
-theta1dash <- function(z, tau) {
-    .Call(`_jacobi_theta1dash`, z, tau)
+ljtheta1_cpp <- function(z, tau) {
+    .Call(`_jacobi_ljtheta1_cpp`, z, tau)
 }
 
 ljtheta2_cpp <- function(z, tau) {
     .Call(`_jacobi_ljtheta2_cpp`, z, tau)
-}
-
-ljtheta1_cpp <- function(z, tau) {
-    .Call(`_jacobi_ljtheta1_cpp`, z, tau)
 }
 
 ljtheta3_cpp <- function(z, tau) {
@@ -51,6 +47,10 @@ ljtheta3_cpp <- function(z, tau) {
 
 ljtheta4_cpp <- function(z, tau) {
     .Call(`_jacobi_ljtheta4_cpp`, z, tau)
+}
+
+theta1dash <- function(z, tau) {
+    .Call(`_jacobi_theta1dash`, z, tau)
 }
 
 dlogjtheta1 <- function(z, q) {

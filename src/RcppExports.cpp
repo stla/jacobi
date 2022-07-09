@@ -107,15 +107,15 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// theta1dash
-cplx theta1dash(cplx z, cplx tau);
-RcppExport SEXP _jacobi_theta1dash(SEXP zSEXP, SEXP tauSEXP) {
+// ljtheta1_cpp
+cplx ljtheta1_cpp(cplx z, cplx tau);
+RcppExport SEXP _jacobi_ljtheta1_cpp(SEXP zSEXP, SEXP tauSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< cplx >::type z(zSEXP);
     Rcpp::traits::input_parameter< cplx >::type tau(tauSEXP);
-    rcpp_result_gen = Rcpp::wrap(theta1dash(z, tau));
+    rcpp_result_gen = Rcpp::wrap(ljtheta1_cpp(z, tau));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -128,18 +128,6 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< cplx >::type z(zSEXP);
     Rcpp::traits::input_parameter< cplx >::type tau(tauSEXP);
     rcpp_result_gen = Rcpp::wrap(ljtheta2_cpp(z, tau));
-    return rcpp_result_gen;
-END_RCPP
-}
-// ljtheta1_cpp
-cplx ljtheta1_cpp(cplx z, cplx tau);
-RcppExport SEXP _jacobi_ljtheta1_cpp(SEXP zSEXP, SEXP tauSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< cplx >::type z(zSEXP);
-    Rcpp::traits::input_parameter< cplx >::type tau(tauSEXP);
-    rcpp_result_gen = Rcpp::wrap(ljtheta1_cpp(z, tau));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -164,6 +152,18 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< cplx >::type z(zSEXP);
     Rcpp::traits::input_parameter< cplx >::type tau(tauSEXP);
     rcpp_result_gen = Rcpp::wrap(ljtheta4_cpp(z, tau));
+    return rcpp_result_gen;
+END_RCPP
+}
+// theta1dash
+cplx theta1dash(cplx z, cplx tau);
+RcppExport SEXP _jacobi_theta1dash(SEXP zSEXP, SEXP tauSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< cplx >::type z(zSEXP);
+    Rcpp::traits::input_parameter< cplx >::type tau(tauSEXP);
+    rcpp_result_gen = Rcpp::wrap(theta1dash(z, tau));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -382,11 +382,11 @@ static const R_CallMethodDef CallEntries[] = {
     {"_jacobi_jtheta2_cpp", (DL_FUNC) &_jacobi_jtheta2_cpp, 2},
     {"_jacobi_jtheta3_cpp", (DL_FUNC) &_jacobi_jtheta3_cpp, 2},
     {"_jacobi_jtheta4_cpp", (DL_FUNC) &_jacobi_jtheta4_cpp, 2},
-    {"_jacobi_theta1dash", (DL_FUNC) &_jacobi_theta1dash, 2},
-    {"_jacobi_ljtheta2_cpp", (DL_FUNC) &_jacobi_ljtheta2_cpp, 2},
     {"_jacobi_ljtheta1_cpp", (DL_FUNC) &_jacobi_ljtheta1_cpp, 2},
+    {"_jacobi_ljtheta2_cpp", (DL_FUNC) &_jacobi_ljtheta2_cpp, 2},
     {"_jacobi_ljtheta3_cpp", (DL_FUNC) &_jacobi_ljtheta3_cpp, 2},
     {"_jacobi_ljtheta4_cpp", (DL_FUNC) &_jacobi_ljtheta4_cpp, 2},
+    {"_jacobi_theta1dash", (DL_FUNC) &_jacobi_theta1dash, 2},
     {"_jacobi_dlogjtheta1", (DL_FUNC) &_jacobi_dlogjtheta1, 2},
     {"_jacobi_JTheta1", (DL_FUNC) &_jacobi_JTheta1, 2},
     {"_jacobi_JTheta2", (DL_FUNC) &_jacobi_JTheta2, 2},
