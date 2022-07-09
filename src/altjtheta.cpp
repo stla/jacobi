@@ -8,8 +8,6 @@ bool isreal(cplx z) {
   return z.imag() == 0.0;
 }
 
-inline const cplx _i_(0.0, 1.0);
-
 template <typename T1, typename T2, typename T3>
 cplx _calctheta1_alt1(T1 z, T2 q) {
   int n = -1;
@@ -122,4 +120,24 @@ cplx altjtheta3(cplx z, cplx tau) {
 // [[Rcpp::export]]
 cplx altjtheta4(cplx z, cplx tau) {
   return altjtheta3(z + M_PI_2, tau);
+}
+
+// [[Rcpp::export]]
+cplx jtheta1_cpp(cplx z, cplx tau) {
+  return altjtheta1(z * M_PI, tau);
+}
+
+// [[Rcpp::export]]
+cplx jtheta2_cpp(cplx z, cplx tau) {
+  return altjtheta2(z * M_PI, tau);
+}
+
+// [[Rcpp::export]]
+cplx jtheta3_cpp(cplx z, cplx tau) {
+  return altjtheta3(z * M_PI, tau);
+}
+
+// [[Rcpp::export]]
+cplx jtheta4_cpp(cplx z, cplx tau) {
+  return altjtheta4(z * M_PI, tau);
 }

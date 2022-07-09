@@ -85,7 +85,6 @@ ljtheta2 <- function(z, tau = NULL, q = NULL){
   }
 }
 
-
 #' @title Jacobi theta function three
 #' @description Evaluates the third Jacobi theta function.
 #'
@@ -128,7 +127,6 @@ ljtheta3 <- function(z, tau = NULL, q = NULL){
     }
   }
 }
-
 
 #' @title Jacobi theta function four
 #' @description Evaluates the fourth Jacobi theta function.
