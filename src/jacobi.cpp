@@ -41,13 +41,20 @@ cplx power(cplx z, int p) {
 cplx theta1dash(cplx z, cplx tau) {
   cplx q = std::exp(_i_ * M_PI * tau);
   cplx out(0.0, 0.0);
-  cplx alt(-1.0, 0.0);
+  double alt = -1.0;
+  const cplx qsq = q * q;
+  cplx q_2n = 1;
+  cplx q_n_np1 = 1;
   for(int n = 0; n < 2000; n++) {
     alt = -alt;
+    if(n > 0) {
+      q_2n *= qsq;
+      q_n_np1 *= q_2n;
+    }
     double k = (double)(2 * n + 1);
-    cplx outnew = out + alt * power(q, n * (n + 1)) * k * std::cos(k * z);
+    cplx outnew = out + alt * q_n_np1 * k * std::cos(k * z);
     if(close(out, outnew)) {
-      return 2.0 * std::pow(q, 0.25) * out;
+      return 2.0 * std::sqrt(std::sqrt(q)) * out;
     }
     out = outnew;
   }
