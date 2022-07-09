@@ -6,4 +6,3 @@ cplx dologtheta3(cplx, cplx, unsigned);
 
 bool close(cplx, cplx);
 
-const cplx _i_;

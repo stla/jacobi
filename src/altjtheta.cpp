@@ -8,15 +8,16 @@ bool isreal(cplx z) {
   return z.imag() == 0.0;
 }
 
-const cplx _ii_(0.0, 1.0);
+inline const cplx _i_(0.0, 1.0);
 
-cplx _calctheta1_alt1(cplx z, cplx q) {
+template <typename T1, typename T2, typename T3>
+cplx _calctheta1_alt1(T1 z, T2 q) {
   int n = -1;
-  cplx series(0.0, 0.0);
+  T3 series = 0.0;
   int maxiter = 3000;
-  const cplx qsq = q * q;
-  cplx q_2n(1.0, 0.0);
-  cplx q_n_np1(1.0, 0.0);
+  const T2 qsq = q * q;
+  T2 q_2n = 1;
+  T2 q_n_np1 = 1;
   while(n < maxiter) {
     n += 1;
     if(n > 0) {
@@ -24,13 +25,14 @@ cplx _calctheta1_alt1(cplx z, cplx q) {
       q_n_np1 *= q_2n;
     }
     double k = 2*n + 1;
-    cplx term = q_n_np1 * std::sin(k*z);
+    T3 term = q_n_np1 * std::sin(k*z);
     if(isodd(n)) {
       term = -term;
     }
-    cplx nextseries = series + term;
+    T3 nextseries = series + term;
     if(n >= 2 && close(nextseries, series)) {
-      return 2.0 * std::sqrt(std::sqrt(q)) * series;
+      cplx out = 2.0 * std::sqrt(std::sqrt(q)) * series;
+      return out;
     } else {
       series = nextseries;
     }
@@ -38,24 +40,26 @@ cplx _calctheta1_alt1(cplx z, cplx q) {
   Rcpp::stop("Reached 3000 iterations.");
 }
 
-cplx _calctheta1_alt2(cplx zopi, cplx topi) {
-  int nminus = round(0.5 - zopi.real()) + 1;
+template <typename T1, typename T2, typename T3>
+cplx _calctheta1_alt2(T1 zopi, T2 topi) {
+  int nminus = round(0.5 - std::real(zopi)) + 1;
   int nplus = nminus - 1;
-  cplx series(0.0, 0.0);
+  T3 series = 0;
   int maxterms = 3000;
   while(nplus - nminus < maxterms) {
     nplus += 1;
     nminus -= 1;
-    cplx termm = std::exp(-std::pow((double)(nminus) - 0.5 + zopi, 2) / topi);
-    cplx termp = std::exp(-std::pow((double)(nplus) - 0.5 + zopi, 2) / topi);
+    T3 termm = std::exp(-std::pow((double)(nminus) - 0.5 + zopi, 2) / topi);
+    T3 termp = std::exp(-std::pow((double)(nplus) - 0.5 + zopi, 2) / topi);
     if(isodd(nplus)) { 
       termp = -termp;
     } else {
       termm = -termm;
     }
-    cplx nextseries = series + (termp + termm);
+    T3 nextseries = series + (termp + termm);
     if(nplus - nminus > 2 && close(nextseries, series)) {
-      return std::sqrt(1.0/(M_PI * topi)) * series;
+      cplx out = std::sqrt(1.0/(M_PI * topi)) * series;
+      return out;
     }else {
       series = nextseries;
     }
@@ -68,35 +72,34 @@ cplx altjtheta1(cplx z, cplx tau) {
   cplx out;
   if(tau.imag() > 1.3) { // Chosen empirically
     // Large imag(tau) case: compute in terms of q
-    cplx q = std::exp(_ii_ * M_PI * tau);
+    cplx q = std::exp(_i_ * M_PI * tau);
     if(isreal(q)) { 
       if(isreal(z)) {
         // Both inputs are real
-        cplx outr = _calctheta1_alt1(z.real(), q.real());
+        cplx outr = _calctheta1_alt1<double, double, double>(z.real(), q.real());
         out = outr.real();
       } else {
         // q is real, but z isn't
-        out = _calctheta1_alt1(z, q.real());
+        out = _calctheta1_alt1<cplx, double, cplx>(z, q.real());
       }
     } else {
       // q is not real
-      out = _calctheta1_alt1(z, q);
+      out = _calctheta1_alt1<cplx, cplx, cplx>(z, q);
     }
   } else {
     // Small imag(tau) case: compute in terms of t/pi where t = -im * tau
-    cplx topi = -_ii_ * (tau/M_PI);
+    cplx topi = -_i_ * (tau/M_PI);
     if (isreal(topi)) {
       if (isreal(z)) {
         // both z and t are real
-        cplx outr = _calctheta1_alt2(z.real()/M_PI, topi.real());
-        out = outr.real();
+        out = _calctheta1_alt2<double, double, double>(z.real()/M_PI, topi.real());
       } else {
         // t is real but z isn't
-        out = _calctheta1_alt2(z/M_PI, real(topi));
+        out = _calctheta1_alt2<cplx, double, cplx>(z/M_PI, topi.real());
       }
     } else {
       // t is not real.  No point in special casing real z here
-      out = _calctheta1_alt2(z/M_PI, topi);
+      out = _calctheta1_alt2<cplx, cplx, cplx>(z/M_PI, topi);
     }
   }
   return out;

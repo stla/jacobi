@@ -11,6 +11,18 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
+// altjtheta1
+cplx altjtheta1(cplx z, cplx tau);
+RcppExport SEXP _jacobi_altjtheta1(SEXP zSEXP, SEXP tauSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< cplx >::type z(zSEXP);
+    Rcpp::traits::input_parameter< cplx >::type tau(tauSEXP);
+    rcpp_result_gen = Rcpp::wrap(altjtheta1(z, tau));
+    return rcpp_result_gen;
+END_RCPP
+}
 // theta1dash
 cplx theta1dash(cplx z, cplx tau);
 RcppExport SEXP _jacobi_theta1dash(SEXP zSEXP, SEXP tauSEXP) {
@@ -326,6 +338,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_jacobi_altjtheta1", (DL_FUNC) &_jacobi_altjtheta1, 2},
     {"_jacobi_theta1dash", (DL_FUNC) &_jacobi_theta1dash, 2},
     {"_jacobi_ljtheta2_cpp", (DL_FUNC) &_jacobi_ljtheta2_cpp, 2},
     {"_jacobi_jtheta2_cpp", (DL_FUNC) &_jacobi_jtheta2_cpp, 2},

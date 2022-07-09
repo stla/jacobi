@@ -37,7 +37,7 @@ cplx power(cplx z, int p) {
   }
 }
 
-const cplx _i_(0.0, 1.0);
+inline const cplx _i_(0.0, 1.0);
 
 // [[Rcpp::export]]
 cplx theta1dash(cplx z, cplx tau) {
