@@ -15,7 +15,7 @@ jacobi:::jtheta4_cpp(z, tau)
 jacobi:::jtheta2_cpp(z / tau, -1 / tau) / alpha
 
 z <- 1 - 1i
-tau <- 1e-10i
+tau <- 1e-1i
 alpha <- sqrt(-1i * tau) * exp(pi / tau * 1i * z * z / pi / pi)
 jacobi:::altjtheta1(z, tau)
 1i * jacobi:::altjtheta1(z / tau, -1 / tau) / alpha 

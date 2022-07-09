@@ -12,3 +12,5 @@ cplx jtheta1_cpp(cplx, cplx);
 cplx jtheta2_cpp(cplx, cplx);
 cplx jtheta3_cpp(cplx, cplx);
 cplx jtheta4_cpp(cplx, cplx);
+
+cplx ljtheta1_cpp(cplx, cplx);

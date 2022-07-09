@@ -8,6 +8,11 @@ bool isreal(cplx z) {
   return z.imag() == 0.0;
 }
 
+cplx alpha(cplx z, cplx tau) {
+  return std::sqrt(-_i_ * tau) * std::exp(1.0 / tau * _i_ * z * z / M_PI);
+}
+
+
 template <typename T1, typename T2, typename T3>
 cplx _calctheta1_alt1(T1 z, T2 q) {
   int n = -1;
@@ -28,7 +33,7 @@ cplx _calctheta1_alt1(T1 z, T2 q) {
       term = -term;
     }
     T3 nextseries = series + term;
-    if(n >= 2 && close(nextseries, series)) {
+    if(n >= 3 && close(nextseries, series)) {
       cplx out = 2.0 * std::sqrt(std::sqrt(q)) * series;
       return out;
     } else {
@@ -82,7 +87,7 @@ cplx altjtheta1(cplx z, cplx tau) {
       }
     } else {
       // q is not real
-      out = _calctheta1_alt1<cplx, cplx, cplx>(z, q);
+      out = std::exp(ljtheta1_cpp(z/M_PI, tau)); //_calctheta1_alt2<cplx, cplx, cplx>(z/M_PI, -_i_ * (tau/M_PI));
     }
   } else {
     // Small imag(tau) case: compute in terms of t/pi where t = -im * tau
@@ -96,8 +101,8 @@ cplx altjtheta1(cplx z, cplx tau) {
         out = _calctheta1_alt2<cplx, double, cplx>(z/M_PI, topi.real());
       }
     } else {
-      // t is not real.  No point in special casing real z here
-      out = _calctheta1_alt2<cplx, cplx, cplx>(z/M_PI, topi);
+      // t is not real.  No point in special casing real z here - std::exp(-_i_ * M_PI / tau)
+      out = _i_ * _calctheta1_alt1<cplx, cplx, cplx>(z / tau, std::exp(-_i_ * M_PI / tau)) / alpha(z, tau);
     }
   }
   return out;
