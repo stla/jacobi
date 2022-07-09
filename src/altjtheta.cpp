@@ -87,7 +87,8 @@ cplx altjtheta1(cplx z, cplx tau) {
       }
     } else {
       // q is not real
-      out = std::exp(ljtheta1_cpp(z/M_PI, tau)); //_calctheta1_alt2<cplx, cplx, cplx>(z/M_PI, -_i_ * (tau/M_PI));
+      out = _i_ * _calctheta1_alt2<cplx, cplx, cplx>(z/M_PI/tau, _i_ / tau / M_PI) / alpha(z, tau);
+      //out = std::exp(ljtheta1_cpp(z/M_PI, tau)); //_calctheta1_alt2<cplx, cplx, cplx>(z/M_PI, -_i_ * (tau/M_PI));
     }
   } else {
     // Small imag(tau) case: compute in terms of t/pi where t = -im * tau
