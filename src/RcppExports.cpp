@@ -23,6 +23,42 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// altjtheta2
+cplx altjtheta2(cplx z, cplx tau);
+RcppExport SEXP _jacobi_altjtheta2(SEXP zSEXP, SEXP tauSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< cplx >::type z(zSEXP);
+    Rcpp::traits::input_parameter< cplx >::type tau(tauSEXP);
+    rcpp_result_gen = Rcpp::wrap(altjtheta2(z, tau));
+    return rcpp_result_gen;
+END_RCPP
+}
+// altjtheta3
+cplx altjtheta3(cplx z, cplx tau);
+RcppExport SEXP _jacobi_altjtheta3(SEXP zSEXP, SEXP tauSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< cplx >::type z(zSEXP);
+    Rcpp::traits::input_parameter< cplx >::type tau(tauSEXP);
+    rcpp_result_gen = Rcpp::wrap(altjtheta3(z, tau));
+    return rcpp_result_gen;
+END_RCPP
+}
+// altjtheta4
+cplx altjtheta4(cplx z, cplx tau);
+RcppExport SEXP _jacobi_altjtheta4(SEXP zSEXP, SEXP tauSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< cplx >::type z(zSEXP);
+    Rcpp::traits::input_parameter< cplx >::type tau(tauSEXP);
+    rcpp_result_gen = Rcpp::wrap(altjtheta4(z, tau));
+    return rcpp_result_gen;
+END_RCPP
+}
 // theta1dash
 cplx theta1dash(cplx z, cplx tau);
 RcppExport SEXP _jacobi_theta1dash(SEXP zSEXP, SEXP tauSEXP) {
@@ -339,6 +375,9 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_jacobi_altjtheta1", (DL_FUNC) &_jacobi_altjtheta1, 2},
+    {"_jacobi_altjtheta2", (DL_FUNC) &_jacobi_altjtheta2, 2},
+    {"_jacobi_altjtheta3", (DL_FUNC) &_jacobi_altjtheta3, 2},
+    {"_jacobi_altjtheta4", (DL_FUNC) &_jacobi_altjtheta4, 2},
     {"_jacobi_theta1dash", (DL_FUNC) &_jacobi_theta1dash, 2},
     {"_jacobi_ljtheta2_cpp", (DL_FUNC) &_jacobi_ljtheta2_cpp, 2},
     {"_jacobi_jtheta2_cpp", (DL_FUNC) &_jacobi_jtheta2_cpp, 2},

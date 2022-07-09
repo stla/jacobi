@@ -136,7 +136,7 @@ cplx dologtheta3(cplx z, cplx tau, unsigned pass_in) {
   return out;
 }
 
-cplx M(cplx z, cplx tau) {
+inline cplx M(cplx z, cplx tau) {
   return _i_ * M_PI * (z + tau / 4.0);
 }
 

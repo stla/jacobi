@@ -5,6 +5,18 @@ altjtheta1 <- function(z, tau) {
     .Call(`_jacobi_altjtheta1`, z, tau)
 }
 
+altjtheta2 <- function(z, tau) {
+    .Call(`_jacobi_altjtheta2`, z, tau)
+}
+
+altjtheta3 <- function(z, tau) {
+    .Call(`_jacobi_altjtheta3`, z, tau)
+}
+
+altjtheta4 <- function(z, tau) {
+    .Call(`_jacobi_altjtheta4`, z, tau)
+}
+
 theta1dash <- function(z, tau) {
     .Call(`_jacobi_theta1dash`, z, tau)
 }

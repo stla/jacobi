@@ -104,3 +104,22 @@ cplx altjtheta1(cplx z, cplx tau) {
   }
   return out;
 }
+
+// [[Rcpp::export]]
+cplx altjtheta2(cplx z, cplx tau) {
+  return altjtheta1(z + M_PI_2, tau);
+}
+
+inline cplx expM(cplx z, cplx tau) {
+  return std::exp(_i_ * (z + tau * M_PI_4));
+}
+
+// [[Rcpp::export]]
+cplx altjtheta3(cplx z, cplx tau) {
+  return altjtheta2(z - M_PI_2 * tau, tau) * expM(-z, tau);
+}
+
+// [[Rcpp::export]]
+cplx altjtheta4(cplx z, cplx tau) {
+  return altjtheta3(z + M_PI_2, tau);
+}
