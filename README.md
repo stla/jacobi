@@ -26,6 +26,8 @@ Jacobi theta functions and related functions.
 
 ![](https://raw.githubusercontent.com/stla/jacobi/main/inst/images/jellip_cn_1-16.png)
 
+![](https://raw.githubusercontent.com/stla/jacobi/main/inst/images/ball_cn.gif)
+
 
 ### Blog posts
 
