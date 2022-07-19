@@ -1,4 +1,4 @@
-# jacobi 1.0.0.9002
+# jacobi 2.0.0
 
 - Weierstrass sigma function.
 
@@ -7,6 +7,8 @@
 - Costa surface.
 
 - Vectorization.
+
+- Better accuracy.
 
 
 # jacobi 1.0.0

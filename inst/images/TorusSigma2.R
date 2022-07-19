@@ -66,7 +66,7 @@ torusMesh <- function(nu = 50, nv = 30, rgl = TRUE){
 }
 
 
-mesh <- Rvcg::vcgUpdateNormals(torusMesh(nu = 200, nv = 200))
+mesh <- Rvcg::vcgUpdateNormals(torusMesh(nu = 400, nv = 400))
 
 coords <- function(xyz){
   x <- xyz[, 1L]
@@ -85,7 +85,8 @@ color <- colorMap1(Z, reverse = c(FALSE, FALSE, TRUE))
 # color <- ifelse(theta <= 0, ifelse(phi <= 0, "navy", "yellow"), ifelse(phi > 0, "navy", "yellow"))
 mesh$material <- list(color = color)
 
-open3d(windowRect = c(50, 50, 562, 562), zoom = 0.75)
+open3d(windowRect = c(50, 50, 562, 562))
+view3d(0, 0, zoom = 0.95)
 bg3d("gainsboro")
 shade3d(mesh)
 
