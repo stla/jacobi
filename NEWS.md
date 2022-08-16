@@ -1,3 +1,8 @@
+# jacobi 2.0.1
+
+- Minor fix in the C++ code.
+
+
 # jacobi 2.0.0
 
 - Weierstrass sigma function.

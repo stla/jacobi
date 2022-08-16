@@ -680,8 +680,8 @@ std::string colormap1(cplx z) {
   }
   double a = std::arg(z);
   double r = modulo(std::abs(z), 1.0);
-  double g = abs(modulo(a, 0.5)) * 2.0;
-  double b = abs(modulo(x * y, 1));
+  double g = fabs(modulo(a, 0.5)) * 2.0;
+  double b = fabs(modulo(x * y, 1));
   if(std::isnan(b)) {
     return "#000000";
   }
