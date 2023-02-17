@@ -39,11 +39,13 @@ kleinj <- function(tau, transfo = FALSE){
 
 #' @rdname kleinj
 #' @export
-kleinjinv <- function(j){
+kleinjinv <- function(j) {
   stopifnot(isComplexNumber(j))
-  if(is.infinite(j)){
+  if(is.infinite(j)) {
     x <- 0
-  }else{
+  } else if(j == 0) {
+    return(0.5 + sqrt(3)/2*1i)
+  } else {
     # x <- polyroot(c(1, -3, 3-j/256, -1))[1L]
     t <- -j*j*j + 2304 * j*j + 12288 * 
       sqrt(3 * (1728 * j*j - j*j*j)) - 884736 * j

@@ -33,3 +33,14 @@ test_that("wpprime value.", {
     tolerance = 1e-4
   )
 })
+
+test_that("Equiharmonic case.", {
+  omega2 <- gamma(1/3)^3 / 4 / pi
+  z0 <- omega2 * (1 + 1i/sqrt(3))
+  expect_equal(
+    wp(z0, g = c(0, 1)), 0i
+  )
+  expect_equal(
+    wp(Conj(z0), g = c(0, 1)), 0i
+  )
+})
