@@ -76,6 +76,7 @@ cplx altjtheta1(cplx z, cplx tau) {
   if(tau.imag() > 1.3) { // Chosen empirically
     // Large imag(tau) case: compute in terms of q
     cplx q = std::exp(_i_ * M_PI * tau);
+    //cplx topi = -_i_ * tau * M_1_PI;
     if(isreal(q)) { 
       if(isreal(z)) {
         // Both inputs are real
@@ -89,14 +90,20 @@ cplx altjtheta1(cplx z, cplx tau) {
       }
     } else {
       // q is not real
-      out = _i_ * _calctheta1_alt2<cplx, cplx, cplx>(
-        z * M_1_PI / tau, _i_ / tau * M_1_PI
-      ) / alpha(z, tau);
-      //out = std::exp(ljtheta1_cpp(z/M_PI, tau)); //_calctheta1_alt2<cplx, cplx, cplx>(z/M_PI, -_i_ * (tau/M_PI));
+//      out = _calctheta1_alt2<cplx, cplx, cplx>(z * M_1_PI, topi);
+//      out = _calctheta1_alt1<cplx, cplx, cplx>(z, q);
+        out = _i_ * _calctheta1_alt1<cplx, cplx, cplx>(
+          z / tau, std::exp(-_i_ * M_PI / tau)
+        ) / alpha(z, tau);
+      // out = _i_ * _calctheta1_alt2<cplx, cplx, cplx>(
+      //    z * M_1_PI / tau, _i_ / tau * M_1_PI
+      //  ) / alpha(z, tau);
+      ///////////////////////////////////////out = std::exp(ljtheta1_cpp(z/M_PI, tau)); //_calctheta1_alt2<cplx, cplx, cplx>(z/M_PI, -_i_ * (tau/M_PI));
     }
   } else {
-    // Small imag(tau) case: compute in terms of t/pi where t = -im * tau
+    // Small imag(tau) case: compute in terms of t/pi where t = -i * tau
     cplx topi = -_i_ * tau * M_1_PI;
+    //cplx q = std::exp(_i_ * M_PI * tau);
     if(isreal(topi)) {
       if(isreal(z)) {
         // both z and t are real
@@ -109,9 +116,14 @@ cplx altjtheta1(cplx z, cplx tau) {
       }
     } else {
       // t is not real.  No point in special casing real z here - std::exp(-_i_ * M_PI / tau)
-      out = _i_ * _calctheta1_alt1<cplx, cplx, cplx>(
-        z / tau, std::exp(-_i_ * M_PI / tau)
-      ) / alpha(z, tau);
+      //out = _calctheta1_alt1<cplx, cplx, cplx>(z, q);
+//      out = _calctheta1_alt2<cplx, cplx, cplx>(z * M_1_PI, topi);
+       // out = _i_ * _calctheta1_alt1<cplx, cplx, cplx>(
+       //   z / tau, std::exp(-_i_ * M_PI / tau)
+       // ) / alpha(z, tau);
+       out = _i_ * _calctheta1_alt2<cplx, cplx, cplx>(
+         z * M_1_PI / tau, _i_ / tau * M_1_PI
+       ) / alpha(z, tau);
     }
   }
   return out;
