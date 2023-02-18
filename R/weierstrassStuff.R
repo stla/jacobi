@@ -5,8 +5,8 @@ G4 <- function(tau){
 halfPeriods <- function(g) {
   g2 <- g[1L]
   g3 <- g[2L]
-  if(g2 == 0 && g3 == 1) {
-    omega1 <- gamma(1/3)^3 / 4/ pi
+  if(g2 == 0) {
+    omega1 <- gamma(1/3)^3 / 4 / pi / g3^(1/6)
     tau <- complex(real = 0.5, imaginary = sqrt(3)/2)
   } else {
     g2cube <- g2*g2*g2
