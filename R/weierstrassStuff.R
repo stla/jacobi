@@ -19,8 +19,11 @@ halfPeriods <- function(g) {
       return(c(-1i*pi/2/sqrt(3), complex(real = Inf, imaginary = Inf)))
     } 
     tau <- kleinjinv(j) 
-    #omega1 <- 1i * sqrt(sqrt(15 / 4 / g2 * G4(tau)))
-    omega1 <- sqrt(as.complex(7 * G6(tau) * g2 / (12 * G4(tau) * g3)))
+    if(g3 == 0) {
+      omega1 <- 1i * sqrt(sqrt(15 / 4 / g2 * G4(tau))) 
+    } else {
+      omega1 <- sqrt(as.complex(7 * G6(tau) * g2 / (12 * G4(tau) * g3)))
+    }
   }
   c(omega1, tau)
 }
