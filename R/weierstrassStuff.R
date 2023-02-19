@@ -2,6 +2,10 @@ G4 <- function(tau){
   pi^4/45 * E4(tau)
 }
 
+G6 <- function(tau){
+  2*pi^6/945 * E6(tau)
+}
+
 halfPeriods <- function(g) {
   g2 <- g[1L]
   g3 <- g[2L]
@@ -15,7 +19,8 @@ halfPeriods <- function(g) {
       return(c(-1i*pi/2/sqrt(3), complex(real = Inf, imaginary = Inf)))
     } 
     tau <- kleinjinv(j) 
-    omega1 <- 1i * sqrt(sqrt(15 / 4 / g2 * G4(tau)))
+    #omega1 <- 1i * sqrt(sqrt(15 / 4 / g2 * G4(tau)))
+    omega1 <- sqrt(as.complex(7 * G6(tau) * g2 / (12 * G4(tau) * g3)))
   }
   c(omega1, tau)
 }
