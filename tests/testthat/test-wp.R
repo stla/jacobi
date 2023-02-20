@@ -34,7 +34,7 @@ test_that("wpprime value.", {
   )
 })
 
-test_that("Equiharmonic case.", {
+test_that("Equianharmonic case.", {
   omega2 <- gamma(1/3)^3 / 4 / pi
   z0 <- omega2 * (1 + 1i/sqrt(3))
   expect_equal(

@@ -2,6 +2,9 @@
 
 - The case when the elliptic invariant `g2` is zero is now handled.
 
+- The method computing the half-periods ratio when the elliptic invariants are 
+given led a wrong sign sometimes.
+
 
 # jacobi 2.0.1
 
