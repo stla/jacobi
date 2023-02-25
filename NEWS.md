@@ -1,3 +1,8 @@
+# jacobi 2.2.0
+
+Some values of the Jacobi theta functions were wrong as of version 2.1.0.
+
+
 # jacobi 2.1.0
 
 - The case when the elliptic invariant `g2` is zero is now handled.
