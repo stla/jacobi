@@ -165,15 +165,15 @@ cplx M(cplx z, cplx tau) {
 //   return std::exp(ljtheta1_cpp(z, tau));
 // }
 
-// // [[Rcpp::export]]
-// cplx ljtheta3_cpp(cplx z, cplx tau) {
-//   return dologtheta3(z, tau, 0);
-// }
+// [[Rcpp::export]]
+cplx ljtheta3_fremling(cplx z, cplx tau) {
+  return dologtheta3(z, tau, 0);
+}
 
-// // [[Rcpp::export]]
-// cplx jtheta3_cpp(cplx z, cplx tau) {
-//   return std::exp(ljtheta3_cpp(z, tau));
-// }
+// [[Rcpp::export]]
+cplx jtheta3_fremling(cplx z, cplx tau) {
+  return std::exp(ljtheta3_fremling(z, tau));
+}
 
 // // [[Rcpp::export]]
 // cplx ljtheta4_cpp(cplx z, cplx tau) {

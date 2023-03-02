@@ -53,6 +53,14 @@ theta1dash <- function(z, tau) {
     .Call(`_jacobi_theta1dash`, z, tau)
 }
 
+ljtheta3_fremling <- function(z, tau) {
+    .Call(`_jacobi_ljtheta3_fremling`, z, tau)
+}
+
+jtheta3_fremling <- function(z, tau) {
+    .Call(`_jacobi_jtheta3_fremling`, z, tau)
+}
+
 dlogjtheta1 <- function(z, q) {
     .Call(`_jacobi_dlogjtheta1`, z, q)
 }

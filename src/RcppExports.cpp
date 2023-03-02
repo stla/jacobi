@@ -167,6 +167,30 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// ljtheta3_fremling
+cplx ljtheta3_fremling(cplx z, cplx tau);
+RcppExport SEXP _jacobi_ljtheta3_fremling(SEXP zSEXP, SEXP tauSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< cplx >::type z(zSEXP);
+    Rcpp::traits::input_parameter< cplx >::type tau(tauSEXP);
+    rcpp_result_gen = Rcpp::wrap(ljtheta3_fremling(z, tau));
+    return rcpp_result_gen;
+END_RCPP
+}
+// jtheta3_fremling
+cplx jtheta3_fremling(cplx z, cplx tau);
+RcppExport SEXP _jacobi_jtheta3_fremling(SEXP zSEXP, SEXP tauSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< cplx >::type z(zSEXP);
+    Rcpp::traits::input_parameter< cplx >::type tau(tauSEXP);
+    rcpp_result_gen = Rcpp::wrap(jtheta3_fremling(z, tau));
+    return rcpp_result_gen;
+END_RCPP
+}
 // dlogjtheta1
 cplx dlogjtheta1(cplx z, cplx q);
 RcppExport SEXP _jacobi_dlogjtheta1(SEXP zSEXP, SEXP qSEXP) {
@@ -387,6 +411,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_jacobi_ljtheta3_cpp", (DL_FUNC) &_jacobi_ljtheta3_cpp, 2},
     {"_jacobi_ljtheta4_cpp", (DL_FUNC) &_jacobi_ljtheta4_cpp, 2},
     {"_jacobi_theta1dash", (DL_FUNC) &_jacobi_theta1dash, 2},
+    {"_jacobi_ljtheta3_fremling", (DL_FUNC) &_jacobi_ljtheta3_fremling, 2},
+    {"_jacobi_jtheta3_fremling", (DL_FUNC) &_jacobi_jtheta3_fremling, 2},
     {"_jacobi_dlogjtheta1", (DL_FUNC) &_jacobi_dlogjtheta1, 2},
     {"_jacobi_JTheta1", (DL_FUNC) &_jacobi_JTheta1, 2},
     {"_jacobi_JTheta2", (DL_FUNC) &_jacobi_JTheta2, 2},

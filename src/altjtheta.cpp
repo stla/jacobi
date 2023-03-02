@@ -9,7 +9,7 @@ bool isreal(cplx z) {
 }
 
 cplx alpha(cplx z, cplx tau) {
-  return std::sqrt(-_i_ * tau) * std::exp(1.0 / tau * _i_ * z * z / M_PI);
+  return std::sqrt(- _i_ * tau) * std::exp(1.0 / tau * _i_ * z * z / M_PI);
 }
 
 
@@ -72,6 +72,8 @@ cplx _calctheta1_alt2(T1 zopi, T2 topi) {
 
 // [[Rcpp::export]]
 cplx altjtheta1(cplx z, cplx tau) {
+  //cplx qtemp = std::exp(_i_ * M_PI * tau);
+  //tau = -_i_ * log(qtemp) / M_PI;
   cplx out;
   if(tau.imag() > 1.3) { // Chosen empirically
     // Large imag(tau) case: compute in terms of q
@@ -91,13 +93,13 @@ cplx altjtheta1(cplx z, cplx tau) {
     } else {
       // q is not real
 //      out = _calctheta1_alt2<cplx, cplx, cplx>(z * M_1_PI, topi);
-//      out = _calctheta1_alt1<cplx, cplx, cplx>(z, q);
+      out = _calctheta1_alt1<cplx, cplx, cplx>(z, q);
         // out = _i_ * _calctheta1_alt1<cplx, cplx, cplx>(
         //   z / tau, std::exp(-_i_ * M_PI / tau)
         // ) / alpha(z, tau);
-      out = _i_ * _calctheta1_alt2<cplx, cplx, cplx>(
-         z * M_1_PI / tau, _i_ / tau * M_1_PI
-       ) / alpha(z, tau);
+      // out = _i_ * _calctheta1_alt2<cplx, cplx, cplx>(
+      //    z * M_1_PI / tau, _i_ / tau * M_1_PI
+      //  ) / alpha(z, tau);
       ///////////////////////////////////////out = std::exp(ljtheta1_cpp(z/M_PI, tau)); //_calctheta1_alt2<cplx, cplx, cplx>(z/M_PI, -_i_ * (tau/M_PI));
     }
   } else {
@@ -117,10 +119,10 @@ cplx altjtheta1(cplx z, cplx tau) {
     } else {
       // t is not real.  No point in special casing real z here - std::exp(-_i_ * M_PI / tau)
       //out = _calctheta1_alt1<cplx, cplx, cplx>(z, q);
-//      out = _calctheta1_alt2<cplx, cplx, cplx>(z * M_1_PI, topi);
-       out = _i_ * _calctheta1_alt1<cplx, cplx, cplx>(
-         z / tau, std::exp(-_i_ * M_PI / tau)
-       ) / alpha(z, tau);
+      out = _calctheta1_alt2<cplx, cplx, cplx>(z * M_1_PI, topi);
+       // out = _i_ *  _calctheta1_alt1<cplx, cplx, cplx>(
+       //   z / tau, std::exp(-_i_ * M_PI / tau)
+       // ) / alpha(z, tau);
        // out = _i_ * _calctheta1_alt2<cplx, cplx, cplx>(
        //   z * M_1_PI / tau, _i_ / tau * M_1_PI
        // ) / alpha(z, tau);
@@ -129,17 +131,21 @@ cplx altjtheta1(cplx z, cplx tau) {
   return out;
 }
 
-// [[Rcpp::export]]
-cplx altjtheta2(cplx z, cplx tau) {
-  return altjtheta1(z + M_PI_2, tau);
-}
-
 inline cplx expM(cplx z, cplx tau) {
   return std::exp(_i_ * (z + tau * M_PI_4));
 }
 
 // [[Rcpp::export]]
+cplx altjtheta2(cplx z, cplx tau) {
+  cplx qquarter = exp(_i_ * M_PI * tau / 4.0);
+  //return qquarter * exp(-_i_ * z) * altjtheta3(z - 0.5 * M_PI * tau, tau);
+  return altjtheta1(z + M_PI_2, tau);
+}
+
+// [[Rcpp::export]]
 cplx altjtheta3(cplx z, cplx tau) {
+  cplx qquarter = exp(_i_ * M_PI * tau / 4.0);
+  //return qquarter * exp(-_i_ * z) * altjtheta1(z - 0.5 * M_PI * (tau + 1.0), tau);
   return altjtheta2(z - M_PI_2 * tau, tau) * expM(-z, tau);
 }
 
