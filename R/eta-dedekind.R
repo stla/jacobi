@@ -14,5 +14,5 @@ eta <- function(tau){
   if(Im(tau) <= 0){
     stop("The complex number `tau` must have a positive imaginary part.")
   }
-  exp(1i * pi * tau/12) * jtheta3_fremling((tau+1)/2, 3*tau)
+  exp(1i * pi * tau/12) * jtheta3_cpp((tau+1)/2, 3*tau)
 }

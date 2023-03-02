@@ -1,10 +1,11 @@
 jtheta1prime0 <- function(tau = NULL, q = NULL){
   tau <- check_and_get_tau(tau, q)
-  jtheta2_cpp(0, tau) * jtheta3_cpp(0, tau) * jtheta4_cpp(0, tau)
+  return(theta1dash(0, tau))
+  #jtheta2_cpp(0, tau) * jtheta3_cpp(0, tau) * jtheta4_cpp(0, tau)
 }
 
 jtheta1primeprimeprime0 <- function(tau){
-  -2 * eta(tau)^3 * E2(tau)
+  -theta1dash(0, tau) * E2(tau)
 }
 
 dljtheta1 <- function(z, tau){
