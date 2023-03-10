@@ -25,7 +25,7 @@ wzeta <- function(z, g = NULL, omega = NULL, tau = NULL){
   }
   if(!is.null(g)){
     stopifnot(isComplexPair(g))
-    om1_tau <- halfPeriods(g)
+    om1_tau <- omega1_and_tau(g)
     omega1 <- om1_tau[1L]
     tau <- om1_tau[2L]
   }

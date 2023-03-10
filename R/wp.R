@@ -25,7 +25,7 @@ wp_from_omega1_and_tau <- function(z, omega1, tau){
 }
 
 wp_from_g <- function(z, g){
-  om1_tau <- halfPeriods(g)
+  om1_tau <- omega1_and_tau(g)
   wp_from_omega1_and_tau(z, om1_tau[1L], om1_tau[2L])
 }
 
@@ -99,7 +99,7 @@ wp <- function(z, g = NULL, omega = NULL, tau = NULL, derivative = 0L){
         return(6*weier*weier - g[1L]/2)
       }
     }
-    om1_tau <- halfPeriods(g)
+    om1_tau <- omega1_and_tau(g)
     omega1 <- om1_tau[1L]
     tau <- om1_tau[2L]
     weierPrime <- weierDerivative(z, omega1, tau)

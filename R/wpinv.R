@@ -27,7 +27,7 @@ wpinv <- function(w, g = NULL, omega = NULL, tau = NULL){
   }
   if(!is.null(g)){
     stopifnot(isComplexPair(g))
-    om1_tau <- halfPeriods(g)
+    om1_tau <- omega1_and_tau(g)
     omega1 <- om1_tau[1L]
     omega2 <- omega1 * om1_tau[2L]
     omega <- c(omega1, omega2)

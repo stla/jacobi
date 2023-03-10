@@ -6,7 +6,7 @@ G6 <- function(tau){
   2*pi^6/945 * E6(tau)
 }
 
-halfPeriods <- function(g) {
+omega1_and_tau <- function(g) {
   g2 <- g[1L]
   g3 <- g[2L]
   if(g2 == 0) {
@@ -27,6 +27,20 @@ halfPeriods <- function(g) {
   }
   c(omega1, tau)
 }
+
+#' @title Half-periods
+#' @description Half-periods from elliptic invariants.
+#'
+#' @param g2g3 the elliptic invariants, a vector of two complex numbers
+#'
+#' @return The half-periods, a vector of two complex numbers.
+#' @export
+halfPeriods <- function(g2g3) {
+  omega1_tau <- omega1_and_tau(g2g3)
+  omega1 <- omega1_tau[1L]
+  c(omega1, omega1 * omega1_tau[2L])
+}
+
 
 g2_from_omega1_and_tau <- function(omega1, tau){
   # if(Im(w2)*Re(w1) <= Im(w1)*Re(w2)){
@@ -58,3 +72,18 @@ g_from_omega1_and_tau <- function(omega1, tau){ # used in zetaw
   c(g2, g3)
 }
 
+#' @title Elliptic invariants
+#' @description Elliptic invariants from half-periods
+#'
+#' @param omega1omega2 the half-periods, a vector of two complex numbers
+#'
+#' @return The elliptic invariants, a vector of two complex numbers.
+#' @export
+ellipticInvariants <- function(omega1omega2) {
+  omega1 <- omega1omega2[1L]
+  tau <- omega1omega2[2L] / omega1
+  if(Im(tau) <= 0) {
+    stop("The ratio `omega2/omega1` must have a positive imaginary part.")
+  }
+  g_from_omega1_and_tau(omega1, tau)
+}
