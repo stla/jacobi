@@ -74,7 +74,7 @@ g_from_omega1_and_tau <- function(omega1, tau){ # used in zetaw
 }
 
 #' @title Elliptic invariants
-#' @description Elliptic invariants from half-periods
+#' @description Elliptic invariants from half-periods.
 #'
 #' @param omega1omega2 the half-periods, a vector of two complex numbers
 #'

@@ -13,5 +13,5 @@ ellipticInvariants(omega1omega2)
 The elliptic invariants, a vector of two complex numbers.
 }
 \description{
-Elliptic invariants from half-periods
+Elliptic invariants from half-periods.
 }
