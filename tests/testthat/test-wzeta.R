@@ -1,15 +1,15 @@
 test_that("zeta values", {
-  omega <- elliptic::parameters(g = c(5+3i, 5+3i))$Omega
+  omega <- halfPeriods(c(5+3i, 5+3i))
   expect_equal(
     wzeta(1+1i, omega = omega),
     0.802084165492408 - 0.381791358666872i
   )
-  omega <- elliptic::parameters(g = c(1, 0))$Omega
+  omega <- halfPeriods(c(1, 0))
   expect_equal(
     wzeta(1+1i/2, omega = omega),
     0.796091125108 - 0.422887864713i
   )
-  omega <- elliptic::parameters(g = c(0, 1))$Omega
+  omega <- halfPeriods(c(0, 1))
   expect_equal(
     wzeta(1+1i/2, omega = omega),
     0.80847063824 - 0.409123683392i
