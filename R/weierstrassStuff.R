@@ -36,6 +36,7 @@ omega1_and_tau <- function(g) {
 #' @return The half-periods, a vector of two complex numbers.
 #' @export
 halfPeriods <- function(g2g3) {
+  stopifnot(isComplexPair(g2g3))
   omega1_tau <- omega1_and_tau(g2g3)
   omega1 <- omega1_tau[1L]
   c(omega1, omega1 * omega1_tau[2L])
@@ -80,6 +81,7 @@ g_from_omega1_and_tau <- function(omega1, tau){ # used in zetaw
 #' @return The elliptic invariants, a vector of two complex numbers.
 #' @export
 ellipticInvariants <- function(omega1omega2) {
+  stopifnot(isComplexPair(omega1omega2))
   omega1 <- omega1omega2[1L]
   tau <- omega1omega2[2L] / omega1
   if(Im(tau) <= 0) {
