@@ -4,6 +4,12 @@
 
 - Added some unit tests.
 
+- New function `halfPeriods`, computing the half-periods from the elliptic 
+invariants.
+
+- New function `ellipticInvariants`, computing the elliptic invariants from 
+the half-periods.
+
 
 # jacobi 2.1.0
 
