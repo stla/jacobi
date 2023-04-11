@@ -11,7 +11,7 @@ x <- seq(-h, h, len = 1024)
 y <- seq(-h, h, len = 1024)
 Z <- outer(x, y, f)
 
-img <- colorMap3(Z)
+img <- colorMap1(Z)
 
 opar <- par(mar = c(0,0,0,0))
 plot(c(-100, 100), c(-100, 100), type = "n", asp = 1, 

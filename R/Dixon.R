@@ -19,33 +19,14 @@
 #' plot(pts, type = "l", asp = 1)
 sm <- function(z) {
   stopifnot(isComplex(z))
-  logm <- complex(real = 0, imaginary = 5 * pi / 3)
-  m <- exp(logm)
-  theta <- 3^0.25 * exp(logm / 4)
-  xi <- function(u) {
-    s <- jellip("sn", u, m = m)
-    c <- jellip("cn", u, m = m)
-    d <- jellip("dn", u, m = m)
-    x <- theta * s * c * d
-    (x - 1) / (x + 1)
-  }
-  pi3 <- beta(1/3, 1/3)
-  xi((z + pi3/6) / (2^(1/3) * theta))
+  -6 * wp(z, g = c(0, 1/27)) / 
+    (3 * wp(z, g = c(0, 1/27), derivative = 1L) - 1)
 }
 
 #' @rdname Dixon
 #' @export
 cm <- function(z) {
   stopifnot(isComplex(z))
-  logm <- complex(real = 0, imaginary = 5 * pi / 3)
-  m <- exp(logm)
-  theta <- 3^0.25 * exp(logm / 4)
-  xi <- function(u) {
-    s <- jellip("sn", u, m = m)
-    c <- jellip("cn", u, m = m)
-    d <- jellip("dn", u, m = m)
-    2^(1/3) * (1 + theta*theta*s*s) / (1 + theta*s*c*d)
-  }
-  pi3 <- beta(1/3, 1/3)
-  xi((z + pi3/6) / (2^(1/3) * theta))
+  x <- 3 * wp(z, g = c(0, 1/27), derivative = 1L)
+  (x + 1) / (x - 1)
 }

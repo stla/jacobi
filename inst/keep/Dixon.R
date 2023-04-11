@@ -31,6 +31,25 @@ cm <- function(z) {
   xi((z + pi3/6) / (2^(1/3) * theta))
 }
 
+
+p <- function(z) {
+  wp(z, g = c(0, 1/27))
+}
+
+pdash <- function(z) {
+  wp(z, g = c(0, 1/27), derivative = 1L)
+}
+
+cm <- function(z) {
+  x <- 3 * pdash(z)
+  (x + 1) / (x - 1)
+}
+
+sm <- function(z) {
+  -6 * p(z) / (3 * pdash(z) - 1)
+}
+
+
 # cubic Fermat curve x^3+y^3=1
 pi3 <- beta(1/3, 1/3)
 epsilon <- 0.7
