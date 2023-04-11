@@ -11,7 +11,8 @@ Description: Evaluation of the Jacobi theta functions and related
     functions: Weierstrass elliptic function, Weierstrass sigma function,
     Weierstrass zeta function, Klein j-function, Dedekind eta function,
     lambda modular function, Jacobi elliptic functions, Neville theta
-    functions, and Eisenstein series. Complex values of the variable are
+    functions, Eisenstein series, lemniscate elliptic functions, and 
+    Dixon elliptic functions. Complex values of the variable are
     supported.
 License: GPL-3
 URL: https://github.com/stla/jacobi
