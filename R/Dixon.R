@@ -18,7 +18,7 @@
 #' }, FUN.VALUE = numeric(2L)))
 #' plot(pts, type = "l", asp = 1)
 sm <- function(z) {
-  stopifnot(isComplex(z))
+  stopifnot(isComplexNumber(z))
   -6 * wp(z, g = c(0, 1/27)) / 
     (3 * wp(z, g = c(0, 1/27), derivative = 1L) - 1)
 }
@@ -26,7 +26,7 @@ sm <- function(z) {
 #' @rdname Dixon
 #' @export
 cm <- function(z) {
-  stopifnot(isComplex(z))
+  stopifnot(isComplexNumber(z))
   x <- 3 * wp(z, g = c(0, 1/27), derivative = 1L)
   (x + 1) / (x - 1)
 }

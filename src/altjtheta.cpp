@@ -72,12 +72,12 @@ cplx _calctheta1_alt2(T1 zopi, T2 topi) {
 
 // [[Rcpp::export]]
 cplx altjtheta1(cplx z, cplx tau) {
-  //cplx qtemp = std::exp(_i_ * M_PI * tau);
-  //tau = -_i_ * log(qtemp) / M_PI;
+  cplx q = std::exp(_i_ * M_PI * tau);
+  tau = -_i_ * log(q) / M_PI;
   cplx out;
   if(tau.imag() > 1.3) { // Chosen empirically
     // Large imag(tau) case: compute in terms of q
-    cplx q = std::exp(_i_ * M_PI * tau);
+    //cplx q = std::exp(_i_ * M_PI * tau);
     //cplx topi = -_i_ * tau * M_1_PI;
     if(isreal(q)) { 
       if(isreal(z)) {
