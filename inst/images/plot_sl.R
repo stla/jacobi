@@ -6,8 +6,9 @@ f <- Vectorize(function(x, y){
   sl(w)
 })
 
-x <- seq(-3, 3, len = 1024)
-y <- seq(-3, 3, len = 1024)
+ombar <- gamma(1/4)^2 / (2 * sqrt(2*pi))
+x <- seq(-ombar, ombar, len = 1024)
+y <- seq(-ombar, ombar, len = 1024)
 Z <- outer(x, y, f)
 
 img <- colorMap1(Z)
