@@ -7,8 +7,8 @@ f <- Vectorize(function(x, y){
 })
 
 h <- beta(1/3, 1/3)
-x <- seq(-h, h, len = 1024)
-y <- seq(-h, h, len = 1024)
+x <- seq(-h, h, len = 512)
+y <- seq(-h, h, len = 512)
 Z <- outer(x, y, f)
 
 img <- colorMap1(Z)
