@@ -34,4 +34,18 @@ Lemniscate sine, cosine, arcsine, arccosine, hyperbolic sine,
 }
 \examples{
 sl(1+1i) * cl(1+1i) # should be 1
+## | the lemniscate ####
+# lemniscate parameterization
+p <- Vectorize(function(s) {
+  a <- Re(cl(s))
+  b <- Re(sl(s))
+  c(a, a * b) / sqrt(1 + b*b)
+})
+# lemnniscate constant
+ombar <- 2.622 # gamma(1/4)^2 / (2 * sqrt(2*pi))
+# plot
+s_ <- seq(0, ombar, length.out = 100)
+lemniscate <- t(p(s_))
+plot(lemniscate, type = "l", col = "blue", lwd = 3)
+lines(cbind(lemniscate[, 1L], -lemniscate[, 2L]), col="red", lwd = 3)
 }
