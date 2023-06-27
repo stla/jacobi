@@ -1,3 +1,8 @@
+# jacobi 2.3.1
+
+- More unit tests.
+
+
 # jacobi 2.3.0
 
 - Lemniscate elliptic functions.
