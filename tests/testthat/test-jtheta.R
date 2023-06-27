@@ -13,3 +13,23 @@ test_that("jtheta1prime0 value.", {
   q <- 0.556 + 0.283i
   expect_equal(jtheta1prime0(q = q), 0.1966992019-1.4764061381i)
 })
+
+test_that("AGM relations for theta(0,q).", {
+  z <- 0
+  q <- 0.556 + 0.283i
+  theta3q <- jtheta3(z, q = q) 
+  theta4q <- jtheta4(z, q = q) 
+  theta3q2 <- jtheta3(z, q = q^2) 
+  theta4q2 <- jtheta4(z, q = q^2) 
+  expect_equal((theta3q^2+theta4q^2)/2, theta3q2^2)
+  expect_equal(theta3q^2*theta4q^2, theta4q2^4)
+})
+
+test_that("Jacobi identity.", {
+  z <- 0
+  q <- 0.556 + 0.283i
+  theta2q <- jtheta2(z, q = q) 
+  theta3q <- jtheta3(z, q = q) 
+  theta4q <- jtheta4(z, q = q) 
+  expect_equal(theta2q^4 + theta4q^4, theta3q^4)
+})
