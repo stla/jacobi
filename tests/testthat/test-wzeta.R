@@ -27,3 +27,17 @@ test_that("zeta values", {
   #   0.80847063824 - 0.409123683392i
   # )
 })
+
+test_that("sum zeta(omega_i)=0", {
+  g <- c(5+3i, 5+2i)
+  omega <- halfPeriods(g)
+  omega2 <- -sum(omega)
+  omega1 <- omega[1]
+  omega3 <- omega[2]
+  expect_equal(
+    wzeta(omega1, omega = omega) + 
+      wzeta(omega2, omega = omega) + 
+      wzeta(omega3, omega = omega),
+    as.complex(0)
+  )
+})
