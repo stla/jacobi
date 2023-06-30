@@ -2,6 +2,9 @@
 
 - More unit tests.
 
+- The `halfPeriods` function did not work for a pair of real (`numeric`) 
+numbers. This has been fixed with the help of `as.complex`. 
+
 
 # jacobi 2.3.0
 
