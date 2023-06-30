@@ -7,4 +7,8 @@ test_that("wsigma values", {
     wsigma(2, g = c(1, 2i)), 
     1.8646253716-0.3066001355i
   )
+  expect_equal(
+    wsigma(1, omega = c(1, 1i)) / 2, 
+    as.complex(2^(5/4)*sqrt(pi)*exp(pi/8) / gamma(1/4)^2)
+  )
 })
