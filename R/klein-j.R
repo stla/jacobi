@@ -22,7 +22,8 @@ kleinj <- function(tau, transfo = FALSE){
   stopifnot(isBoolean(transfo))
   lbd <- lambda(tau, transfo) 
   x <- lbd * (1 - lbd)
-  256 * (1-x)^3 / x^2
+  #256 * (1-x)^3 / x^2
+  256.0 * (1.0/x - 1)**2 * (1.0 - x)
   # stopifnot(isComplexNumber(tau))
   # if(Im(tau) <= 0){
   #   stop("The complex number `tau` must have a positive imaginary part.")
