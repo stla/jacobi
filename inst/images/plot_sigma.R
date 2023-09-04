@@ -28,6 +28,11 @@ colormap1 <- function(z){
   )
 }
 
+a=-0.71
+abs(modulo(a, 0.5)) * 2
+abs(modulo(a/2, 0.25)) * 4
+abs(modulo(2*a, 1)) 
+
 colormap2 <- function(z){
   if(is.na(z)) return(bkgcol)
   if(is.infinite(z) || is.nan(z)) return("#000000")

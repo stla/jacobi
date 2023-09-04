@@ -1,11 +1,25 @@
 library(jacobi)
-library(RcppColors)
 
 # modified Cayley transformation
 Phi <- function(z) (1i*z + 1) / (z + 1i)
 PhiInv <- function(z) {
   1i + (2i) / (-1 + 1i/z)
 }
+
+
+degrees <- function(z){
+  arg <- Arg(z)
+  if(arg < 0) arg <- pi+arg
+  arg / 2 / pi
+}
+fcolor <- function(z){
+  if(is.infinite(z) || is.nan(z)) return("#000000")
+  h = degrees(z)
+  s = sqrt((1+sin(2*pi*log(1+Mod(z))))/2)
+  v = (1+cos(2*pi*log(1+Mod(z))))/2
+  hsv(h,s,v);
+}
+
 
 kleinj3 <- function(tau) {
   j2 <- jacobi:::jtheta2_cpp(0, tau)
@@ -20,17 +34,17 @@ kleinj3 <- function(tau) {
 
 f <- Vectorize(function(x, y){
   q <- x + 1i*y
-  if(Mod(q) >= 0.96){
+  if(Mod(q) >= 0.95){
     return(bkgcol) # || (Im(q) == 0 && Re(q) <= 0)) return(bkgcol)
 #  tau <- -1i * log(q) / pi
   } else {
-    z <- if(y < 0.8) kleinj(-1/PhiInv(q)) else kleinj(PhiInv(q))
-    colorMap3(z, n = 3)
+    z <- if(y < 0.8) kleinj3(-1/PhiInv(q)) else kleinj3(PhiInv(q))
+    fcolor(z)
   }
 })
 
-x <- seq(-0.99, 0.99, len = 1024)
-y <- seq(-0.99, 0.99, len = 1024)
+x <- seq(-0.95, 0.95, len = 1024)
+y <- seq(-0.95, 0.95, len = 1024)
 image <- outer(x, y, f)
 
 opar <- par(mar = c(0,0,0,0), bg = bkgcol)
