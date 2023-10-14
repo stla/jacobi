@@ -66,7 +66,7 @@ torusMesh <- function(nu = 50, nv = 30, rgl = TRUE){
 }
 
 
-mesh <- Rvcg::vcgUpdateNormals(torusMesh(nu = 400, nv = 400))
+mesh <- Rvcg::vcgUpdateNormals(torusMesh(nu = 256, nv = 256))
 
 coords <- function(xyz){
   x <- xyz[, 1L]
