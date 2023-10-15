@@ -1,4 +1,4 @@
-# jacobi 2.3.1.9001
+# jacobi 3.0.0
 
 - Changed the expression of the `kleinj` function in order that its factors 
 avoid a possible float overflow. 
