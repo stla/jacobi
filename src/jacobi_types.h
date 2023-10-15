@@ -4,7 +4,7 @@ typedef std::complex<double> cplx;
 
 const cplx _i_(0.0, 1.0);
 
-cplx dologtheta3(cplx, cplx, unsigned);
+cplx dologtheta3(cplx, cplx, unsigned, unsigned);
 
 bool close(cplx, cplx);
 
