@@ -33,3 +33,9 @@ test_that("Jacobi identity.", {
   theta4q <- jtheta4(z, q = q) 
   expect_equal(theta2q^4 + theta4q^4, theta3q^4)
 })
+
+test_that("An edge case for jtheta2.", {
+  tau <- 0.7792256 + 1e-7i
+  expected <- 27.7468161 + 31.2412167i
+  expect_equal(jtheta2(0, tau), expected)
+})
