@@ -9,3 +9,4 @@
 ^inst/keep$
 ^inst/doc$
 ^src/\.vscode$
+^inst/docus$
