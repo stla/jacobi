@@ -1,7 +1,7 @@
 library(jacobi)
 library(RcppColors)
 
-x <- y <- seq(-4, 0, length.out = 1024L)
+x <- y <- seq(0, 4, length.out = 1024L)
 
 f <- function(x, y) {
   z <- complex(real = x, imaginary = y)
