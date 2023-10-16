@@ -12,6 +12,14 @@ test_that("A value of the alternating Rogers-Ramanajuan function", {
   )
 })
 
+test_that("Value of `q` for which Rogers-Ramanajuan is `i`", {
+  tau <- (7 + 1i)/10
+  q <- exp(1i * pi * tau)
+  expect_equal(
+    RR(q^2)^5, 1i, tolerance = 1e-7
+  )
+})
+
 test_that("Relation to Dedekind eta 1", {
   tau <- 0.1 + 1i
   q <- exp(1i * pi * tau)
