@@ -1,6 +1,8 @@
 # jacobi 3.0.0.9000
 
-Added the elliptic alpha function.
+- Elliptic alpha function.
+
+- Rogers-Ramanajuan functions.
 
 
 # jacobi 3.0.0

@@ -2,6 +2,8 @@
 
 export(CostaMesh)
 export(EisensteinE)
+export(RR)
+export(RRa)
 export(acl)
 export(agm)
 export(am)
