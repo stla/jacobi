@@ -12,7 +12,7 @@ Description: Evaluation of the Jacobi theta functions and related
     Weierstrass zeta function, Klein j-function, Dedekind eta function,
     lambda modular function, Jacobi elliptic functions, Neville theta
     functions, Eisenstein series, lemniscate elliptic functions, elliptic 
-    alpha function, Rogers-Ramanajuan continued fractions, and Dixon 
+    alpha function, Rogers-Ramanujan continued fractions, and Dixon 
     elliptic functions. Complex values of the variable are supported.
 License: GPL-3
 URL: https://github.com/stla/jacobi

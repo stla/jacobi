@@ -1,5 +1,5 @@
-#' @title Rogers-Ramanajuan continued fraction
-#' @description Evaluates the Rogers-Ramanajuan continued fraction.
+#' @title Rogers-Ramanujan continued fraction
+#' @description Evaluates the Rogers-Ramanujan continued fraction.
 #'
 #' @param q the nome, a complex number whose modulus is strictly less than one, 
 #'   and which is not zero nor a negative real number
@@ -13,8 +13,8 @@ RR <- function(q) {
   tan(0.5 * x)^0.2 * tan(0.5 * (pi/2 - x))^0.4
 }
 
-#' @title Alternating Rogers-Ramanajuan continued fraction
-#' @description Evaluates the alternating Rogers-Ramanajuan continued fraction.
+#' @title Alternating Rogers-Ramanujan continued fraction
+#' @description Evaluates the alternating Rogers-Ramanujan continued fraction.
 #'
 #' @param q the nome, a complex number whose modulus is strictly less than one, 
 #'   and which is not zero nor a negative real number

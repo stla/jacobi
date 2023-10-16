@@ -2,7 +2,7 @@
 
 - Elliptic alpha function.
 
-- Rogers-Ramanajuan functions.
+- Rogers-Ramanujan functions.
 
 
 # jacobi 3.0.0

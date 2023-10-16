@@ -1,18 +1,18 @@
-test_that("A value of the Rogers-Ramanajuan function", {
+test_that("A value of the Rogers-Ramanujan function", {
   expected <- tan(atan(2)/4)
   expect_equal(
     RR(exp(-2*pi)), as.complex(expected)
   )
 })
 
-test_that("A value of the alternating Rogers-Ramanajuan function", {
+test_that("A value of the alternating Rogers-Ramanujan function", {
   expected <- tan(pi/4 - atan(2)/4)
   expect_equal(
     RRa(exp(-pi)), as.complex(expected)
   )
 })
 
-test_that("Value of `q` for which Rogers-Ramanajuan is `i`", {
+test_that("Value of `q` for which Rogers-Ramanujan is `i`", {
   tau <- (7 + 1i)/10
   q <- exp(1i * pi * tau)
   expect_equal(
