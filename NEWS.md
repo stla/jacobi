@@ -1,3 +1,8 @@
+# jacobi 3.0.0.9000
+
+Added the elliptic alpha function.
+
+
 # jacobi 3.0.0
 
 - Changed the expression of the `kleinj` function in order that its factors 

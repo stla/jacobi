@@ -28,3 +28,15 @@ dljtheta1 <- function(z, tau){
   # }
   # out
 }
+
+# jtheta4prime0 <- function(tau){
+#   tau <- check_and_get_tau(tau, NULL)
+#   r <- -tau*tau
+#   # 1i * tau = - sqrt(r)
+#   # - tau^2 = r
+#   q <- exp(-pi*sqrt(r))
+#   tau <- check_and_get_tau(NULL, q)
+#   z <- ellipticAlpha(r)
+#   - pi * z * jtheta3_cpp(0, tau)^4 / (4 * sqrt(r) / jtheta4_cpp(0, tau))
+# }
+# Wolfram: it's derivative with respect to q, not z!
