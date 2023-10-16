@@ -31,3 +31,11 @@ test_that("kleinj inverse", {
     kleinj(tau)
   )
 })
+
+test_that("kleinj and Dedekind eta", {
+  tau <- 0.1 + 2i
+  x <- (eta(tau)/eta(5*tau))^6 / 125
+  expected <- (5*x*x + 10*x + 1)^3 / x^5
+  obtained <- kleinj(tau)
+  expect_equal(obtained, expected)
+})
