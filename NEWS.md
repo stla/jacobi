@@ -4,6 +4,8 @@
 
 - Rogers-Ramanujan functions.
 
+- Jacobi theta function with characteristics.
+
 
 # jacobi 3.0.0
 

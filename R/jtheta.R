@@ -170,3 +170,73 @@ ljtheta4 <- function(z, tau = NULL, q = NULL){
     }
   }
 }
+
+
+#' @title Jacobi theta function with characteristics
+#' @description Evaluates the Jacobi theta function with characteristics.
+#'
+#' @param a,b the characteristics, two complex numbers
+#' @template jthetaTemplate
+#'
+#' @return A complex number, vector or matrix, like \code{z}.
+#' @export
+#'
+#' @details
+#' The Jacobi theta function with characteristics generalizes the four Jacobi 
+#' theta functions. It is denoted by 
+#' \ifelse{html}{\out{&#120579;[a,b](z|&tau;)}}{\eqn{\theta[a,b](z|\tau)}{theta(z|tau)}}.
+#' One gets the four Jacobi theta functions when \code{a} and \code{b} take the 
+#' values \code{0} or \code{0.5}:
+#' \describe{
+#' \item{if \code{a=b=0.5}}{then one gets
+#'   \ifelse{html}{\out{-&#120599;<sub>1</sub>(z|&tau;)}}{\eqn{\vartheta_1(z|\tau)}{theta_1(z|tau)}}
+#' }
+#' \item{if \code{a=0.5} and \code{b=0}}{then one gets
+#'   \ifelse{html}{\out{&#120599;<sub>2</sub>(z|&tau;)}}{\eqn{\vartheta_2(z|\tau)}{theta_2(z|tau)}}
+#' }
+#' \item{if \code{a=b=0}}{then one gets
+#'   \ifelse{html}{\out{&#120599;<sub>3</sub>(z|&tau;)}}{\eqn{\vartheta_3(z|\tau)}{theta_3(z|tau)}}
+#' }
+#' \item{if \code{a=0} and \code{b=0.5}}{then one gets
+#'   \ifelse{html}{\out{&#120599;<sub>4</sub>(z|&tau;)}}{\eqn{\vartheta_4(z|\tau)}{theta_4(z|tau)}}
+#' }
+#' }
+#' Both 
+#' \ifelse{html}{\out{&#120579;[a,b](z+&pi;|&tau;)}}{\eqn{\theta[a,b](z+\pi|\tau)}{theta(z+pi|tau)}}
+#' and
+#' \ifelse{html}{\out{&#120579;[a,b](z+&pi;&times;&tau;|&tau;)}}{\eqn{\theta[a,b](z+\pi\tau|\tau)}{theta(z+pi*tau|tau)}}
+#' are equal to 
+#' \ifelse{html}{\out{&#120579;[a,b](z|&tau;)}}{\eqn{\theta[a,b](z|\tau)}{theta(z|tau)}}
+#' up to a factor - see the examples for the details.
+#' 
+#' @examples
+#' a   <- 2 + 0.3i
+#' b   <- 1 - 0.6i
+#' z   <- 0.1 + 0.4i
+#' tau <- 0.2 + 0.3i
+#' jab <- jtheta_ab(a, b, z, tau) 
+#' # first property ####
+#' jtheta_ab(a, b, z + pi, tau) # is equal to:
+#' jab * exp(2i*pi*a)
+#' # second property ####
+#' jtheta_ab(a, b, z + pi*tau, tau) # is equal to:
+#' jab * exp(-1i*(pi*tau + 2*z + 2*pi*b))
+jtheta_ab <- function(a, b, z, tau = NULL, q = NULL) {
+  stopifnot(isComplexNumber(a))
+  stopifnot(isComplexNumber(b))
+  stopifnot(isComplex(z))
+  storage.mode(z) <- "complex"
+  tau <- check_and_get_tau(tau, q)
+  alpha <- a * tau
+  beta  <- z/pi + b
+  C <- exp(1i*pi*a*(alpha + 2*beta)) 
+  if(length(z) == 1L) {
+    C * jtheta3_cpp(alpha + beta, tau)
+  } else {
+    if(!is.matrix(z)){
+      C * JTheta3(cbind(alpha + beta), tau)[, 1L]
+    } else {
+      C * JTheta3(alpha + beta, tau)
+    }
+  }
+}
