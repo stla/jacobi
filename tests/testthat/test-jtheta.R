@@ -22,7 +22,6 @@ test_that("jtheta1prime0 triple product.", {
   )
 })
 
-
 test_that("AGM relations for theta(0,q).", {
   z <- 0
   q <- 0.556 + 0.283i
@@ -47,4 +46,22 @@ test_that("An edge case for jtheta2.", {
   tau <- 0.7792256 + 1e-7i
   expected <- 27.7468161 + 31.2412167i
   expect_equal(jtheta2(0, tau), expected)
+})
+
+test_that("Periodicity-like properties of jtheta_ab.", {
+  a   <- 2 + 0.3i
+  b   <- 1 - 0.6i
+  z   <- 0.1 + 0.4i
+  tau <- 0.2 + 0.3i
+  jab <- jtheta_ab(a, b, z, tau)
+  # first property
+  expect_equal(
+    jtheta_ab(a, b, z + pi, tau), 
+    jab * exp(2i*pi*a)
+  )
+  # second property
+  expect_equal(
+    jtheta_ab(a, b, z + pi*tau, tau), 
+    jab * exp(-1i*(pi*tau + 2*z + 2*pi*b))
+  )
 })
