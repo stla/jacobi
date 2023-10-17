@@ -53,6 +53,9 @@ are equal to
 \ifelse{html}{\out{&#120579;[a,b](z|&tau;)}}{\eqn{\theta[a,b](z|\tau)}{theta(z|tau)}}
 up to a factor - see the examples for the details.
 }
+\note{
+Different conventions are used in the book cited as reference.
+}
 \examples{
 a   <- 2 + 0.3i
 b   <- 1 - 0.6i
@@ -65,4 +68,9 @@ jab * exp(2i*pi*a)
 # second property ####
 jtheta_ab(a, b, z + pi*tau, tau) # is equal to:
 jab * exp(-1i*(pi*tau + 2*z + 2*pi*b))
+}
+\references{
+Hershel M. Farkas, Irwin Kra. 
+\emph{Theta Constants, Riemann Surfaces and the Modular Group: An Introduction with Applications to Uniformization Theorems, Partition Identities and Combinatorial Number Theory}.
+Graduate Studies in Mathematics, volume 37, 2001.
 }

@@ -209,6 +209,14 @@ ljtheta4 <- function(z, tau = NULL, q = NULL){
 #' \ifelse{html}{\out{&#120579;[a,b](z|&tau;)}}{\eqn{\theta[a,b](z|\tau)}{theta(z|tau)}}
 #' up to a factor - see the examples for the details.
 #' 
+#' @note
+#' Different conventions are used in the book cited as reference.
+#' 
+#' @references 
+#' Hershel M. Farkas, Irwin Kra. 
+#' \emph{Theta Constants, Riemann Surfaces and the Modular Group: An Introduction with Applications to Uniformization Theorems, Partition Identities and Combinatorial Number Theory}.
+#' Graduate Studies in Mathematics, volume 37, 2001.
+#' 
 #' @examples
 #' a   <- 2 + 0.3i
 #' b   <- 1 - 0.6i
