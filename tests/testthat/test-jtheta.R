@@ -14,6 +14,15 @@ test_that("jtheta1prime0 value.", {
   expect_equal(jtheta1prime0(q = q), 0.1966992019-1.4764061381i)
 })
 
+test_that("jtheta1prime0 triple product.", {
+  tau <- 0.556 + 0.283i
+  expect_equal(
+    jtheta1prime0(tau), 
+    jtheta2_cpp(0, tau) * jtheta3_cpp(0, tau) * jtheta4_cpp(0, tau)
+  )
+})
+
+
 test_that("AGM relations for theta(0,q).", {
   z <- 0
   q <- 0.556 + 0.283i
