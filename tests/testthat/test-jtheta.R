@@ -22,6 +22,20 @@ test_that("jtheta1prime0 triple product.", {
   )
 })
 
+test_that("jtheta1prime0 relation with jtheta_ab.", {
+  tau <- 3.556 + 0.1283i
+  q <- exp(1i*pi*tau)
+  tau <- check_and_get_tau(NULL, q)
+  expect_equal(
+    jtheta1prime0(tau)^(1/3), 
+    (-2i)^(1/3) * jtheta_ab(1/6, 1/2, 0, 3*tau)
+  )
+  expect_equal(
+    jtheta1prime0(tau), 
+    -2i * jtheta_ab(1/6, 1/2, 0, 3*tau)^3
+  )
+})
+
 test_that("AGM relations for theta(0,q).", {
   z <- 0
   q <- 0.556 + 0.283i
@@ -63,5 +77,13 @@ test_that("Periodicity-like properties of jtheta_ab.", {
   expect_equal(
     jtheta_ab(a, b, z + pi*tau, tau), 
     jab * exp(-1i*(pi*tau + 2*z + 2*pi*b))
+  )
+})
+
+test_that("A formula involving some jtheta_ab at z=0", {
+  tau <- 1 + 0.1i
+  expect_equal(
+    jtheta_ab(1/6, 1/2, 0, tau)^3,
+    jtheta_ab(1/6, 1/6, 0, tau)^3 + jtheta_ab(1/6, 5/6, 0, tau)^3
   )
 })

@@ -3,10 +3,7 @@ library(jacobi)
 Theta <- function(a, b, z, tau) {
   alpha <- a * tau * pi
   beta  <- z + b*pi
-  exp(1i*a*(alpha + 2*beta)) * 
-    jtheta3(alpha + beta, tau) 
-  # z <- z + 2*pi*b
-  # exp(0.5*1i*a*(2*z+a*tau)) * jacobi:::jtheta3(z+a*tau, tau)
+  exp(1i*a*(alpha + 2*beta)) * jtheta3(alpha + beta, tau) 
 }
 
 z <- 0.1 + 0.4i
@@ -47,3 +44,14 @@ jtheta_ab(a, b, z, tau) * exp(2i*a*pi)
 # second property
 jtheta_ab(a, b, z + pi*tau, tau) # is equal to:
 jtheta_ab(a, b, z, tau) * exp(-1i*(pi*tau + 2*z + 2*pi*b))
+
+
+jtheta_ab(1/6, 1/2, 0, tau)^3
+jtheta_ab(1/6, 1/6, 0, tau)^3 + jtheta_ab(1/6, 5/6, 0, tau)^3
+
+#
+tau <- 2.5 + .1i
+q <- exp(1i*pi*tau)
+( tau <- jacobi:::check_and_get_tau(NULL, q) )
+jacobi:::jtheta1prime0(tau)^(1/3) / jtheta_ab(1/6, 1/2, 0, 3*tau)
+(-2i)^(1/3)
