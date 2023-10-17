@@ -16,6 +16,7 @@ test_that("jtheta1prime0 value.", {
 
 test_that("jtheta1prime0 triple product.", {
   tau <- 0.556 + 0.283i
+  # !! true only if tau is derived from a nome
   expect_equal(
     jtheta1prime0(tau), 
     jtheta2_cpp(0, tau) * jtheta3_cpp(0, tau) * jtheta4_cpp(0, tau)
@@ -33,6 +34,16 @@ test_that("jtheta1prime0 relation with jtheta_ab.", {
   expect_equal(
     jtheta1prime0(tau), 
     -2i * jtheta_ab(1/6, 1/2, 0, 3*tau)^3
+  )
+})
+
+test_that("jtheta1prime0 relation with Dedekind eta.", {
+  tau <- 5.556 + 0.1283i
+  q <- exp(1i*pi*tau)
+  tau <- check_and_get_tau(NULL, q)
+  expect_equal(
+    jtheta1prime0(tau), 
+    2 * eta(tau)^3
   )
 })
 
