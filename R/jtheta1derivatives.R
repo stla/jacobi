@@ -6,7 +6,7 @@ jtheta1prime0 <- function(tau = NULL, q = NULL){
 }
 
 jtheta1primeprimeprime0 <- function(tau){
-  -theta1dash(0, tau) * E2(tau)
+  2i * jtheta_ab(1/6, 1/2, 0, 3*tau)^3 * E2(tau)
 }
 
 dljtheta1 <- function(z, tau){
