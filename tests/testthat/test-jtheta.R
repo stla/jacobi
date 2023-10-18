@@ -28,6 +28,10 @@ test_that("jtheta1prime0 relation with jtheta_ab.", {
   q <- exp(1i*pi*tau)
   tau <- check_and_get_tau(NULL, q)
   expect_equal(
+    jtheta1prime0(tau),
+    theta1dash(0, tau)
+  )
+  expect_equal(
     jtheta1prime0(tau)^(1/3), 
     (-2i)^(1/3) * jtheta_ab(1/6, 1/2, 0, 3*tau)
   )

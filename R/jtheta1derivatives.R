@@ -1,7 +1,8 @@
 jtheta1prime0 <- function(tau = NULL, q = NULL){
   tau <- check_and_get_tau(tau, q)
-  return(theta1dash(0, tau))
+  #return(theta1dash(0, tau))
   #jtheta2_cpp(0, tau) * jtheta3_cpp(0, tau) * jtheta4_cpp(0, tau)
+  -2i * jtheta_ab(1/6, 1/2, 0, 3*tau)^3
 }
 
 jtheta1primeprimeprime0 <- function(tau){
