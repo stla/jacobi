@@ -36,6 +36,9 @@ Jacobi theta functions and related functions.
 
 ![](https://raw.githubusercontent.com/stla/jacobi/main/inst/images/wp_Sobel.gif)
 
+![](https://raw.githubusercontent.com/stla/jacobi/main/inst/images/RogersRamanujanAlternating_pow5.png)
+
+
 ### Blog posts
 
 - [Beautiful complex functions](https://laustep.github.io/stlahblog/posts/beautifulComplexFunctions.html)
