@@ -38,9 +38,13 @@ Jacobi theta functions and related functions.
 
 ![](https://raw.githubusercontent.com/stla/jacobi/main/inst/images/RogersRamanujanAlternating_pow5.png)
 
+![](https://raw.githubusercontent.com/stla/jacobi/main/inst/images/RogersRamanujanMobius.gif)
+
 
 ### Blog posts
 
 - [Beautiful complex functions](https://laustep.github.io/stlahblog/posts/beautifulComplexFunctions.html)
 
 - [On a Möbius transformation](https://laustep.github.io/stlahblog/posts/OnAMobiusTransformation.html)
+
+- [The pretty Klein j-invariant function](https://laustep.github.io/stlahblog/posts/KleinJinvariant.html)
