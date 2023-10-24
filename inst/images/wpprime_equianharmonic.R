@@ -15,10 +15,12 @@ f <- function(x, y) {
 Z <- outer(x, y, f)
 img <- colorMap6(Im(Z))
 
+
+s <- sqrt(3/4)
 opar <- par(mar = c(0,0,0,0), bg="black")
-plot(c(-100, 100), c(-100, 100), type = "n", xaxs ="i", yaxs = "i",
+plot(c(-100, 100)*s, c(-100, 100), type = "n", xaxs ="i", yaxs = "i",
      xlab = NA, ylab = NA, axes = FALSE, asp = 1)
-rasterImage(img, -100, -100, 100, 100)
+rasterImage(img, -100*s, -100, 100*s, 100)
 par(opar)
 
 
@@ -70,16 +72,15 @@ shade3d(mesh2, specular = "gold")
 
 
 
-
-svg("x.svg", width = 16, height = 8)
-opar <- par(mar = c(0,0,0,0), bg = "black")
-plot(
-  c(-200, 200), c(-100, 100), type = "n", xaxs = "i", yaxs = "i",
-  xlab = NA, ylab = NA, axes = FALSE, asp = 1
-)
-rasterImage(img, -200, -100, 200, 100)
+s <- sqrt(3/4)
+svg("x.svg", width = 16*s, height = 16)
+opar <- par(mar = c(0,0,0,0), bg="black")
+plot(c(-100, 100)*s, c(-100, 100), type = "n", xaxs ="i", yaxs = "i",
+     xlab = NA, ylab = NA, axes = FALSE, asp = 1)
+rasterImage(img, -100*s, -100, 100*s, 100)
 par(opar)
 dev.off()
 
-rsvg::rsvg_png("x.svg", "wp2x1.png", width = 1024, height = 512)
+rsvg::rsvg_png("x.svg", "wpprime_equianharmonic.png", 
+               width = 512*s, height = 512)
 
