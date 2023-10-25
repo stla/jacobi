@@ -42,6 +42,8 @@ Jacobi theta functions and related functions.
 
 ![](https://raw.githubusercontent.com/stla/jacobi/main/inst/images/wpprime_equianharmonic.png)
 
+![](https://raw.githubusercontent.com/stla/jacobi/main/inst/images/lambda_Cayley.gif)
+
 
 ### Blog posts
 
