@@ -40,7 +40,7 @@ check_and_get_tau <- function(tau, q){
       stop("The nome `q` cannot be 0.")
     }
     if(Im(q) == 0 && Re(q) < 0) {
-      tau <- log(abs(Re(q))) + 1i*pi
+      tau <- -1i * (log(abs(Re(q))) + 1i*pi) / pi
     } else {
       tau <- -1i * log(q) / pi
     }
