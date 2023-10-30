@@ -8,7 +8,7 @@ RR(q)
 }
 \arguments{
 \item{q}{the nome, a complex number whose modulus is strictly less than one, 
-and which is not zero nor a negative real number}
+and which is not zero}
 }
 \value{
 A complex number

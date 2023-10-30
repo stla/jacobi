@@ -9,8 +9,7 @@ EisensteinE(n, q)
 \arguments{
 \item{n}{the weight, can be 2, 4 or 6}
 
-\item{q}{nome, complex number with modulus smaller than one, but not 
-a negative real number}
+\item{q}{nome, complex number with modulus smaller than one, but not zero}
 }
 \value{
 A complex number, the value of the Eisenstein series.

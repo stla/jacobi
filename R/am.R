@@ -14,7 +14,7 @@
 #' u <- elliptic_F(phi, m)
 #' am(u, m) # should be phi
 am <- function(u, m){
-  w <- asin(jellip("sn", u, m=m))
+  w <- asin(jellip("sn", u, m = m))
   k <- round(Re(u)/pi) + round(Re(w)/pi)
   (-1)^k * w + k * pi
 }

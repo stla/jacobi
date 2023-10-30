@@ -31,15 +31,19 @@ check_and_get_tau <- function(tau, q){
       stop("The imaginary part of `tau` must be strictly positive.")
     }
   }
-  if(!is.null(q)){
+  if(!is.null(q)) {
     stopifnot(isComplexNumber(q))
-    if(Mod(q) >= 1){
+    if(Mod(q) >= 1) {
       stop("The modulus of `q` must be strictly less than one.")
     }
-    if(Im(q) == 0 && Re(q) <= 0){
-      stop("If `q` is real, it must be strictly positive.")
+    if(q == 0) {
+      stop("The nome `q` cannot be 0.")
     }
-    tau <- -1i * log(q) / pi
+    if(Im(q) == 0 && Re(q) < 0) {
+      tau <- log(abs(Re(q))) + 1i*pi
+    } else {
+      tau <- -1i * log(q) / pi
+    }
     # if(Im(tau) <= 0){
     #   stop("Invalid value of `q`.")
     # }

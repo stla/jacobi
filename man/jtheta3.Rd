@@ -18,7 +18,7 @@ related by \code{q = exp(1i*pi*tau)}, and only one of them must be
 supplied}
 
 \item{q}{the nome, a complex number whose modulus is strictly less than one, 
-and which is not zero nor a negative real number}
+but not zero}
 }
 \value{
 A complex number, vector or matrix; \code{jtheta3} evaluates the 

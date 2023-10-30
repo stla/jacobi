@@ -2,7 +2,7 @@
 #' @description Evaluates the Rogers-Ramanujan continued fraction.
 #'
 #' @param q the nome, a complex number whose modulus is strictly less than one, 
-#'   and which is not zero nor a negative real number
+#'   and which is not zero
 #'
 #' @return A complex number
 #' @export
@@ -17,7 +17,7 @@ RR <- function(q) {
 #' @description Evaluates the alternating Rogers-Ramanujan continued fraction.
 #'
 #' @param q the nome, a complex number whose modulus is strictly less than one, 
-#'   and which is not zero nor a negative real number
+#'   and which is not zero 
 #'
 #' @return A complex number
 #' @export
