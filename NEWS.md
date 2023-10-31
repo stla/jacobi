@@ -6,6 +6,8 @@
 
 - Jacobi theta function with characteristics.
 
+- Allows a negative nome.
+
 
 # jacobi 3.0.0
 
