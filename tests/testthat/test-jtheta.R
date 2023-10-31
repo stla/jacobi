@@ -9,6 +9,11 @@ test_that("Some values of jtheta functions.", {
   expect_equal(jtheta4(0, q = q), -0.19172221286-0.25120246965i)
 })
 
+test_that("A jtheta3 value with negative nome.", {
+  q <- -0.730402691048646
+  expect_equal(jtheta3(1+1i, q = q), -23.82995222123 - 12.77832967427i)
+})
+
 test_that("jtheta1prime0 value.", {
   q <- 0.556 + 0.283i
   expect_equal(jtheta1prime0(q = q), 0.1966992019-1.4764061381i)
