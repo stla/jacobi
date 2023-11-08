@@ -23,7 +23,7 @@ Grid <- transform(
   expand.grid(X = x, Y = y), 
   Z = complex(real = X, imaginary = Y)
 )
-\donttest{K <- square2H(Grid$Z)
+\donttest{K <- kleinj(square2H(Grid$Z))
 dim(K) <- c(n, n)
 # plot
 if(require("RcppColors")) {

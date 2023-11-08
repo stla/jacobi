@@ -21,13 +21,16 @@ E6 <- function(tau){
 #' @description Evaluation of Eisenstein series with weight 2, 4 or 6.
 #'
 #' @param n the weight, can be 2, 4 or 6
-#' @param q nome, complex number with modulus smaller than one, but not zero
+#' @param q nome, complex number with modulus smaller than one
 #'
 #' @return A complex number, the value of the Eisenstein series.
 #' @export
 EisensteinE <- function(n, q){
   stopifnot(n %in% c(2, 4, 6))
   stopifnot(isComplexNumber(q))
+  if(q == 0) {
+    return(as.complex(1))
+  }
   tau <- check_and_get_tau(NULL, q) / 2
   switch(
     as.character(n),
