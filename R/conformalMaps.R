@@ -13,9 +13,9 @@
 #'   expand.grid(X = x, Y = y), 
 #'   Z = complex(real = X, imaginary = Y)
 #' )
-#' u <- square2circle(Grid$Z)
+#' u <- square2disk(Grid$Z)
 #' plot(u, pch = 19, asp = 1)
-square2circle <- function(z) {
+square2disk <- function(z) {
   stopifnot(isComplex(z))
   storage.mode(z) <- "complex"
   if(length(z) == 1L) {
@@ -81,6 +81,7 @@ square2H <- function(z) {
 #'
 #' @return A complex number in the square \eqn{[-1,1] \times [-1,1]}.
 #' @export
+#' @importFrom Carlson elliptic_F
 #'
 #' @examples
 #' n <- 70L
@@ -117,5 +118,44 @@ disk2square <- function(z) {
   C <- 2*gamma(5/4)^2 / sqrt(pi)
   sqrt2half <- sqrt(2) / 2
   w <- complex(real = sqrt2half, imaginary = sqrt2half)
-  -w * Carlson::elliptic_F(1i * asinh(w * z), -1) / C  
+  -w * elliptic_F(1i * asinh(w * z), -1) / C  
+}
+
+
+#' @title Disk to upper half-plane
+#' @description Conformal map from the unit disk to the upper half-plane. 
+#'   The function is vectorized.
+#'   
+#' @param z a complex number in the unit disk
+#'
+#' @return A complex number in the upper half-plane.
+#' @export
+#'
+#' @examples
+#' # map the disk to H and calculate kleinj
+#' f <- function(x, y) {
+#'   z <- complex(real = x, imaginary = y)
+#'   K <- rep(NA_complex_, length(x))
+#'   inDisk <- Mod(z) < 1
+#'   K[inDisk] <- kleinj(disk2H(z[inDisk]))
+#'   K
+#' }
+#' n <- 1024L
+#' x <- y <- seq(-1, 1, length.out = n)
+#' Grid <- expand.grid(X = x, Y = y)
+#' \donttest{K <- f(Grid$X, Grid$Y)
+#' dim(K) <- c(n, n)
+#' # plot
+#' if(require("RcppColors")) {
+#'   img <- colorMap5(K)
+#' } else {
+#'   img <- as.raster(1 - abs(Im(K))/Mod(K))
+#' }
+#' opar <- par(mar = c(0, 0, 0, 0))
+#' plot(NULL, xlim = c(0, 1), ylim = c(0, 1), asp = 1, 
+#'      axes = FALSE, xaxs = "i", yaxs = "i", xlab = NA, ylab = NA)
+#' rasterImage(img, 0, 0, 1, 1)
+#' par(opar)}
+disk2H <- function(z) {
+  1i + (2i*z) / (1i - z)
 }
