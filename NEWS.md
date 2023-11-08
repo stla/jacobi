@@ -1,4 +1,4 @@
-# jacobi 3.0.0.9000
+# jacobi 3.0.0.9001
 
 - Elliptic alpha function.
 
@@ -7,6 +7,8 @@
 - Jacobi theta function with characteristics.
 
 - Allows a negative nome.
+
+- Some conformal mappings.
 
 
 # jacobi 3.0.0

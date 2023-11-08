@@ -1,7 +1,7 @@
 Type: Package
 Package: jacobi
 Title: Jacobi Theta Functions and Related Functions
-Version: 3.0.0.9000
+Version: 3.0.0.9001
 Authors@R: c(
     person("Stéphane", "Laurent", , "laurent_step@outlook.fr", role = c("aut", "cre")),
     person("Mikael", "Fremling", role = "aut",
@@ -24,7 +24,8 @@ Imports:
     Rvcg
 Suggests: 
     testthat (>= 3.0.0),
-    elliptic
+    elliptic,
+    RcppColors
 LinkingTo: 
     Rcpp
 Config/testthat/edition: 3
