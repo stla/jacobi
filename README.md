@@ -46,6 +46,8 @@ Jacobi theta functions and related functions.
 
 ![](https://raw.githubusercontent.com/stla/jacobi/main/inst/images/lambdaOnSquare.gif)
 
+![](https://raw.githubusercontent.com/stla/jacobi/main/inst/images/kleinOnSquare.gif)
+
 
 ### Blog posts
 
