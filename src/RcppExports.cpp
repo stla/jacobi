@@ -155,6 +155,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// JTheta2_tau
+Rcpp::ComplexMatrix JTheta2_tau(Rcomplex z0, Rcpp::ComplexMatrix dalet);
+RcppExport SEXP _jacobi_JTheta2_tau(SEXP z0SEXP, SEXP daletSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcomplex >::type z0(z0SEXP);
+    Rcpp::traits::input_parameter< Rcpp::ComplexMatrix >::type dalet(daletSEXP);
+    rcpp_result_gen = Rcpp::wrap(JTheta2_tau(z0, dalet));
+    return rcpp_result_gen;
+END_RCPP
+}
 // JTheta3
 Rcpp::ComplexMatrix JTheta3(Rcpp::ComplexMatrix z0, Rcomplex dalet);
 RcppExport SEXP _jacobi_JTheta3(SEXP z0SEXP, SEXP daletSEXP) {
@@ -275,6 +287,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_jacobi_dlogjtheta1", (DL_FUNC) &_jacobi_dlogjtheta1, 2},
     {"_jacobi_JTheta1", (DL_FUNC) &_jacobi_JTheta1, 2},
     {"_jacobi_JTheta2", (DL_FUNC) &_jacobi_JTheta2, 2},
+    {"_jacobi_JTheta2_tau", (DL_FUNC) &_jacobi_JTheta2_tau, 2},
     {"_jacobi_JTheta3", (DL_FUNC) &_jacobi_JTheta3, 2},
     {"_jacobi_JTheta4", (DL_FUNC) &_jacobi_JTheta4, 2},
     {"_jacobi_LJTheta1", (DL_FUNC) &_jacobi_LJTheta1, 2},

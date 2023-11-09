@@ -10,6 +10,12 @@
 
 - Some conformal mappings.
 
+- Nome in function of the parameter.
+
+- The logarithms of the Jacobi theta functions were not in the principal branch.
+
+- The Dedekind eta function is now vectorized.
+
 
 # jacobi 3.0.0
 

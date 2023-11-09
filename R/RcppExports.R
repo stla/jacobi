@@ -49,6 +49,10 @@ JTheta2 <- function(z0, dalet) {
     .Call(`_jacobi_JTheta2`, z0, dalet)
 }
 
+JTheta2_tau <- function(z0, dalet) {
+    .Call(`_jacobi_JTheta2_tau`, z0, dalet)
+}
+
 JTheta3 <- function(z0, dalet) {
     .Call(`_jacobi_JTheta3`, z0, dalet)
 }

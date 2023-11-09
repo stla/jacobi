@@ -297,6 +297,23 @@ Rcpp::ComplexMatrix JTheta2(Rcpp::ComplexMatrix z0, Rcomplex dalet) {
 }
 
 // [[Rcpp::export]]
+Rcpp::ComplexMatrix JTheta2_tau(Rcomplex z0, Rcpp::ComplexMatrix dalet) {
+  cplx z = fromCplx(z0);
+  int m = dalet.nrow();
+  int n = dalet.ncol();
+  Rcpp::ComplexMatrix out(m, n);
+  for(int j = 0; j < n; j++) {
+    Rcpp::ComplexVector tauj = dalet(Rcpp::_, j);
+    Rcpp::ComplexVector outj = out(Rcpp::_, j);
+    for(int i = 0; i < m; i++) {
+      outj(i) = toCplx(jtheta2_cpp(z, fromCplx(tauj(i))));
+    }
+    out(Rcpp::_, j) = outj;
+  }
+  return out;
+}
+
+// [[Rcpp::export]]
 Rcpp::ComplexMatrix JTheta3(Rcpp::ComplexMatrix z0, Rcomplex dalet) {
   Rcpp::ComplexMatrix z = Rcpp::clone(z0);
   cplx tau = fromCplx(dalet);

@@ -7,10 +7,11 @@
 eta(tau)
 }
 \arguments{
-\item{tau}{a complex number with strictly positive imaginary part}
+\item{tau}{a vector of complex numbers with strictly positive 
+imaginary parts}
 }
 \value{
-A complex number.
+A vector of complex numbers.
 }
 \description{
 Evaluation of the Dedekind eta function.
