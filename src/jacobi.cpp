@@ -141,13 +141,30 @@ cplx dologtheta3(cplx z, cplx tau, unsigned pass_in, unsigned maxiter) {
   return out;
 }
 
+
+cplx principal_log_branch(cplx z) {
+  double y = z.imag();
+  if(y > -M_PI && y <= M_PI) {
+    return z;
+  }
+  double twopi = 2.0 * M_PI;
+  y = std::fmod(y, twopi);
+  if(y > M_PI) {
+    y -= twopi;
+  }
+  cplx out(z.real(), y);
+  return out;
+}
+
 cplx M(cplx z, cplx tau) {
   return _i_ * M_PI * (z + tau / 4.0);
 }
 
 // [[Rcpp::export]]
 cplx ljtheta2_cpp(cplx z, cplx tau) {
-  return M(z, tau) + dologtheta3(z + 0.5 * tau, tau, 0, 1000);
+  return principal_log_branch(
+    M(z, tau) + dologtheta3(z + 0.5 * tau, tau, 0, 1000)
+  );
 }
 
 // [[Rcpp::export]]
@@ -157,7 +174,7 @@ cplx jtheta2_cpp(cplx z, cplx tau) {
 
 // [[Rcpp::export]]
 cplx ljtheta1_cpp(cplx z, cplx tau) {
-  return ljtheta2_cpp(z - 0.5, tau);
+  return principal_log_branch(ljtheta2_cpp(z - 0.5, tau));
 }
 
 // [[Rcpp::export]]
@@ -167,7 +184,7 @@ cplx jtheta1_cpp(cplx z, cplx tau) {
 
 // [[Rcpp::export]]
 cplx ljtheta3_cpp(cplx z, cplx tau) {
-  return dologtheta3(z, tau, 0, 1000);
+  return principal_log_branch(dologtheta3(z, tau, 0, 1000));
 }
 
 // [[Rcpp::export]]
@@ -177,7 +194,7 @@ cplx jtheta3_cpp(cplx z, cplx tau) {
 
 // [[Rcpp::export]]
 cplx ljtheta4_cpp(cplx z, cplx tau) {
-  return dologtheta4(z, tau, 0, 1000);
+  return principal_log_branch(dologtheta4(z, tau, 0, 1000));
 }
 
 // [[Rcpp::export]]
