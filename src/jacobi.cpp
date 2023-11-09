@@ -10,7 +10,7 @@ T machinePrecision() {
   return epsilon;
 }
 
-const double Epsilon = 2 / pow(2.0, 52);
+const double Epsilon = machinePrecision<double>();   //2 / pow(2.0, 52);
 
 bool close(cplx z1, cplx z2) {
   const double mod_z2 = std::abs(z2);
