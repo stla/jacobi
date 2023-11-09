@@ -7,7 +7,7 @@
 nome(m)
 }
 \arguments{
-\item{m}{the parameter, square of elliptic modulus}
+\item{m}{the parameter, square of elliptic modulus, real or complex number}
 }
 \value{
 A complex number.

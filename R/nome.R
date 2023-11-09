@@ -1,7 +1,7 @@
 #' @title Nome
 #' @description The nome in function of the parameter \eqn{m}.
 #'
-#' @param m the parameter, square of elliptic modulus
+#' @param m the parameter, square of elliptic modulus, real or complex number
 #'
 #' @return A complex number.
 #' @export
