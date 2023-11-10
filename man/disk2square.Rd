@@ -14,7 +14,7 @@ A complex number in the square \eqn{[-1,1] \times [-1,1]}.
 }
 \description{
 Conformal map from the unit disk to the square
-  \eqn{[-1,1] \times [-1,1]}. The function is not vectorized.
+  \eqn{[-1,1] \times [-1,1]}. The function is vectorized.
 }
 \examples{
 n <- 70L

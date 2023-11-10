@@ -75,7 +75,7 @@ square2H <- function(z) {
 
 #' @title Disk to square
 #' @description Conformal map from the unit disk to the square
-#'   \eqn{[-1,1] \times [-1,1]}. The function is not vectorized.
+#'   \eqn{[-1,1] \times [-1,1]}. The function is vectorized.
 #'   
 #' @param z a complex number in the unit disk
 #'
