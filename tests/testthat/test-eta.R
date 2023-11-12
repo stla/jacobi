@@ -20,7 +20,7 @@ test_that("Alternative expression of Dedekind eta", {
 
 test_that("Other alternative expression of Dedekind eta", {
   tau <- 9.2 + 9.2i
-  qbar <- exp(2i*pi*tau)
+  # qbar <- exp(2i*pi*tau)
   expect_equal(
     eta(tau),
     jtheta2(pi/6, tau = tau/3) / sqrt(3)

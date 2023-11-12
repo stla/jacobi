@@ -48,6 +48,8 @@ Jacobi theta functions and related functions.
 
 ![](https://raw.githubusercontent.com/stla/jacobi/main/inst/images/kleinOnSquare.gif)
 
+![](https://raw.githubusercontent.com/stla/jacobi/main/inst/images/etaDedekindOnCircle.png)
+
 
 ### Blog posts
 
