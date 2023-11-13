@@ -1,4 +1,4 @@
-# jacobi 3.0.0.9001
+# jacobi 3.1.0
 
 - Elliptic alpha function.
 
