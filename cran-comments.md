@@ -1,6 +1,6 @@
 ## Testing environments
 
-* local R 4.3.1, Windows 10
+* local R 4.3.2, Windows 10
 * Ubuntu, via Github action
 * win-builder devel
 

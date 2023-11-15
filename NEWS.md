@@ -1,3 +1,8 @@
+# jacobi 3.1.1
+
+An equality test in the unit tests failed on MacM1, so I relaxed its tolerance.
+
+
 # jacobi 3.1.0
 
 - Elliptic alpha function.

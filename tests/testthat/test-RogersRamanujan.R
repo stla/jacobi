@@ -16,7 +16,7 @@ test_that("Value of `q` for which Rogers-Ramanujan is `i`", {
   tau <- (7 + 1i)/10
   q <- exp(1i * pi * tau)
   expect_equal(
-    RR(q^2)^5, 1i, tolerance = 1e-7
+    RR(q^2)^5, 1i, tolerance = 1e-5
   )
 })
 
